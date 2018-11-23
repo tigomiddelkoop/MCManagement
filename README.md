@@ -18,7 +18,7 @@ MCManagement tries to keep your player info in one place.
 
 ## Screenshots
 ##### Coming soon!
-The design of the pages are still in works!
+_The design of the pages are still in works!_
 
 ## How to install?
 This software isn't even in its alpha stages! As such I will not provide any installation steps.
