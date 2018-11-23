@@ -1,5 +1,5 @@
 # MCManagement
-The leading git server for this project is: [GitHub](https://github.com/tigomiddelkoop/MCManagement)
+The leading git server for this project is: [GitHub](https://github.com/tigomiddelkoop/MCManagement) (Commits will appear here first)
 
 ## Overview
 MCManagement tries to keep your player info in one place. 
