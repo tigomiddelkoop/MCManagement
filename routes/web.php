@@ -11,14 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', 'HomeController@index');
+
+
+Route::prefix('minecraft')->group(function() {
+    Route::prefix('players')->group(function() {
+        Route::get('/', 'Minecraft\PlayerController@index')->name('minecraftPlayers');
+        Route::get('/{uuid}', 'Minecraft\PlayerController@show')->name('minecraftSpecificPlayer');
+    });
+    Route::prefix('punishments')->group(function() {
+        Route::get('/', "Minecraft\PunishmentController@index")->name('minecraftPunishmentsList');
+        Route::get('/bans', "Minecraft\PunishmentController@showBan")->name('minecraftPunishmentsListBans');
+        Route::get('/kicks', "Minecraft\PunishmentController@showKick")->name('minecraftPunishmentsListKicks');
+        Route::get('/mutes', "Minecraft\PunishmentController@showMute")->name('minecraftPunishmentsListMutes');
+        Route::get('/warnings', "Minecraft\PunishmentController@showWarning")->name('minecraftPunishmentsListWarns');
+    });
+
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
