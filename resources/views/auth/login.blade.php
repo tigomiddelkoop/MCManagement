@@ -31,7 +31,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <p><b>World of Draganna</b><br/>Management</p>
+        <p><b>{{ config('app.name') }}</b><br/>Management</p>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
