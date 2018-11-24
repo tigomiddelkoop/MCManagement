@@ -1,3 +1,11 @@
+<?php
+
+use \App\Http\Controllers\Tools\CountryController;
+use \App\Http\Controllers\Tools\MCVersionController;
+use \App\Http\Controllers\Tools\ConvertTimeController;
+
+?>
+
 @extends('layouts.general')
 @section('content')
     <div class="row">
@@ -9,7 +17,8 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <img class="center-block" src="https://crafatar.com/renders/body/{$player['uuid']}?overlay">
+                    <img class="center-block"
+                         src="https://crafatar.com/renders/body/{{ $networkmanager->uuid }}?overlay">
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -17,7 +26,7 @@
         </div>
 
         <!-- BEGIN PLAYERINFO -->
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="box box-default">
                 <div class="box-header with-border">
 
@@ -28,31 +37,33 @@
                     <table class="table">
                         <tr>
                             <td>Username</td>
-                            <td>{$player['playername']}</td>
+                            <td>{{ $networkmanager->username }}</td>
                         </tr>
                         <tr>
                             <td>UUID</td>
-                            <td>{$player['uuid']}</td>
+                            <td>{{ $networkmanager->uuid }}</td>
                         </tr>
                         <tr>
                             <td>Country</td>
-                            <td>{$player['country']}</td>
+                            <td>{{ CountryController::convert($networkmanager->country) }}</td>
                         </tr>
                         <tr>
                             <td>IP Address</td>
-                            <td>{$player['ip']}</td>
+                            <td>{{$networkmanager->ip}}</td>
                         </tr>
                         <tr>
                             <td>Joined</td>
-                            <td>{$player['firstlogin']}</td>
+                            <td>{{ ConvertTimeController::convertTimeDate($networkmanager->firstlogin) }}</td>
                         </tr>
                         <tr>
                             <td>Last Login</td>
-                            <td>{$player['lastlogin']}</td>
+                            <td>{{ ConvertTimeController::convertTimeDate($networkmanager->lastlogin) }}</td>
+
                         </tr>
                         <tr>
                             <td>Last Logout</td>
-                            <td>{$player['lastlogout']}</td>
+                            <td>{{ ConvertTimeController::convertTimeDate($networkmanager->lastlogout) }}</td>
+
                         </tr>
                         <tr>
                             <td>&nbsp</td>
@@ -68,7 +79,7 @@
 
         <!-- /.col -->
         <!-- END PLAYER INFO -->
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="box box-default">
                 <div class="box-header with-border">
 
@@ -80,30 +91,28 @@
                         <tr>
                             <td>Online</td>
                             <td>
-                                {if $player['online'] == 1}
-                                <span class="label label-success">Yes</span>
-                                {elseif $player['online'] == 0}
-                                <span class="label label-danger">No</span>
-                                {else}
-                                <span class="label label-info">Unknown Value</span>
-                                {/if}
+                                @switch($networkmanager->online)
+                                    @case(0) <span class="label label-danger">No</span> @break
+                                    @case(1) <span class="label label-success">Yes</span> @break
+                                    @default <span class="label label-info">Unknown Value</span> @break
+                                @endswitch
                             </td>
                         </tr>
                         <tr>
                             <td>Nickname</td>
-                            <td>{$player['nickname']}</td>
+                            <td>{{ $networkmanager->nickname }}</td>
                         </tr>
                         <tr>
                             <td>Rank</td>
-                            <td>{$player['luckperms_rank']}</td>
+                            <td>{{ $luckperms->primary_group }}</td>
                         </tr>
                         <tr>
                             <td>Latest Minecraft</td>
-                            <td>{$player['version']}</td>
+                            <td>{{ MCVersionController::convert($networkmanager->version) }}</td>
                         </tr>
                         <tr>
                             <td>Playtime</td>
-                            <td>{$player['playtime']}</td>
+                            <td>{{ ConvertTimeController::convertPlaytime($networkmanager->playtime) }}</td>
                         </tr>
                         <tr>
                             <td>Additional Accounts</td>
@@ -169,14 +178,14 @@
         <div class="col-md-3">
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Example box</h3>
+                    <h3 class="box-title">What can be here?</h3>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Example box</h3>
+                    <h3 class="box-title">What can be here?</h3>
                 </div>
             </div>
         </div>

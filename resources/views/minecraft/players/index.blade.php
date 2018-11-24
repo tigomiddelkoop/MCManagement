@@ -24,6 +24,7 @@
                     <table class="table table-bordered table-striped">
                         <tr>
                             <thead>
+                            <th>ID</th>
                             <th>Playername</th>
                             <th>UUID</th>
                             <th>Country</th>
@@ -32,35 +33,43 @@
                             </thead>
                         </tr>
                         <tbody id="players">
-                        {foreach from=$playerList item=player}
-                        <tr>
-                            <td>{$player['playername']}</td>
-                            <td>{$player['uuid']}</td>
-                            <td>{$player['country']}</td>
-                            <td>
-                                {if $player['online'] == 1}
-                                <span class="label label-success">Yes</span>
-                                {elseif $player['online'] == 0}
-                                <span class="label label-danger">No</span>
-                                {else}
-                                <span class="label label-info">Unknown Value</span>
-                                {/if}
-                            </td>
-                            <td>
-                                <form action="index.php?page=minecraft_playerinfo" method="post"><input type="hidden"
-                                                                                                        name="player"
-                                                                                                        value="{$player['uuid']}"><input
-                                            type="submit" class="btn btn-block btn-primary" value="View"></form>
-                            </td>
-                        </tr>
-                        {/foreach}
-
-
+                        @foreach($players as $player)
+                            <tr>
+                                <td>{{ $player->id }}</td>
+                                <td>{{ $player->username }}</td>
+                                <td>{{ $player->uuid }}</td>
+                                <td>{{ $player->country }}</td>
+                                <td>
+                                    @switch($player->online)
+                                        @case(0) <span class="label label-danger">No</span> @break
+                                        @case(1) <span class="label label-success">Yes</span> @break
+                                        @default <span class="label label-info">Unknown Value</span> @break
+                                    @endswitch
+                                </td>
+                                <td>
+                                    <a href="{{ route('minecraftSpecificPlayer', ['uuid' => $player->uuid]) }}"
+                                       class="btn btn-block btn-primary">View</a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
-                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="{{ $players->previousPageUrl() }}">&laquo;</a></li>
+                        @for($x = 1; $x <= $players->lastPage(); $x++)
+                            @if($x === $players->currentPage())
+                                <li><a href="{{ $players->url($x) }}" class="paginate_button active">{{ $x }}</a></li>
+                            @else
+                                <li><a href="{{ $players->url($x) }}" class="paginate_button">{{ $x }}</a></li>
+                            @endif
+                        @endfor
+                        <li><a href="{{ $players->nextPageUrl() }}">&raquo;</a></li>
+                    </ul>
+                </div>
             </div>
             <!-- /.box -->
         </div>
+    </div>
 @endsection

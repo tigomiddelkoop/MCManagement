@@ -97,7 +97,7 @@ desired effect
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="https://crafatar.com/avatars/{$user['uuid']}" class="img-circle"
+                                <img src="https://crafatar.com/avatars/{{  }}" class="img-circle"
                                      alt="User Image">
 
                                 <p>
@@ -153,11 +153,10 @@ desired effect
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Version {$language['version']}
+            Version 0.1
         </div>
         <!-- Default to the left -->
-        <strong>{$language['site_title']} {$language['management']} &copy; 2018 <a href="http://genericdevelopment.nl">GenericDevelopment</a>.</strong>
-        All rights reserved.
+        <strong>MCManagement built by <a href="http://genericdevelopment.nl">GenericDevelopment</a>.</strong>
     </footer>
 
     <!-- Add the sidebar's background. This div must be placed
