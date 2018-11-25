@@ -22,11 +22,8 @@ Route::prefix('minecraft')->group(function() {
         Route::get('/{uuid}', 'Minecraft\PlayerController@show')->name('minecraftSpecificPlayer');
     });
     Route::prefix('punishments')->group(function() {
-        Route::get('/', "Minecraft\PunishmentController@index")->name('minecraftPunishmentsList');
-        Route::get('/bans', "Minecraft\PunishmentController@showBan")->name('minecraftPunishmentsListBans');
-        Route::get('/kicks', "Minecraft\PunishmentController@showKick")->name('minecraftPunishmentsListKicks');
-        Route::get('/mutes', "Minecraft\PunishmentController@showMute")->name('minecraftPunishmentsListMutes');
-        Route::get('/warnings', "Minecraft\PunishmentController@showWarning")->name('minecraftPunishmentsListWarns');
+        Route::get('/', "Minecraft\PunishmentController@index");
+        Route::get('/{type}', "Minecraft\PunishmentController@show")->where('type', 'bans|kicks|mutes|warnings')->name('minecraftPunishmentsList');
     });
 
 });

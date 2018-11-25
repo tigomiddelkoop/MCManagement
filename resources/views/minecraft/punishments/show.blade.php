@@ -1,3 +1,5 @@
+<?php use \App\Http\Controllers\Tools\ConvertTimeController; ?>
+
 @extends('layouts.general')
 @section('content')
     <div class="row">
@@ -44,7 +46,7 @@
                                     @default <span class="label label-info">Unknown value</span> @break
                                 @endswitch
                             </td>
-                            <td>{{ $punishment->time }}</td>
+                            <td>{{ ConvertTimeController::convertTimeDate($punishment->time) }}</td>
                             <td><a href="{{ route('minecraftSpecificPlayer', ['uuid' => $punishment->uuid ]) }}" class="btn btn-primary">View Player</a></td>
                         </tr>
                         @endforeach
@@ -52,6 +54,18 @@
                         </tfoot>
                     </table>
                 </div>
-
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="{{ $punishments->previousPageUrl() }}">&laquo;</a></li>
+                        @for($x = 1; $x <= $punishments->lastPage(); $x++)
+                            @if($x === $punishments->currentPage())
+                                <li><a href="{{ $punishments->url($x) }}" class="paginate_button active">{{ $x }}</a></li>
+                            @else
+                                <li><a href="{{ $punishments->url($x) }}" class="paginate_button">{{ $x }}</a></li>
+                            @endif
+                        @endfor
+                        <li><a href="{{ $punishments->nextPageUrl() }}">&raquo;</a></li>
+                    </ul>
+                </div>
                 </section>
 @endsection

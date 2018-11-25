@@ -1,3 +1,5 @@
+<?php use \App\Http\Controllers\Tools\CountryController; ?>
+
 @extends('layouts.general')
 @section('content')
     <div class="row">
@@ -24,7 +26,8 @@
                     <table class="table table-bordered table-striped">
                         <tr>
                             <thead>
-                            <th>ID</th>
+                            <th style="width: 25px;"></th>
+                            <th style="width: 25px;">ID</th>
                             <th>Playername</th>
                             <th>UUID</th>
                             <th>Country</th>
@@ -35,10 +38,11 @@
                         <tbody id="players">
                         @foreach($players as $player)
                             <tr>
+                                <td><img src="https://crafatar.com/avatars/{{ $player->uuid }}?size=25"></td>
                                 <td>{{ $player->id }}</td>
                                 <td>{{ $player->username }}</td>
                                 <td>{{ $player->uuid }}</td>
-                                <td>{{ $player->country }}</td>
+                                <td>{{ CountryController::convert($player->country) }}</td>
                                 <td>
                                     @switch($player->online)
                                         @case(0) <span class="label label-danger">No</span> @break
@@ -48,7 +52,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('minecraftSpecificPlayer', ['uuid' => $player->uuid]) }}"
-                                       class="btn btn-block btn-primary">View</a>
+                                       class="btn btn-xs btn-block btn-primary">View</a>
                                 </td>
                             </tr>
                         @endforeach

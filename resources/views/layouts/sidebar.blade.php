@@ -22,10 +22,10 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('minecraftPunishmentsListBans') }}">Bans</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsListKicks') }}">Kicks</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsListMutes') }}">Mutes</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsListWarns') }}">Warns</a></li>
+                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'bans']) }}">Bans</a></li>
+                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'kicks']) }}">Kicks</a></li>
+                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'mutes']) }}">Mutes</a></li>
+                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'warnings']) }}">Warnings</a></li>
                 </ul>
             </li>
             </li>

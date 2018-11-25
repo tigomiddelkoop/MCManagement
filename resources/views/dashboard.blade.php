@@ -35,7 +35,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Total Players</span>
-                <span class="info-box-number">{$totalPlayers}</span>
+                <span class="info-box-number">{{ $totalPlayers }}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -48,7 +48,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Today online players</span>
-                <span class="info-box-number">{$todayOnlinePlayers}</span>
+                <span class="info-box-number">{{ $todayPlayers }}</span>
             </div>
             <!-- /.info-box-content -->
         </div>

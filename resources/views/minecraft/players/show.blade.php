@@ -185,7 +185,20 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
         <div class="col-md-3">
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">What can be here?</h3>
+                    <h3 class="box-title">Additional Accounts</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        @foreach($networkmanager_additional as $additional_acccounts)
+                            @if($networkmanager->uuid == $additional_acccounts->uuid)
+                                @else
+                                <tr>
+                                    <td style="width: 25px;"><img src="https://crafatar.com/avatars/{{ $additional_acccounts->uuid }}?size=25"></td>
+                                    <td><a href="{{ route('minecraftSpecificPlayer', ['uuid' => $additional_acccounts->uuid]) }}">{{ $additional_acccounts->username }}</a></td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>

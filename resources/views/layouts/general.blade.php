@@ -97,12 +97,12 @@ desired effect
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="https://crafatar.com/avatars/{{  }}" class="img-circle"
+                                <img src="https://crafatar.com/avatars/" class="img-circle"
                                      alt="User Image">
 
                                 <p>
-                                    {{ Auth::user()->name }} - {$user['role']}
-                                    <small>Member since xx-xx-xxxx</small>
+                                    {{ Auth::user()->name }}
+                                    <small>Joined at{{ Auth::user()->created_at }}</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
