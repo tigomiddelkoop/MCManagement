@@ -20,7 +20,7 @@ class PunishmentController extends Controller
         return view('minecraft.punishments.index', compact('punishments'));
     }
 
-    //Tell me if this is safe, i deem it same, the web.php only accepts 4 things to use in the $type
+    //Tell me if this is safe, i deem it safe, the web.php only accepts 4 things to use in the $type
     public function show($type)
     {
         $punishments = DB::connection('mysql_litebans')

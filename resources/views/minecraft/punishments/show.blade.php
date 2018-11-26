@@ -22,6 +22,7 @@
                 <div class="box-body table-responsive no-padding">
                     <table id="BannedPlayers" class="table table-bordered table-striped">
                         <thead>
+                        <td style="width: 25px"></td>
                         <th>ID</th>
                         <th>Playername</th>
                         <th>Reason</th>
@@ -35,6 +36,7 @@
                         <tbody>
                         @foreach($punishments as $punishment)
                         <tr>
+                            <td><img src="https://crafatar.com/avatars/{{ $punishment->uuid }}?size=25"></td>
                             <td>{{ $punishment->id  }}</td>
                             <td>{{ $punishment->name }}</td>
                             <td>{{ $punishment->reason }}</td>
@@ -47,7 +49,7 @@
                                 @endswitch
                             </td>
                             <td>{{ ConvertTimeController::convertTimeDate($punishment->time) }}</td>
-                            <td><a href="{{ route('minecraftSpecificPlayer', ['uuid' => $punishment->uuid ]) }}" class="btn btn-primary">View Player</a></td>
+                            <td><a href="{{ route('minecraftSpecificPlayer', ['uuid' => $punishment->uuid ]) }}" class="btn btn-xs btn-primary">View Player</a></td>
                         </tr>
                         @endforeach
                         </tbody>

@@ -11,19 +11,11 @@
                 <table class="table">
                     <tr>
                         <th style="width: 10px">Server Status</th>
-                        <th style="width: 10px"><span class="label label-success">5 Online</span> <span class="label label-danger">0 Offline</span></th>
-                    </tr>
-                    <tr>
-                        <th style="width: 10px">Server Versions</th>
-                        <th style="width: 10px"><span class="label label-info">4x 1.12.2</span> <span class="label label-info">1x 1.13</span></th>
+                        <td style="width: 10px"><span class="label label-success">Coming</span> <span class="label label-danger">Soon</span></td>
                     </tr>
                     <tr>
                         <th style="width: 10px">NamelessMC version</th>
-                        <th style="width: 10px"><span class="label label-info">{$namelessVersion['nameless_version']}</span></th>
-                    </tr>
-                    <tr>
-                        <th style="width: 10px">NamelessMC version</th>
-                        <th style="width: 10px"><span class="label label-info">{$namelessVersion['nameless_version']}</span></th>
+                        <td style="width: 10px">Version</td>
                     </tr>
                 </table>
             </div>
@@ -65,20 +57,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Todays new players</span>
-                <span class="info-box-number">{$todayNewPlayers}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-            <span class="info-box-icon bg-purple"><i class="fa fa-clock-o"></i></span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Todays playtime</span>
-                <span class="info-box-number">WIP</span>
+                <span class="info-box-number">{{ $newPlayers }}</span>
             </div>
             <!-- /.info-box-content -->
         </div>

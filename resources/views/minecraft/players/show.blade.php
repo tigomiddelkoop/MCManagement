@@ -115,8 +115,8 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                             <td>{{ ConvertTimeController::convertPlaytime($networkmanager->playtime) }}</td>
                         </tr>
                         <tr>
-                            <td>Additional Accounts</td>
-                            <td><span class="label label-info">Coming soon</span></td>
+                            <td>&nbsp</td>
+                            <td>&nbsp</td>
                         </tr>
                         <tr>
                             <td>&nbsp</td>
@@ -141,35 +141,15 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
             <div class="box box-default">
                 <div class="box-header with-border">
 
-                    <h3 class="box-title">Litebans History <span class="label label-info">Coming soon</span></h3>
+                    <h3 class="box-title">Punishment History</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                     <table class="table">
                         <tr>
-                            <th style="width: 10px">Ban ID</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
+                            <th>This will be implemented later</th>
                         </tr>
-                        <tr>
-                            <th style="width: 10px">Kick ID</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
-                        </tr>
-                        <tr>
-                            <th style="width: 10px">Mute ID</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
-                        </tr>
-                        <tr>
-                            <th style="width: 10px">Warning ID</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 10px">#</th>
-                        </tr>
+
                     </table>
                 </div>
                 <!-- /.box-body -->
@@ -178,11 +158,11 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
         <div class="col-md-3">
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">What can be here?</h3>
+                    <h3 class="box-title">What can be here? Tickets?</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="box box-default">
                 <div class="box-header with-border">
                     <h3 class="box-title">Additional Accounts</h3>
@@ -191,10 +171,14 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                     <table class="table">
                         @foreach($networkmanager_additional as $additional_acccounts)
                             @if($networkmanager->uuid == $additional_acccounts->uuid)
-                                @else
+                            @else
                                 <tr>
-                                    <td style="width: 25px;"><img src="https://crafatar.com/avatars/{{ $additional_acccounts->uuid }}?size=25"></td>
-                                    <td><a href="{{ route('minecraftSpecificPlayer', ['uuid' => $additional_acccounts->uuid]) }}">{{ $additional_acccounts->username }}</a></td>
+                                    <td style="width: 25px;"><img
+                                                src="https://crafatar.com/avatars/{{ $additional_acccounts->uuid }}?size=25">
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('minecraftSpecificPlayer', ['uuid' => $additional_acccounts->uuid]) }}">{{ $additional_acccounts->username }}</a>
+                                    </td>
                                 </tr>
                             @endif
                         @endforeach
@@ -202,7 +186,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="box box-default">
                 <div class="box-header with-border">
 
@@ -213,7 +197,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                     <form action="index.php?data=playernote" method="get">
                         <input type="hidden" id="uuid" value="{$player['uuid']}">
                         <textarea class="textarea" id="note" placeholder="Make a new note"
-                                  style="width: 100%; font-size: 14px; height: 250px; line-height: 15px; border: 1px solid #dddddd; padding: 10px;">{$player['note']}</textarea>
+                                  style="width: 100%; font-size: 14px; height: 250px; line-height: 15px; border: 1px solid #dddddd; padding: 10px;">PLACEHOLDER</textarea>
 
                 </div>
                 <div class="box-footer">

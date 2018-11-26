@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 
 class PlayerController extends Controller
 {
@@ -16,7 +17,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = DB::connection('mysql_networkmanager')->table('players')->paginate(13);
+        $players = DB::connection('mysql_networkmanager')->table('players')->select('id', 'uuid', 'username', 'country', 'online')->paginate(25);
 //        return $players;
         return view('minecraft.players.index', compact('players'));
     }
@@ -54,7 +55,11 @@ class PlayerController extends Controller
 
         $networkmanager = DB::connection('mysql_networkmanager')->table('players')->where('uuid', '=', $uuid)->first();
         $luckperms = DB::connection('mysql_luckperms')->table('players')->where('uuid', '=', $uuid)->select('primary_group')->first();
-        $litebans = DB::connection('mysql_litebans');
+        $litebans_bans = DB::connection('mysql_litebans')->table('bans')->where('uuid', '=', $uuid)->get();
+        $litebans_kicks = DB::connection('mysql_litebans')->table('kicks')->where('uuid', '=', $uuid)->get();
+        $litebans_mutes = DB::connection('mysql_litebans')->table('mutes')->where('uuid', '=', $uuid)->get();
+        $litebans_warnings = DB::connection('mysql_litebans')->table('warnings')->where('uuid', '=', $uuid)->get();
+
 
         if($networkmanager == NULL)
         {
@@ -63,12 +68,7 @@ class PlayerController extends Controller
 
         $networkmanager_additional = DB::connection('mysql_networkmanager')->table('players')->where('ip', '=' , $networkmanager->ip)->get();
 
-
-//        return $networkmanager;
-//        return $networkmanager_additional;
-//        return $luckperms;
-//        return $litebans;
-        return view('minecraft.players.show', compact('networkmanager', 'networkmanager_additional', 'luckperms'));
+        return view('minecraft.players.show', compact('networkmanager', 'networkmanager_additional', 'luckperms', 'litebans_bans', 'litebans_kicks', 'litebans_mutes', 'litebans_warnings'));
     }
 
     /**
