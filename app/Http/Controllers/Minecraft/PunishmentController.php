@@ -28,7 +28,7 @@ class PunishmentController extends Controller
             ->Join('history', $type . '.uuid', '=', 'history.uuid')
             ->select($type . '.id', $type . '.uuid', 'name','time', 'banned_by_name', 'reason', 'active')
             ->orderByDesc('id')
-            ->paginate(10);
+            ->paginate(25);
 
         return view('minecraft.punishments.show', compact('punishments'));
     }
