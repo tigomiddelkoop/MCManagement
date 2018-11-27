@@ -37,7 +37,12 @@ Route::prefix('minecraft')->group(function () {
 Route::prefix('networkmanager')->group(function () {
     Route::prefix('announcements')->group(function () {
 
-        Route::get('/', "NetworkManager\AnnouncementController@index")->name('networkmanagerAnnouncements');
+        Route::get('/', "NetworkManager\AnnouncementController@index")->name('networkmanagerAnnouncementsIndex');
+        Route::get('/create', "NetworkManager\AnnouncementController@create")->name('networkmanagerAnnouncementsCreate');
+        Route::post('/create', "NetworkManager\AnnouncementController@store")->name('networkmanagerAnnouncementsStore');
+        Route::get('/{id}', "NetworkManager\AnnouncementController@edit")->name('networkmanagerAnnouncementsEdit');
+        Route::post('/{id}', "NetworkManager\AnnouncementController@update")->name('networkmanagerAnnouncementsUpdate');
+        Route::delete('/delete/{id}', "NetworkManager\AnnouncementController@delete")->name('networkmanagerAnnouncementsDelete');
 
     });
 });

@@ -17,6 +17,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
+        $players = DB::connection('mysql_networkmanager')->table('players')->select('id', 'uuid', 'username', 'country', 'online')->paginate(25);
 //        return $players;
         return view('minecraft.players.index', compact('players'));
     }
