@@ -14,17 +14,58 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
 @endsection
 
 @section('requiredJS')
-    <script src="{{ url('/') }}/bower_components/chart.js/Chart.js"></script>
+    {{--<script src="{{ url('/') }}/bower_components/chart.js/Chart.js"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+
+    {{--<script>--}}
+    {{--var pieChartCanvas = $('#pieChart').get(0).getContext('2d');--}}
+    {{--var pieChart = new Chart(pieChartCanvas);--}}
+    {{--var PieData = {!! $networkmanager_versions !!};--}}
+    {{--var pieOptions = {--}}
+    {{--animation: false,--}}
+    {{--responsive: true,--}}
+    {{--};--}}
+    {{--pieChart.Pie(PieData, pieOptions);--}}
+    {{-- </script>--}}
 
     <script>
-        var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
-        var pieChart = new Chart(pieChartCanvas);
-        var PieData = {!! $networkmanager_versions !!};
-        var pieOptions = {
-            animation: false,
-            responsive: true,
-        };
-        pieChart.Pie(PieData, pieOptions);
+        var ctx = document.getElementById("pieChart");
+
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [@foreach($networkmanager_versions as $version)"{{ $version["version"] }}",@endforeach],
+                datasets: [{
+                    data: [@foreach($networkmanager_versions as $version){{ $version["amount"] . "," }} @endforeach],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderColor: [
+                        // 'rgba(255,99,132,1)',
+                        // 'rgba(54, 162, 235, 1)',
+                        // 'rgba(255, 206, 86, 1)',
+                        // 'rgba(75, 192, 192, 1)',
+                        // 'rgba(153, 102, 255, 1)',
+                        // 'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            // options: {
+            //     scales: {
+            //         yAxes: [{
+            //             ticks: {
+            //                 beginAtZero:true
+            //             }
+            //         }]
+            //     }
+            // }
+        });
     </script>
 @endsection
 
@@ -206,13 +247,8 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                 <div class="box-header with-border">
                     <h3 class="box-title">Most used minecraft versions</h3>
                 </div>
-                <div class="box-body">
+                <div class="box-body center-block">
                     <canvas id="pieChart"></canvas>
-                    {{--@foreach($networkmanager_versions as $session)--}}
-
-                        {{--{{ MCVersionController::convert($session->version) }},--}}
-
-                    {{--@endforeach--}}
                 </div>
             </div>
         </div>
@@ -251,15 +287,15 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
     </div>
     {{--<script src="js/playernote.js"></script>--}}
     {{--<script>--}}
-        {{--var uuid = document.getElementById('uuid');--}}
-        {{--var note = document.getElementById('note');--}}
-        {{--var saveNote = document.getElementById('saveNote');--}}
+    {{--var uuid = document.getElementById('uuid');--}}
+    {{--var note = document.getElementById('note');--}}
+    {{--var saveNote = document.getElementById('saveNote');--}}
 
-        {{--saveNote.addEventListener('click', function () {--}}
-            {{--var uuidInput = uuid.value;--}}
-            {{--var noteInput = note.value;--}}
-            {{--ajax(uuidInput, noteInput);--}}
-        {{--});--}}
+    {{--saveNote.addEventListener('click', function () {--}}
+    {{--var uuidInput = uuid.value;--}}
+    {{--var noteInput = note.value;--}}
+    {{--ajax(uuidInput, noteInput);--}}
+    {{--});--}}
     {{--</script>--}}
     {{--</section>--}}
     <!-- /.content -->

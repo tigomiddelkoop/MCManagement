@@ -50,78 +50,81 @@ class MCVersionController extends Controller
     public static function convertToChart($toConvert)
     {
         $data = "[";
+        $convertedCollection = collect();
 
         foreach ($toConvert as $name => $convert) {
             switch ($name) {
                 case '404':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '401':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '393':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '340':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '338':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '335':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '316':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '315':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '210':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '110':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '109':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '108':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '107':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '47':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '5':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 case '4':
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
-
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
                 default:
-                    $data .= "{ value: " . $convert->count() . ", color: \"#7b00ff\", label: \"" . self::convert($name) ."\"},";
+                    $collection = collect(['amount' => $convert->count(), "version" => self::convert($name)]);
+                    $convertedCollection = $convertedCollection->push($collection);
                     break;
             }
         }
-        $data .= "]";
-//        dd($data);
-        return $data;
+//        dd($convertedCollection);
+        return $convertedCollection;
     }
 }
