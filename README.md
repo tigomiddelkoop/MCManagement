@@ -1,3 +1,4 @@
+# THIS SOFTWARE IS FAR FROM STABLE/USABLE
 # MCManagement
 The leading git server for this project is: [GitHub](https://github.com/tigomiddelkoop/MCManagement) (Commits will appear here first)
 
@@ -8,6 +9,7 @@ MCManagement tries to keep your player info in one place.
 ## Currently supported Plugins
 ##### _I did not make ANY of these plugins!_
 1. [LiteBans](https://www.spigotmc.org/resources/litebans.3715/)
+1. [LuckPerms](https://luckperms.github.io/)
 1. [NetworkManager](https://www.spigotmc.org/resources/networkmanager.28456/)
 
 
