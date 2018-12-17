@@ -137,8 +137,8 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                {$pagename}
-                <small>{$language['pagedescription']}</small>
+                @yield('pagetitle')
+                <small>@yield('pagedescription')</small>
 
             </h1>
         </section>

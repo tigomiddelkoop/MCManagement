@@ -27,8 +27,8 @@ Route::prefix('minecraft')->group(function () {
 
     Route::prefix('punishments')->group(function () {
 
-        Route::get('/', "Minecraft\PunishmentController@index");
-        Route::get('/{type}', "Minecraft\PunishmentController@show")->where('type', 'bans|kicks|mutes|warnings')->name('minecraftPunishmentsList');
+        Route::get('/', "LiteBans\PunishmentController@index");
+        Route::get('/{type}', "LiteBans\PunishmentController@show")->where('type', 'bans|kicks|mutes|warnings')->name('minecraftPunishmentsList');
 
     });
 
@@ -45,6 +45,29 @@ Route::prefix('networkmanager')->group(function () {
         Route::delete('/delete/{id}', "NetworkManager\AnnouncementController@delete")->name('networkmanagerAnnouncementsDelete');
 
     });
+});
+
+
+Route::prefix('panel')->group(function (){
+
+    Route::prefix('settings')->group(function () {
+
+       Route::prefix('general')->group(function () {
+
+           Route::get('/', "MCManagement\Settings\General\IndexController@index")->name('panelSettingsGeneralIndex');
+
+       });
+
+        Route::prefix('language')->group(function () {
+
+            Route::get('/', "MCManagement\Settings\Language\IndexController@index")->name('panelSettingsLanguageIndex');
+
+        });
+
+       Route::get('/');
+
+    });
+
 });
 
 

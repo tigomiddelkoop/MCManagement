@@ -1,6 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: tigog
+ * Date: 12/16/2018
+ * Time: 7:05 PM
+ */
 
-namespace App\Http\Controllers\Minecraft;
+namespace App\Http\Controllers\LiteBans;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,7 +32,7 @@ class PunishmentController extends Controller
         $punishments = DB::connection('mysql_litebans')
             ->table($type)
             ->Join('history', $type . '.uuid', '=', 'history.uuid')
-            ->select($type . '.id', $type . '.uuid', 'name','time', 'banned_by_name', 'reason', 'active')
+            ->select($type . '.id', $type . '.uuid', 'name', 'time', 'banned_by_name', 'reason', 'active')
             ->orderByDesc('id')
             ->paginate(25);
 

@@ -61,14 +61,15 @@ class PlayerController extends Controller
         $litebans_warnings = DB::connection('mysql_litebans')->table('warnings')->where('uuid', '=', $uuid)->get();
 
 
-        if($networkmanager == NULL)
-        {
+        if($networkmanager == NULL) {
             return view('minecraft.players.errorpnf');
         }
 
         $networkmanager_additional = DB::connection('mysql_networkmanager')->table('players')->where('ip', '=' , $networkmanager->ip)->get();
+        $networkmanager_sessions = DB::connection('mysql_networkmanager')->table('sessions')->where('uuid', '=', $networkmanager->uuid)->take(8)->get();
+        $networkmanager_versions = DB::connection('mysql_networkmanager')->table('sessions')->where('uuid', '=', $networkmanager->uuid)->get();
 
-        return view('minecraft.players.show', compact('networkmanager', 'networkmanager_additional', 'luckperms', 'litebans_bans', 'litebans_kicks', 'litebans_mutes', 'litebans_warnings'));
+        return view('minecraft.players.show', compact('networkmanager', 'networkmanager_additional', 'networkmanager_sessions', 'networkmanager_versions', 'luckperms', 'litebans_bans', 'litebans_kicks', 'litebans_mutes', 'litebans_warnings'));
     }
 
     /**

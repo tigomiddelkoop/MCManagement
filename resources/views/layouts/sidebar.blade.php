@@ -78,8 +78,8 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="index.php?page=panel_settings">Settings</a></li>
-                    <li><a href="index.php?page=panel_language">Language</a></li>
+                    <li><a href="{{ route('panelSettingsGeneralIndex') }}">General</a></li>
+                    <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
                 </ul>-
             </li>
         </ul>

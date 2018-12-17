@@ -5,6 +5,13 @@ use \App\Http\Controllers\Tools\MCVersionController;
 use \App\Http\Controllers\Tools\ConvertTimeController;
 
 ?>
+@section('pagetitle')
+    Player info
+@endsection
+
+@section('pagedescription')
+    Reviewing player: {{ $networkmanager->username }}
+@endsection
 
 @extends('layouts.general')
 @section('content')
@@ -26,7 +33,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
         </div>
 
         <!-- BEGIN PLAYERINFO -->
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="box box-default">
                 <div class="box-header with-border">
 
@@ -79,7 +86,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
 
         <!-- /.col -->
         <!-- END PLAYER INFO -->
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="box box-default">
                 <div class="box-header with-border">
 
@@ -132,36 +139,6 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
             </div>
         </div>
         <!-- /.box -->
-    </div>
-
-
-    <!--TEST-->
-    <div class="row">
-        <div class="col-md-3">
-            <div class="box box-default">
-                <div class="box-header with-border">
-
-                    <h3 class="box-title">Punishment History</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tr>
-                            <th>This will be implemented later</th>
-                        </tr>
-
-                    </table>
-                </div>
-                <!-- /.box-body -->
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">What can be here? Tickets?</h3>
-                </div>
-            </div>
-        </div>
         <div class="col-md-2">
             <div class="box box-default">
                 <div class="box-header with-border">
@@ -170,8 +147,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                 <div class="box-body no-padding">
                     <table class="table">
                         @foreach($networkmanager_additional as $additional_acccounts)
-                            @if($networkmanager->uuid == $additional_acccounts->uuid)
-                            @else
+                            @if($networkmanager->uuid !== $additional_acccounts->uuid)
                                 <tr>
                                     <td style="width: 25px;"><img
                                                 src="https://crafatar.com/avatars/{{ $additional_acccounts->uuid }}?size=25">
@@ -182,11 +158,31 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                                 </tr>
                             @endif
                         @endforeach
+                        {{--<tr>--}}
+                        {{--<td></td>--}}
+                        {{--<td>--}}
+                        {{--<ul class="pagination pagination-sm no-margin pull-right">--}}
+                        {{--<li><a href="{{ $networkmanager_additional->previousPageUrl() }}">&laquo;</a></li>--}}
+                        {{--@for($x = 1; $x <= $networkmanager_additional->lastPage(); $x++)--}}
+                        {{--@if($x === $networkmanager_additional->currentPage())--}}
+                        {{--<li><a href="{{ $networkmanager_additional->url($x) }}" class="paginate_button active">{{ $x }}</a></li>--}}
+                        {{--@else--}}
+                        {{--<li><a href="{{ $networkmanager_additional->url($x) }}" class="paginate_button">{{ $x }}</a></li>--}}
+                        {{--@endif--}}
+                        {{--@endfor--}}
+                        {{--<li><a href="{{ $networkmanager_additional->nextPageUrl() }}">&raquo;</a></li>--}}
+                        {{--</ul>--}}
+                        {{--</td>--}}
+                        {{--</tr>--}}
                     </table>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+    </div>
+
+    <!--TEST-->
+    <div class="row">
+        <div class="col-md-2">
             <div class="box box-default">
                 <div class="box-header with-border">
 
@@ -198,12 +194,56 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                         <input type="hidden" id="uuid" value="{$player['uuid']}">
                         <textarea class="textarea" id="note" placeholder="Make a new note"
                                   style="width: 100%; font-size: 14px; height: 250px; line-height: 15px; border: 1px solid #dddddd; padding: 10px;">PLACEHOLDER</textarea>
-
                 </div>
                 <div class="box-footer">
                     <button type="button" id="saveNote" class="btn btn-primary">Save</button>
+                    </form>
                 </div>
-                </form>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Most used minecraft versions</h3>
+                </div>
+                <div class="box-body">
+                    @foreach($networkmanager_versions as $session)
+
+                        {{ MCVersionController::convert($session->version) }}
+
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+
+                    <h3 class="box-title">Most recent sessions</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Started</th>
+                            <th>Ended</th>
+                            <th>Time</th>
+                            <th>IP</th>
+                            <th>Version</th>
+                        </tr>
+                        @foreach($networkmanager_sessions as $sessions)
+                            <tr>
+                                <td>{{ ConvertTimeController::convertTimeDate($sessions->start) }}</td>
+                                <td>{{ ConvertTimeController::convertTimeDate($sessions->end) }}</td>
+                                <td>{{ ConvertTimeController::convertPlaytime($sessions->time) }}</td>
+                                <td>{{ $sessions->ip }}</td>
+                                <td>{{ MCVersionController::convert($sessions->version) }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->

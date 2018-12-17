@@ -17,7 +17,31 @@ class ConvertTimeController extends Controller
         $minutes = $minutes % 60;
         $hours = $hours % 24;
 
-        $format = '%u Day(s) %2u Hour(s) %3u Minute(s) %4u Second(s)';
+        $format = NULL;
+
+
+        //Still work in progress
+        if ($days == 1) {
+            $format = '%u Day, ';
+        } else {
+            $format = '%u Days, ';
+        }
+        if ($hours == 1) {
+            $format .= '%u Hour, ';
+        } else {
+            $format .= '%u Hours, ';
+        }
+        if ($minutes == 1) {
+            $format .= '%u Minute, ';
+        } else {
+            $format .= '%u Minutes, ';
+        }
+        if ($seconds == 1) {
+            $format .= '%u Second, ';
+        } else {
+            $format .= '%u Seconds, ';
+        }
+
         $time = sprintf($format, $days, $hours, $minutes, $seconds);
         $converted = rtrim($time, '0');
         return $converted;
