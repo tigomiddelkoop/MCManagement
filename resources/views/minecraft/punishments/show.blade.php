@@ -1,12 +1,18 @@
 <?php use \App\Http\Controllers\Tools\ConvertTimeController; ?>
 
+@section('pagetitle')
+    Punishments: {{ $page_title }}
+@endsection
+@section('pagedescription')
+    All the punishments that have been given
+@endsection
 @extends('layouts.general')
 @section('content')
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">{$punishmentstitle}</h3>
+                    <h3 class="box-title">All {{ $page_title }}</h3>
 
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">

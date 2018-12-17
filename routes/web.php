@@ -13,8 +13,9 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('dashboard');
-Route::get('/analytics', 'HomeController@index')->name('analytics');
+Route::get('/', 'DashboardController')->name('dashboard');
+Route::get('/dashboard', 'DashboardController')->name('dashboard');
+Route::get('/analytics', 'AnalyticsController')->name('analytics');
 
 
 Route::prefix('minecraft')->group(function () {
@@ -48,15 +49,15 @@ Route::prefix('networkmanager')->group(function () {
 });
 
 
-Route::prefix('panel')->group(function (){
+Route::prefix('panel')->group(function () {
 
     Route::prefix('settings')->group(function () {
 
-       Route::prefix('general')->group(function () {
+        Route::prefix('general')->group(function () {
 
-           Route::get('/', "MCManagement\Settings\General\IndexController@index")->name('panelSettingsGeneralIndex');
+            Route::get('/', "MCManagement\Settings\General\IndexController@index")->name('panelSettingsGeneralIndex');
 
-       });
+        });
 
         Route::prefix('language')->group(function () {
 
@@ -64,11 +65,10 @@ Route::prefix('panel')->group(function (){
 
         });
 
-       Route::get('/');
+        Route::get('/');
 
     });
 
 });
 
 
-Route::get('/dashboard', 'HomeController@index')->name('dashboard');

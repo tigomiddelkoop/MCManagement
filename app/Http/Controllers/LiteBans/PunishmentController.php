@@ -36,6 +36,7 @@ class PunishmentController extends Controller
             ->orderByDesc('id')
             ->paginate(25);
 
-        return view('minecraft.punishments.show', compact('punishments'));
+        $page_title = $type;
+        return view('minecraft.punishments.show', compact('punishments', "page_title"));
     }
 }

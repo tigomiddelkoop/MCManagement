@@ -258,4 +258,9 @@ class CountryController extends Controller
         if ($code == 'ZW') return 'Zimbabwe';
         return 'Unknown Country';
     }
+
+
+    public function convertToMap($toConvert){
+
+    }
 }

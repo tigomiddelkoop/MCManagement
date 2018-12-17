@@ -14,20 +14,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
 @endsection
 
 @section('requiredJS')
-    {{--<script src="{{ url('/') }}/bower_components/chart.js/Chart.js"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
-
-    {{--<script>--}}
-    {{--var pieChartCanvas = $('#pieChart').get(0).getContext('2d');--}}
-    {{--var pieChart = new Chart(pieChartCanvas);--}}
-    {{--var PieData = {!! $networkmanager_versions !!};--}}
-    {{--var pieOptions = {--}}
-    {{--animation: false,--}}
-    {{--responsive: true,--}}
-    {{--};--}}
-    {{--pieChart.Pie(PieData, pieOptions);--}}
-    {{-- </script>--}}
-
     <script>
         var ctx = document.getElementById("pieChart");
 
@@ -45,26 +32,8 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
-                    borderColor: [
-                        // 'rgba(255,99,132,1)',
-                        // 'rgba(54, 162, 235, 1)',
-                        // 'rgba(255, 206, 86, 1)',
-                        // 'rgba(75, 192, 192, 1)',
-                        // 'rgba(153, 102, 255, 1)',
-                        // 'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 0
                 }]
             },
-            // options: {
-            //     scales: {
-            //         yAxes: [{
-            //             ticks: {
-            //                 beginAtZero:true
-            //             }
-            //         }]
-            //     }
-            // }
         });
     </script>
 @endsection
@@ -256,7 +225,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
             <div class="box box-default">
                 <div class="box-header with-border">
 
-                    <h3 class="box-title">Most recent sessions</h3>
+                    <h3 class="box-title">Most recent sessions (Last 8 Records)</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">

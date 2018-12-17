@@ -1,6 +1,13 @@
 <?php use \App\Http\Controllers\Tools\CountryController; ?>
 
 @extends('layouts.general')
+
+@section('pagetitle')
+    All players
+@endsection
+@section('pagedescription')
+    All the players that have ever logged in.
+@endsection
 @section('content')
     <div class="row">
         <div class="col-xs-12">
