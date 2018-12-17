@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="table table-responsive no-padding">
+                <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered table-striped">
                         <tr>
                             <thead>
