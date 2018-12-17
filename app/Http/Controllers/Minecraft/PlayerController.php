@@ -67,7 +67,7 @@ class PlayerController extends Controller
         }
 
         $networkmanager_additional = DB::connection('mysql_networkmanager')->table('players')->where('ip', '=' , $networkmanager->ip)->get();
-        $networkmanager_sessions = DB::connection('mysql_networkmanager')->table('sessions')->where('uuid', '=', $networkmanager->uuid)->take(8)->get();
+        $networkmanager_sessions = DB::connection('mysql_networkmanager')->table('sessions')->where('uuid', '=', $networkmanager->uuid)->take(8)->orderByDesc('id')->get();
         $networkmanager_version = DB::connection('mysql_networkmanager')->table('logins')->where('uuid', '=', $networkmanager->uuid)->distinct('version')->get()->groupBy('version');
 
         $networkmanager_versions = MCVersionController::convertToChart($networkmanager_version);
