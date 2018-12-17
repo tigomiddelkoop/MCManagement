@@ -37,9 +37,9 @@ class ConvertTimeController extends Controller
             $format .= '%u Minutes, ';
         }
         if ($seconds == 1) {
-            $format .= '%u Second, ';
+            $format .= '%u Second ';
         } else {
-            $format .= '%u Seconds, ';
+            $format .= '%u Seconds ';
         }
 
         $time = sprintf($format, $days, $hours, $minutes, $seconds);

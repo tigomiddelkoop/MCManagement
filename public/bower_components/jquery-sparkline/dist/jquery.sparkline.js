@@ -2421,4 +2421,643 @@
                 canvasWidth = this.canvasWidth,
                 canvasHeight = this.canvasHeight,
                 minValue = options.get('chartRangeMin') === undefined ? Math.min.apply(Math, values) : options.get('chartRangeMin'),
-                maxValue = options.get('chartRangeMax') === undefined ? Math.max.apply(Math, values) : options.get('chartRangeMax')
+                maxValue = options.get('chartRangeMax') === undefined ? Math.max.apply(Math, values) : options.get('chartRangeMax'),
+                canvasLeft = 0,
+                lwhisker, loutlier, iqr, q1, q2, q3, rwhisker, routlier, i,
+                size, unitSize;
+
+            if (!box._super.render.call(this)) {
+                return;
+            }
+
+            if (options.get('raw')) {
+                if (options.get('showOutliers') && values.length > 5) {
+                    loutlier = values[0];
+                    lwhisker = values[1];
+                    q1 = values[2];
+                    q2 = values[3];
+                    q3 = values[4];
+                    rwhisker = values[5];
+                    routlier = values[6];
+                } else {
+                    lwhisker = values[0];
+                    q1 = values[1];
+                    q2 = values[2];
+                    q3 = values[3];
+                    rwhisker = values[4];
+                }
+            } else {
+                values.sort(function (a, b) { return a - b; });
+                q1 = quartile(values, 1);
+                q2 = quartile(values, 2);
+                q3 = quartile(values, 3);
+                iqr = q3 - q1;
+                if (options.get('showOutliers')) {
+                    lwhisker = rwhisker = undefined;
+                    for (i = 0; i < vlen; i++) {
+                        if (lwhisker === undefined && values[i] > q1 - (iqr * options.get('outlierIQR'))) {
+                            lwhisker = values[i];
+                        }
+                        if (values[i] < q3 + (iqr * options.get('outlierIQR'))) {
+                            rwhisker = values[i];
+                        }
+                    }
+                    loutlier = values[0];
+                    routlier = values[vlen - 1];
+                } else {
+                    lwhisker = values[0];
+                    rwhisker = values[vlen - 1];
+                }
+            }
+            this.quartiles = [q1, q2, q3];
+            this.lwhisker = lwhisker;
+            this.rwhisker = rwhisker;
+            this.loutlier = loutlier;
+            this.routlier = routlier;
+
+            unitSize = canvasWidth / (maxValue - minValue + 1);
+            if (options.get('showOutliers')) {
+                canvasLeft = Math.ceil(options.get('spotRadius'));
+                canvasWidth -= 2 * Math.ceil(options.get('spotRadius'));
+                unitSize = canvasWidth / (maxValue - minValue + 1);
+                if (loutlier < lwhisker) {
+                    target.drawCircle((loutlier - minValue) * unitSize + canvasLeft,
+                        canvasHeight / 2,
+                        options.get('spotRadius'),
+                        options.get('outlierLineColor'),
+                        options.get('outlierFillColor')).append();
+                }
+                if (routlier > rwhisker) {
+                    target.drawCircle((routlier - minValue) * unitSize + canvasLeft,
+                        canvasHeight / 2,
+                        options.get('spotRadius'),
+                        options.get('outlierLineColor'),
+                        options.get('outlierFillColor')).append();
+                }
+            }
+
+            // box
+            target.drawRect(
+                Math.round((q1 - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight * 0.1),
+                Math.round((q3 - q1) * unitSize),
+                Math.round(canvasHeight * 0.8),
+                options.get('boxLineColor'),
+                options.get('boxFillColor')).append();
+            // left whisker
+            target.drawLine(
+                Math.round((lwhisker - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight / 2),
+                Math.round((q1 - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight / 2),
+                options.get('lineColor')).append();
+            target.drawLine(
+                Math.round((lwhisker - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight / 4),
+                Math.round((lwhisker - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight - canvasHeight / 4),
+                options.get('whiskerColor')).append();
+            // right whisker
+            target.drawLine(Math.round((rwhisker - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight / 2),
+                Math.round((q3 - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight / 2),
+                options.get('lineColor')).append();
+            target.drawLine(
+                Math.round((rwhisker - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight / 4),
+                Math.round((rwhisker - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight - canvasHeight / 4),
+                options.get('whiskerColor')).append();
+            // median line
+            target.drawLine(
+                Math.round((q2 - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight * 0.1),
+                Math.round((q2 - minValue) * unitSize + canvasLeft),
+                Math.round(canvasHeight * 0.9),
+                options.get('medianColor')).append();
+            if (options.get('target')) {
+                size = Math.ceil(options.get('spotRadius'));
+                target.drawLine(
+                    Math.round((options.get('target') - minValue) * unitSize + canvasLeft),
+                    Math.round((canvasHeight / 2) - size),
+                    Math.round((options.get('target') - minValue) * unitSize + canvasLeft),
+                    Math.round((canvasHeight / 2) + size),
+                    options.get('targetColor')).append();
+                target.drawLine(
+                    Math.round((options.get('target') - minValue) * unitSize + canvasLeft - size),
+                    Math.round(canvasHeight / 2),
+                    Math.round((options.get('target') - minValue) * unitSize + canvasLeft + size),
+                    Math.round(canvasHeight / 2),
+                    options.get('targetColor')).append();
+            }
+            target.render();
+        }
+    });
+
+    // Setup a very simple "virtual canvas" to make drawing the few shapes we need easier
+    // This is accessible as $(foo).simpledraw()
+
+    VShape = createClass({
+        init: function (target, id, type, args) {
+            this.target = target;
+            this.id = id;
+            this.type = type;
+            this.args = args;
+        },
+        append: function () {
+            this.target.appendShape(this);
+            return this;
+        }
+    });
+
+    VCanvas_base = createClass({
+        _pxregex: /(\d+)(px)?\s*$/i,
+
+        init: function (width, height, target) {
+            if (!width) {
+                return;
+            }
+            this.width = width;
+            this.height = height;
+            this.target = target;
+            this.lastShapeId = null;
+            if (target[0]) {
+                target = target[0];
+            }
+            $.data(target, '_jqs_vcanvas', this);
+        },
+
+        drawLine: function (x1, y1, x2, y2, lineColor, lineWidth) {
+            return this.drawShape([[x1, y1], [x2, y2]], lineColor, lineWidth);
+        },
+
+        drawShape: function (path, lineColor, fillColor, lineWidth) {
+            return this._genShape('Shape', [path, lineColor, fillColor, lineWidth]);
+        },
+
+        drawCircle: function (x, y, radius, lineColor, fillColor, lineWidth) {
+            return this._genShape('Circle', [x, y, radius, lineColor, fillColor, lineWidth]);
+        },
+
+        drawPieSlice: function (x, y, radius, startAngle, endAngle, lineColor, fillColor) {
+            return this._genShape('PieSlice', [x, y, radius, startAngle, endAngle, lineColor, fillColor]);
+        },
+
+        drawRect: function (x, y, width, height, lineColor, fillColor) {
+            return this._genShape('Rect', [x, y, width, height, lineColor, fillColor]);
+        },
+
+        getElement: function () {
+            return this.canvas;
+        },
+
+        /**
+         * Return the most recently inserted shape id
+         */
+        getLastShapeId: function () {
+            return this.lastShapeId;
+        },
+
+        /**
+         * Clear and reset the canvas
+         */
+        reset: function () {
+            alert('reset not implemented');
+        },
+
+        _insert: function (el, target) {
+            $(target).html(el);
+        },
+
+        /**
+         * Calculate the pixel dimensions of the canvas
+         */
+        _calculatePixelDims: function (width, height, canvas) {
+            // XXX This should probably be a configurable option
+            var match;
+            match = this._pxregex.exec(height);
+            if (match) {
+                this.pixelHeight = match[1];
+            } else {
+                this.pixelHeight = $(canvas).height();
+            }
+            match = this._pxregex.exec(width);
+            if (match) {
+                this.pixelWidth = match[1];
+            } else {
+                this.pixelWidth = $(canvas).width();
+            }
+        },
+
+        /**
+         * Generate a shape object and id for later rendering
+         */
+        _genShape: function (shapetype, shapeargs) {
+            var id = shapeCount++;
+            shapeargs.unshift(id);
+            return new VShape(this, id, shapetype, shapeargs);
+        },
+
+        /**
+         * Add a shape to the end of the render queue
+         */
+        appendShape: function (shape) {
+            alert('appendShape not implemented');
+        },
+
+        /**
+         * Replace one shape with another
+         */
+        replaceWithShape: function (shapeid, shape) {
+            alert('replaceWithShape not implemented');
+        },
+
+        /**
+         * Insert one shape after another in the render queue
+         */
+        insertAfterShape: function (shapeid, shape) {
+            alert('insertAfterShape not implemented');
+        },
+
+        /**
+         * Remove a shape from the queue
+         */
+        removeShapeId: function (shapeid) {
+            alert('removeShapeId not implemented');
+        },
+
+        /**
+         * Find a shape at the specified x/y co-ordinates
+         */
+        getShapeAt: function (el, x, y) {
+            alert('getShapeAt not implemented');
+        },
+
+        /**
+         * Render all queued shapes onto the canvas
+         */
+        render: function () {
+            alert('render not implemented');
+        }
+    });
+
+    VCanvas_canvas = createClass(VCanvas_base, {
+        init: function (width, height, target, interact) {
+            VCanvas_canvas._super.init.call(this, width, height, target);
+            this.canvas = document.createElement('canvas');
+            if (target[0]) {
+                target = target[0];
+            }
+            $.data(target, '_jqs_vcanvas', this);
+            $(this.canvas).css({ display: 'inline-block', width: width, height: height, verticalAlign: 'top' });
+            this._insert(this.canvas, target);
+            this._calculatePixelDims(width, height, this.canvas);
+            this.canvas.width = this.pixelWidth;
+            this.canvas.height = this.pixelHeight;
+            this.interact = interact;
+            this.shapes = {};
+            this.shapeseq = [];
+            this.currentTargetShapeId = undefined;
+            $(this.canvas).css({width: this.pixelWidth, height: this.pixelHeight});
+        },
+
+        _getContext: function (lineColor, fillColor, lineWidth) {
+            var context = this.canvas.getContext('2d');
+            if (lineColor !== undefined) {
+                context.strokeStyle = lineColor;
+            }
+            context.lineWidth = lineWidth === undefined ? 1 : lineWidth;
+            if (fillColor !== undefined) {
+                context.fillStyle = fillColor;
+            }
+            return context;
+        },
+
+        reset: function () {
+            var context = this._getContext();
+            context.clearRect(0, 0, this.pixelWidth, this.pixelHeight);
+            this.shapes = {};
+            this.shapeseq = [];
+            this.currentTargetShapeId = undefined;
+        },
+
+        _drawShape: function (shapeid, path, lineColor, fillColor, lineWidth) {
+            var context = this._getContext(lineColor, fillColor, lineWidth),
+                i, plen;
+            context.beginPath();
+            context.moveTo(path[0][0] + 0.5, path[0][1] + 0.5);
+            for (i = 1, plen = path.length; i < plen; i++) {
+                context.lineTo(path[i][0] + 0.5, path[i][1] + 0.5); // the 0.5 offset gives us crisp pixel-width lines
+            }
+            if (lineColor !== undefined) {
+                context.stroke();
+            }
+            if (fillColor !== undefined) {
+                context.fill();
+            }
+            if (this.targetX !== undefined && this.targetY !== undefined &&
+                context.isPointInPath(this.targetX, this.targetY)) {
+                this.currentTargetShapeId = shapeid;
+            }
+        },
+
+        _drawCircle: function (shapeid, x, y, radius, lineColor, fillColor, lineWidth) {
+            var context = this._getContext(lineColor, fillColor, lineWidth);
+            context.beginPath();
+            context.arc(x, y, radius, 0, 2 * Math.PI, false);
+            if (this.targetX !== undefined && this.targetY !== undefined &&
+                context.isPointInPath(this.targetX, this.targetY)) {
+                this.currentTargetShapeId = shapeid;
+            }
+            if (lineColor !== undefined) {
+                context.stroke();
+            }
+            if (fillColor !== undefined) {
+                context.fill();
+            }
+        },
+
+        _drawPieSlice: function (shapeid, x, y, radius, startAngle, endAngle, lineColor, fillColor) {
+            var context = this._getContext(lineColor, fillColor);
+            context.beginPath();
+            context.moveTo(x, y);
+            context.arc(x, y, radius, startAngle, endAngle, false);
+            context.lineTo(x, y);
+            context.closePath();
+            if (lineColor !== undefined) {
+                context.stroke();
+            }
+            if (fillColor) {
+                context.fill();
+            }
+            if (this.targetX !== undefined && this.targetY !== undefined &&
+                context.isPointInPath(this.targetX, this.targetY)) {
+                this.currentTargetShapeId = shapeid;
+            }
+        },
+
+        _drawRect: function (shapeid, x, y, width, height, lineColor, fillColor) {
+            return this._drawShape(shapeid, [[x, y], [x + width, y], [x + width, y + height], [x, y + height], [x, y]], lineColor, fillColor);
+        },
+
+        appendShape: function (shape) {
+            this.shapes[shape.id] = shape;
+            this.shapeseq.push(shape.id);
+            this.lastShapeId = shape.id;
+            return shape.id;
+        },
+
+        replaceWithShape: function (shapeid, shape) {
+            var shapeseq = this.shapeseq,
+                i;
+            this.shapes[shape.id] = shape;
+            for (i = shapeseq.length; i--;) {
+                if (shapeseq[i] == shapeid) {
+                    shapeseq[i] = shape.id;
+                }
+            }
+            delete this.shapes[shapeid];
+        },
+
+        replaceWithShapes: function (shapeids, shapes) {
+            var shapeseq = this.shapeseq,
+                shapemap = {},
+                sid, i, first;
+
+            for (i = shapeids.length; i--;) {
+                shapemap[shapeids[i]] = true;
+            }
+            for (i = shapeseq.length; i--;) {
+                sid = shapeseq[i];
+                if (shapemap[sid]) {
+                    shapeseq.splice(i, 1);
+                    delete this.shapes[sid];
+                    first = i;
+                }
+            }
+            for (i = shapes.length; i--;) {
+                shapeseq.splice(first, 0, shapes[i].id);
+                this.shapes[shapes[i].id] = shapes[i];
+            }
+
+        },
+
+        insertAfterShape: function (shapeid, shape) {
+            var shapeseq = this.shapeseq,
+                i;
+            for (i = shapeseq.length; i--;) {
+                if (shapeseq[i] === shapeid) {
+                    shapeseq.splice(i + 1, 0, shape.id);
+                    this.shapes[shape.id] = shape;
+                    return;
+                }
+            }
+        },
+
+        removeShapeId: function (shapeid) {
+            var shapeseq = this.shapeseq,
+                i;
+            for (i = shapeseq.length; i--;) {
+                if (shapeseq[i] === shapeid) {
+                    shapeseq.splice(i, 1);
+                    break;
+                }
+            }
+            delete this.shapes[shapeid];
+        },
+
+        getShapeAt: function (el, x, y) {
+            this.targetX = x;
+            this.targetY = y;
+            this.render();
+            return this.currentTargetShapeId;
+        },
+
+        render: function () {
+            var shapeseq = this.shapeseq,
+                shapes = this.shapes,
+                shapeCount = shapeseq.length,
+                context = this._getContext(),
+                shapeid, shape, i;
+            context.clearRect(0, 0, this.pixelWidth, this.pixelHeight);
+            for (i = 0; i < shapeCount; i++) {
+                shapeid = shapeseq[i];
+                shape = shapes[shapeid];
+                this['_draw' + shape.type].apply(this, shape.args);
+            }
+            if (!this.interact) {
+                // not interactive so no need to keep the shapes array
+                this.shapes = {};
+                this.shapeseq = [];
+            }
+        }
+
+    });
+
+    VCanvas_vml = createClass(VCanvas_base, {
+        init: function (width, height, target) {
+            var groupel;
+            VCanvas_vml._super.init.call(this, width, height, target);
+            if (target[0]) {
+                target = target[0];
+            }
+            $.data(target, '_jqs_vcanvas', this);
+            this.canvas = document.createElement('span');
+            $(this.canvas).css({ display: 'inline-block', position: 'relative', overflow: 'hidden', width: width, height: height, margin: '0px', padding: '0px', verticalAlign: 'top'});
+            this._insert(this.canvas, target);
+            this._calculatePixelDims(width, height, this.canvas);
+            this.canvas.width = this.pixelWidth;
+            this.canvas.height = this.pixelHeight;
+            groupel = '<v:group coordorigin="0 0" coordsize="' + this.pixelWidth + ' ' + this.pixelHeight + '"' +
+                    ' style="position:absolute;top:0;left:0;width:' + this.pixelWidth + 'px;height=' + this.pixelHeight + 'px;"></v:group>';
+            this.canvas.insertAdjacentHTML('beforeEnd', groupel);
+            this.group = $(this.canvas).children()[0];
+            this.rendered = false;
+            this.prerender = '';
+        },
+
+        _drawShape: function (shapeid, path, lineColor, fillColor, lineWidth) {
+            var vpath = [],
+                initial, stroke, fill, closed, vel, plen, i;
+            for (i = 0, plen = path.length; i < plen; i++) {
+                vpath[i] = '' + (path[i][0]) + ',' + (path[i][1]);
+            }
+            initial = vpath.splice(0, 1);
+            lineWidth = lineWidth === undefined ? 1 : lineWidth;
+            stroke = lineColor === undefined ? ' stroked="false" ' : ' strokeWeight="' + lineWidth + 'px" strokeColor="' + lineColor + '" ';
+            fill = fillColor === undefined ? ' filled="false"' : ' fillColor="' + fillColor + '" filled="true" ';
+            closed = vpath[0] === vpath[vpath.length - 1] ? 'x ' : '';
+            vel = '<v:shape coordorigin="0 0" coordsize="' + this.pixelWidth + ' ' + this.pixelHeight + '" ' +
+                 ' id="jqsshape' + shapeid + '" ' +
+                 stroke +
+                 fill +
+                ' style="position:absolute;left:0px;top:0px;height:' + this.pixelHeight + 'px;width:' + this.pixelWidth + 'px;padding:0px;margin:0px;" ' +
+                ' path="m ' + initial + ' l ' + vpath.join(', ') + ' ' + closed + 'e">' +
+                ' </v:shape>';
+            return vel;
+        },
+
+        _drawCircle: function (shapeid, x, y, radius, lineColor, fillColor, lineWidth) {
+            var stroke, fill, vel;
+            x -= radius;
+            y -= radius;
+            stroke = lineColor === undefined ? ' stroked="false" ' : ' strokeWeight="' + lineWidth + 'px" strokeColor="' + lineColor + '" ';
+            fill = fillColor === undefined ? ' filled="false"' : ' fillColor="' + fillColor + '" filled="true" ';
+            vel = '<v:oval ' +
+                 ' id="jqsshape' + shapeid + '" ' +
+                stroke +
+                fill +
+                ' style="position:absolute;top:' + y + 'px; left:' + x + 'px; width:' + (radius * 2) + 'px; height:' + (radius * 2) + 'px"></v:oval>';
+            return vel;
+
+        },
+
+        _drawPieSlice: function (shapeid, x, y, radius, startAngle, endAngle, lineColor, fillColor) {
+            var vpath, startx, starty, endx, endy, stroke, fill, vel;
+            if (startAngle === endAngle) {
+                return '';  // VML seems to have problem when start angle equals end angle.
+            }
+            if ((endAngle - startAngle) === (2 * Math.PI)) {
+                startAngle = 0.0;  // VML seems to have a problem when drawing a full circle that doesn't start 0
+                endAngle = (2 * Math.PI);
+            }
+
+            startx = x + Math.round(Math.cos(startAngle) * radius);
+            starty = y + Math.round(Math.sin(startAngle) * radius);
+            endx = x + Math.round(Math.cos(endAngle) * radius);
+            endy = y + Math.round(Math.sin(endAngle) * radius);
+
+            if (startx === endx && starty === endy) {
+                if ((endAngle - startAngle) < Math.PI) {
+                    // Prevent very small slices from being mistaken as a whole pie
+                    return '';
+                }
+                // essentially going to be the entire circle, so ignore startAngle
+                startx = endx = x + radius;
+                starty = endy = y;
+            }
+
+            if (startx === endx && starty === endy && (endAngle - startAngle) < Math.PI) {
+                return '';
+            }
+
+            vpath = [x - radius, y - radius, x + radius, y + radius, startx, starty, endx, endy];
+            stroke = lineColor === undefined ? ' stroked="false" ' : ' strokeWeight="1px" strokeColor="' + lineColor + '" ';
+            fill = fillColor === undefined ? ' filled="false"' : ' fillColor="' + fillColor + '" filled="true" ';
+            vel = '<v:shape coordorigin="0 0" coordsize="' + this.pixelWidth + ' ' + this.pixelHeight + '" ' +
+                 ' id="jqsshape' + shapeid + '" ' +
+                 stroke +
+                 fill +
+                ' style="position:absolute;left:0px;top:0px;height:' + this.pixelHeight + 'px;width:' + this.pixelWidth + 'px;padding:0px;margin:0px;" ' +
+                ' path="m ' + x + ',' + y + ' wa ' + vpath.join(', ') + ' x e">' +
+                ' </v:shape>';
+            return vel;
+        },
+
+        _drawRect: function (shapeid, x, y, width, height, lineColor, fillColor) {
+            return this._drawShape(shapeid, [[x, y], [x, y + height], [x + width, y + height], [x + width, y], [x, y]], lineColor, fillColor);
+        },
+
+        reset: function () {
+            this.group.innerHTML = '';
+        },
+
+        appendShape: function (shape) {
+            var vel = this['_draw' + shape.type].apply(this, shape.args);
+            if (this.rendered) {
+                this.group.insertAdjacentHTML('beforeEnd', vel);
+            } else {
+                this.prerender += vel;
+            }
+            this.lastShapeId = shape.id;
+            return shape.id;
+        },
+
+        replaceWithShape: function (shapeid, shape) {
+            var existing = $('#jqsshape' + shapeid),
+                vel = this['_draw' + shape.type].apply(this, shape.args);
+            existing[0].outerHTML = vel;
+        },
+
+        replaceWithShapes: function (shapeids, shapes) {
+            // replace the first shapeid with all the new shapes then toast the remaining old shapes
+            var existing = $('#jqsshape' + shapeids[0]),
+                replace = '',
+                slen = shapes.length,
+                i;
+            for (i = 0; i < slen; i++) {
+                replace += this['_draw' + shapes[i].type].apply(this, shapes[i].args);
+            }
+            existing[0].outerHTML = replace;
+            for (i = 1; i < shapeids.length; i++) {
+                $('#jqsshape' + shapeids[i]).remove();
+            }
+        },
+
+        insertAfterShape: function (shapeid, shape) {
+            var existing = $('#jqsshape' + shapeid),
+                 vel = this['_draw' + shape.type].apply(this, shape.args);
+            existing[0].insertAdjacentHTML('afterEnd', vel);
+        },
+
+        removeShapeId: function (shapeid) {
+            var existing = $('#jqsshape' + shapeid);
+            this.group.removeChild(existing[0]);
+        },
+
+        getShapeAt: function (el, x, y) {
+            var shapeid = el.id.substr(8);
+            return shapeid;
+        },
+
+        render: function () {
+            if (!this.rendered) {
+                // batch the intial render into a single repaint
+                this.group.innerHTML = this.prerender;
+                this.rendered = true;
+            }
+        }
+    });
+
+}))}(document, Math));

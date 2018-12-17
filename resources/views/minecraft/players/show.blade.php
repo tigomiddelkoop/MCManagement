@@ -13,6 +13,21 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
     Reviewing player: {{ $networkmanager->username }}
 @endsection
 
+@section('requiredJS')
+    <script src="{{ url('/') }}/bower_components/chart.js/Chart.js"></script>
+
+    <script>
+        var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+        var pieChart = new Chart(pieChartCanvas);
+        var PieData = {!! $networkmanager_versions !!};
+        var pieOptions = {
+            animation: false,
+            responsive: true,
+        };
+        pieChart.Pie(PieData, pieOptions);
+    </script>
+@endsection
+
 @extends('layouts.general')
 @section('content')
     <div class="row">
@@ -158,22 +173,6 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                                 </tr>
                             @endif
                         @endforeach
-                        {{--<tr>--}}
-                        {{--<td></td>--}}
-                        {{--<td>--}}
-                        {{--<ul class="pagination pagination-sm no-margin pull-right">--}}
-                        {{--<li><a href="{{ $networkmanager_additional->previousPageUrl() }}">&laquo;</a></li>--}}
-                        {{--@for($x = 1; $x <= $networkmanager_additional->lastPage(); $x++)--}}
-                        {{--@if($x === $networkmanager_additional->currentPage())--}}
-                        {{--<li><a href="{{ $networkmanager_additional->url($x) }}" class="paginate_button active">{{ $x }}</a></li>--}}
-                        {{--@else--}}
-                        {{--<li><a href="{{ $networkmanager_additional->url($x) }}" class="paginate_button">{{ $x }}</a></li>--}}
-                        {{--@endif--}}
-                        {{--@endfor--}}
-                        {{--<li><a href="{{ $networkmanager_additional->nextPageUrl() }}">&raquo;</a></li>--}}
-                        {{--</ul>--}}
-                        {{--</td>--}}
-                        {{--</tr>--}}
                     </table>
                 </div>
             </div>
@@ -208,11 +207,12 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                     <h3 class="box-title">Most used minecraft versions</h3>
                 </div>
                 <div class="box-body">
-                    @foreach($networkmanager_versions as $session)
+                    <canvas id="pieChart"></canvas>
+                    {{--@foreach($networkmanager_versions as $session)--}}
 
-                        {{ MCVersionController::convert($session->version) }}
+                        {{--{{ MCVersionController::convert($session->version) }},--}}
 
-                    @endforeach
+                    {{--@endforeach--}}
                 </div>
             </div>
         </div>
@@ -249,18 +249,18 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
             <!-- /.box -->
         </div>
     </div>
-    <script src="js/playernote.js"></script>
-    <script>
-        var uuid = document.getElementById('uuid');
-        var note = document.getElementById('note');
-        var saveNote = document.getElementById('saveNote');
+    {{--<script src="js/playernote.js"></script>--}}
+    {{--<script>--}}
+        {{--var uuid = document.getElementById('uuid');--}}
+        {{--var note = document.getElementById('note');--}}
+        {{--var saveNote = document.getElementById('saveNote');--}}
 
-        saveNote.addEventListener('click', function () {
-            var uuidInput = uuid.value;
-            var noteInput = note.value;
-            ajax(uuidInput, noteInput);
-        });
-    </script>
-    </section>
+        {{--saveNote.addEventListener('click', function () {--}}
+            {{--var uuidInput = uuid.value;--}}
+            {{--var noteInput = note.value;--}}
+            {{--ajax(uuidInput, noteInput);--}}
+        {{--});--}}
+    {{--</script>--}}
+    {{--</section>--}}
     <!-- /.content -->
 @endsection

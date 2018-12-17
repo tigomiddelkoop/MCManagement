@@ -90,14 +90,14 @@ desired effect
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="https://crafatar.com/avatars/{$user['uuid']}" class="user-image" alt="User Image">
+                            <img src="https://crafatar.com/avatars/{{ Auth::user()->mc_uuid }}" class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="https://crafatar.com/avatars/" class="img-circle"
+                                <img src="https://crafatar.com/avatars/{{ Auth::user()->mc_uuid }}" class="img-circle"
                                      alt="User Image">
 
                                 <p>
@@ -173,6 +173,8 @@ desired effect
 <script src="{{ url('/') }}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('/') }}/dist/js/adminlte.min.js"></script>
+@yield('requiredJS')
+
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

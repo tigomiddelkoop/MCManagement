@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Minecraft;
 
+use App\Http\Controllers\Tools\MCVersionController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
@@ -67,7 +68,10 @@ class PlayerController extends Controller
 
         $networkmanager_additional = DB::connection('mysql_networkmanager')->table('players')->where('ip', '=' , $networkmanager->ip)->get();
         $networkmanager_sessions = DB::connection('mysql_networkmanager')->table('sessions')->where('uuid', '=', $networkmanager->uuid)->take(8)->get();
-        $networkmanager_versions = DB::connection('mysql_networkmanager')->table('sessions')->where('uuid', '=', $networkmanager->uuid)->get();
+        $networkmanager_version = DB::connection('mysql_networkmanager')->table('logins')->where('uuid', '=', $networkmanager->uuid)->distinct('version')->get()->groupBy('version');
+
+         $networkmanager_versions = MCVersionController::convertToChart($networkmanager_version);
+        //DB::connection('mysql_networkmanager')->table('logins')->where('uuid', '=', $networkmanager->uuid)->distinct('version')->get()->groupBy('version');
 
         return view('minecraft.players.show', compact('networkmanager', 'networkmanager_additional', 'networkmanager_sessions', 'networkmanager_versions', 'luckperms', 'litebans_bans', 'litebans_kicks', 'litebans_mutes', 'litebans_warnings'));
     }
