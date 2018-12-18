@@ -1,4 +1,13 @@
 @extends('layouts.general')
+
+@section('pagetitle')
+    Editting Announcement
+@endsection
+
+@section('pagedescription')
+    Currently editting: {{ $announcement->id }}
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -10,23 +19,27 @@
                 </div>
                 <div class="box-body">
 
-                    These are for me to quicklty get the variables
-                    {{ $announcement->id }}
-                    {{ $announcement->type }}
-                    {{ $announcement->message }}
-                    {{ $announcement->server }}
-                    {{ $announcement->active }}
+                    {{--These are for me to quicklty get the variables--}}
+                    {{--{{ $announcement->id }}--}}
+                    {{--{{ $announcement->type }}--}}
+                    {{--{{ $announcement->message }}--}}
+                    {{--{{ $announcement->server }}--}}
+                    {{--{{ $announcement->active }}--}}
 
-                    <form action="{{ route('networkmanagerAnnouncementsUpdate', ['id' => $announcement->id ]) }}" method="post">
+                    <form action="{{ route('networkmanagerAnnouncementsUpdate', ['id' => $announcement->id ]) }}"
+                          method="post">
+                        @csrf
                         <label for="message">Announcement Message:</label>
-                        <textarea type="text" name="message" id="message" class="form-control">{{ $announcement->message }}</textarea>
+                        <textarea type="text" name="message" id="message"
+                                  class="form-control">{{ $announcement->message }}</textarea>
 
-                        <br />
+                        <br/>
 
                         <label for="server">Server:</label>
-                        <input type="text" class="form-control" name="server" id="server" value="{{ $announcement->server }}">
+                        <input type="text" class="form-control" name="server" id="server"
+                               value="{{ $announcement->server }}">
 
-                        <br />
+                        <br/>
 
                         <label for="active">Active:</label>
 
@@ -36,11 +49,15 @@
                             @case(1) <input type="checkbox" name="active" id="active" checked> @break
 
 
-                        @endswitch
-                    </form>
+                    @endswitch
                 </div>
-
+                <div class="box-footer">
+                    <input class="btn btn-primary" type="submit" value="Save">
+                </div>
+                </form>
             </div>
+
         </div>
+    </div>
     </div>
 @endsection

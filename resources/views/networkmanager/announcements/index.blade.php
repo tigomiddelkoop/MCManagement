@@ -1,6 +1,16 @@
 <?php use \App\Http\Controllers\Tools\CountryController; ?>
 
 @extends('layouts.general')
+
+@section('pagetitle')
+    All Annoucements
+@endsection
+
+@section('pagedescription')
+    A list of all your annoucements
+@endsection
+
+
 @section('content')
     <div class="row">
         <div class="col-xs-12">
@@ -23,16 +33,14 @@
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered table-striped">
-                        <tr>
-                            <thead>
-                            <th style="width: 25px;">ID</th>
-                            <th>Type</th>
-                            <th>Message</th>
-                            <th>Servers</th>
-                            <th>Active</th>
-                            <th></th>
-                            </thead>
-                        </tr>
+                        <thead>
+                        <th style="width: 25px;">ID</th>
+                        <th>Type</th>
+                        <th>Message</th>
+                        <th>Servers</th>
+                        <th>Active</th>
+                        <th></th>
+                        </thead>
                         <tbody id="players">
                         @foreach($announcements as $announcement)
                             <tr>
@@ -61,7 +69,8 @@
                         <li><a href="{{ $announcements->previousPageUrl() }}">&laquo;</a></li>
                         @for($x = 1; $x <= $announcements->lastPage(); $x++)
                             @if($x === $announcements->currentPage())
-                                <li><a href="{{ $announcements->url($x) }}" class="paginate_button active">{{ $x }}</a></li>
+                                <li><a href="{{ $announcements->url($x) }}" class="paginate_button active">{{ $x }}</a>
+                                </li>
                             @else
                                 <li><a href="{{ $announcements->url($x) }}" class="paginate_button">{{ $x }}</a></li>
                             @endif
