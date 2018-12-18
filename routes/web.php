@@ -76,8 +76,8 @@ Route::prefix('panel')->group(function () {
             Route::get('/', 'Auth\RegisterController@showRegistrationForm');
             Route::post('/', 'Auth\RegisterController@register')->name('register');
         });
+        Route::get('/{user}','MCManagement\Users\UserController@show')->name('panelUserShow');
     });
-
 });
 
 

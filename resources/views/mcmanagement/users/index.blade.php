@@ -28,24 +28,16 @@
                         </thead>
                         @foreach($users as $user)
                         <tr>
-                            <td></td>
+                            <td><img src="https://crafatar.com/avatars/{{ $user->mc_uuid }}?size=25" class="user-image"
+                                     alt="User Image"></td>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td></td>
                             <td>{{ $user->created_at }}</td>
-                            <td>Button</td>
+                            <td><a class="btn btn-primary btn-sm" href="{{ route('panelUserShow', ['user' => $user->id]) }}">View User</a> <a class="btn btn-primary btn-sm" href="{{ route('minecraftSpecificPlayer', ['uuid' => $user->mc_uuid]) }}">View Player</a></td>
                         </tr>
                         @endforeach
-                        <tr>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                        </tr>
                     </table>
                 </div>
             </div>
