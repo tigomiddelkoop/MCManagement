@@ -32,8 +32,21 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
-                }]
+                }],
             },
+            options: {
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    position: 'left',
+                }
+            }
         });
     </script>
 @endsection

@@ -17,7 +17,7 @@
             <li><a href="{{ route('minecraftPlayers') }}"><i class="fa fa-users"></i><span>Players</span></a></li>
             {{--<li><a href="#"><i class="fa fa-user-times"></i> <span>Punishments [NETWORKMANAGER]</span></a></li>--}}
                 <li class="treeview">
-                <a href="#"><i class="fa fa-user-times"></i> <span>Punishments [LITEBANS]</span>
+                <a href="#"><i class="fa fa-user-times"></i><span>Punishments [LITEBANS]</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
