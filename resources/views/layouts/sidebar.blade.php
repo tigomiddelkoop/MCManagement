@@ -34,8 +34,8 @@
         {{-- NETWORKMANAGER (MINECRAFT)--}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">NetworkManager (Minecraft)</li>
-            <li><a href="index.php?page=forum_users"><i class="fa fa-server"></i><span>NetworkManager Settings</span></a></li>
-            <li><a href="index.php?page=forum_punishments"><i class="fa fa-language"></i><span>Language</span></a>
+            <li><a href=""><i class="fa fa-server"></i><span>NetworkManager Settings</span></a></li>
+            <li><a href=""><i class="fa fa-language"></i><span>Language</span></a>
             {{--<li><a href="{{ route('networkmanagerMOTD') }}"><i class="fa fa-calendar"></i><span>MOTD</span></a>--}}
             {{--<li><a href="{{ route('networkmanagerServers') }}"><i class="fa fa-server"></i><span>Servers</span></a></li>--}}
             <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-comment"></i><span>Announcements</span></a>
@@ -46,8 +46,8 @@
         {{-- NAMELESS (NAMELESSMC)--}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Nameless (Forum)</li>
-            <li><a href="index.php?page=forum_users"><i class="fa fa-users"></i><span>Users</span></a></li>
-            <li><a href="index.php?page=forum_punishments"><i class="fa fa-user-times"></i><span>Banned Users</span></a>
+            <li><a href=""><i class="fa fa-users"></i><span>Users</span></a></li>
+            <li><a href=""><i class="fa fa-user-times"></i><span>Banned Users</span></a>
             </li>
         </ul>
         {{-- FEEDBACK MODULE --}}
@@ -70,7 +70,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Panel</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="index.php?page=panel_users"><i class="fa fa-users"></i> <span>Users</span></a></li>
+            <li><a href="{{ route('panelUserDashboard') }}"><i class="fa fa-users"></i> <span>Users</span></a></li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-cogs"></i> <span>Settings</span>
                     <span class="pull-right-container">

@@ -40,6 +40,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="mc_uuid" class="col-md-4 col-form-label text-md-right">{{ __('mc_uuid') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="mc_uuid" type="text" class="form-control{{ $errors->has('mc_uuid') ? ' is-invalid' : '' }}" name="mc_uuid" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

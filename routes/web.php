@@ -11,10 +11,10 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', 'DashboardController')->name('dashboard');
-Route::get('/dashboard', 'DashboardController')->name('dashboard');
+Route::get('/droutesashboard', 'DashboardController')->name('dashboard');
 Route::get('/analytics', 'AnalyticsController')->name('analytics');
 
 
@@ -67,6 +67,15 @@ Route::prefix('panel')->group(function () {
 
         Route::get('/');
 
+    });
+
+    Route::prefix('users')->group(function () {
+
+        Route::get('/', 'MCManagement\Users\UserController@index')->name('panelUserDashboard');
+        Route::prefix('/add')->group(function () {
+            Route::get('/', 'Auth\RegisterController@showRegistrationForm');
+            Route::post('/', 'Auth\RegisterController@register')->name('register');
+        });
     });
 
 });

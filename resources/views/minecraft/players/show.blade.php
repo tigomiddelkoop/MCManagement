@@ -230,13 +230,13 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
-                        <tr>
+                        <thead>
                             <th>Started</th>
                             <th>Ended</th>
                             <th>Time</th>
                             <th>IP</th>
                             <th>Version</th>
-                        </tr>
+                        </thead>
                         @foreach($networkmanager_sessions as $sessions)
                             <tr>
                                 <td>{{ ConvertTimeController::convertTimeDate($sessions->start) }}</td>
