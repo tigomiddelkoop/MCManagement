@@ -48,12 +48,14 @@
             </li>
         </ul>
         {{-- NAMELESS (NAMELESSMC)--}}
+        @if($settings['nameless_integration'] == 1)
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Nameless (Forum)</li>
             <li><a href=""><i class="fa fa-users"></i><span>Users</span></a></li>
             <li><a href=""><i class="fa fa-user-times"></i><span>Banned Users</span></a>
             </li>
         </ul>
+        @endif
         {{-- FEEDBACK MODULE --}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Modules</li>
@@ -71,6 +73,7 @@
             </li>
         </ul>
         {{-- PANEL SETTINGS --}}
+        @hasrole('owner')
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Panel</li>
             <!-- Optionally, you can add icons to the links -->
@@ -85,9 +88,9 @@
                     <li><a href="{{ route('panelSettingsGeneralIndex') }}">General</a></li>
                     <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
                 </ul>
-                -
             </li>
         </ul>
+        @endhasrole
         <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
