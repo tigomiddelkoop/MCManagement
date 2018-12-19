@@ -148,10 +148,12 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                             <td>Nickname</td>
                             <td>{{ $networkmanager->nickname }}</td>
                         </tr>
+                        @if($settings['luckperms_integration'] == 1)
                         <tr>
-                            <td>Rank</td>
-                            <td>{{ $luckperms->primary_group }}</td>
+                                <td>Rank</td>
+                                <td>{{ $luckperms->primary_group }}</td>
                         </tr>
+                        @endif
                         <tr>
                             <td>Latest Minecraft</td>
                             <td>{{ MCVersionController::convert($networkmanager->version) }}</td>
@@ -172,6 +174,12 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                             <td>&nbsp</td>
                             <td>&nbsp</td>
                         </tr>
+                        @if($settings['luckperms_integration'] == 0)
+                            <tr>
+                                <td>&nbsp</td>
+                                <td>&nbsp</td>
+                            </tr>
+                        @endif
                     </table>
                 </div>
                 <!-- /.box-body -->
@@ -245,11 +253,11 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <thead>
-                            <th>Started</th>
-                            <th>Ended</th>
-                            <th>Time</th>
-                            <th>IP</th>
-                            <th>Version</th>
+                        <th>Started</th>
+                        <th>Ended</th>
+                        <th>Time</th>
+                        <th>IP</th>
+                        <th>Version</th>
                         </thead>
                         @foreach($networkmanager_sessions as $sessions)
                             <tr>

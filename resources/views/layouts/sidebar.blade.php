@@ -16,21 +16,24 @@
             <li class="header">Minecraft</li>
             <li><a href="{{ route('minecraftPlayers') }}"><i class="fa fa-users"></i><span>Players</span></a></li>
             {{--<li><a href="#"><i class="fa fa-user-times"></i> <span>Punishments [NETWORKMANAGER]</span></a></li>--}}
+            @if($settings['litebans_integration'] == 1)
                 <li class="treeview">
-                <a href="#"><i class="fa fa-user-times"></i><span>Punishments [LITEBANS]</span>
-                    <span class="pull-right-container">
+                    <a href="#"><i class="fa fa-user-times"></i><span>Punishments [LITEBANS]</span>
+                        <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
-                </a>
-                <ul class="treeview-menu">
-                    {{--<li><a href="{{ route('minecraftPunishmentsOverview') }}">Overview</a></li>--}}
-                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'bans']) }}">Bans</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'kicks']) }}">Kicks</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'mutes']) }}">Mutes</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'warnings']) }}">Warnings</a></li>
-                </ul>
-            </li>
-            <li><a href="index.php?page=minecraft_serverstatus"><i class="fa fa-server"></i><span>Server Status</span></a></li>
+                    </a>
+                    <ul class="treeview-menu">
+                        {{--<li><a href="{{ route('minecraftPunishmentsOverview') }}">Overview</a></li>--}}
+                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'bans']) }}">Bans</a></li>
+                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'kicks']) }}">Kicks</a></li>
+                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'mutes']) }}">Mutes</a></li>
+                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'warnings']) }}">Warnings</a></li>
+                    </ul>
+                </li>
+            @endif
+            <li><a href="index.php?page=minecraft_serverstatus"><i
+                            class="fa fa-server"></i><span>Server Status</span></a></li>
         </ul>
         {{-- NETWORKMANAGER (MINECRAFT)--}}
         <ul class="sidebar-menu" data-widget="tree">
@@ -81,7 +84,8 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ route('panelSettingsGeneralIndex') }}">General</a></li>
                     <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
-                </ul>-
+                </ul>
+                -
             </li>
         </ul>
         <!-- /.sidebar-menu -->

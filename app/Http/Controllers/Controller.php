@@ -16,6 +16,9 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->middleware('auth');
+
+
+        //This maybe has to be moved to the AppServiceProvider but then shit will break :/
         $settings = Setting::all();
 
         $settings = $this->buildSettingsArray($settings);
