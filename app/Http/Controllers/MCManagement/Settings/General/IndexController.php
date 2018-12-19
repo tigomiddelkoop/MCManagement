@@ -14,7 +14,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('mcmanagement.settings.general.index');
+        return view('mcmanagement.settings.general.index', compact('settings'));
     }
 
     /**

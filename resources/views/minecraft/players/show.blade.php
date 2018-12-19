@@ -94,7 +94,8 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                         </tr>
                         <tr>
                             <td>IP Address</td>
-                            <td>{{$networkmanager->ip}}</td>
+                            {{--<td><a href="{{ route('') }}">{{ $networkmanager->ip }}</a></td>--}}
+                            <td><a>{{ $networkmanager->ip }}</a></td>
                         </tr>
                         <tr>
                             <td>Joined</td>

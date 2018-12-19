@@ -23,6 +23,7 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
+                    {{--<li><a href="{{ route('minecraftPunishmentsOverview') }}">Overview</a></li>--}}
                     <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'bans']) }}">Bans</a></li>
                     <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'kicks']) }}">Kicks</a></li>
                     <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'mutes']) }}">Mutes</a></li>
