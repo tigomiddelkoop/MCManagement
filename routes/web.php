@@ -21,15 +21,16 @@ Route::get('/analytics', 'AnalyticsController')->name('analytics');
 Route::prefix('minecraft')->group(function () {
     Route::prefix('players')->group(function () {
 
-        Route::get('/', 'Minecraft\PlayerController@index')->name('minecraftPlayers');
-        Route::get('/{uuid}', 'Minecraft\PlayerController@show')->name('minecraftSpecificPlayer');
+        Route::get('/', 'Minecraft\PlayerController@index')->name('networkmanagerPlayersIndex');
+        Route::get('/{uuid}', 'Minecraft\PlayerController@show')->name('networkmanagerPlayersShow');
 
     });
 
-    Route::prefix('punishments')->group(function () {
+    Route::prefix('litebans')->group(function () {
 
-        Route::get('/', "LiteBans\PunishmentController@index");
-        Route::get('/{type}', "LiteBans\PunishmentController@show")->where('type', 'bans|kicks|mutes|warnings')->name('minecraftPunishmentsList');
+        Route::get('/', "LiteBans\PunishmentController@index")->name('litebansIndex');
+        Route::get('/{type}', "LiteBans\PunishmentController@show")->where('type', 'bans|kicks|mutes|warnings')->name('litebansShow');
+        Route::get('/{type}/{id}', "LiteBans\PunishmentController@detailed")->where('type', 'bans|kicks|mutes|warnings')->name('litebansDetailed');
 
     });
 

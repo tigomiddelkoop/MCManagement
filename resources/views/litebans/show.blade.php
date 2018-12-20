@@ -35,7 +35,7 @@
                         <th>By</th>
                         <th>Active</th>
                         <th>Date</th>
-                        <th></th>
+                        <th style="width: 190px;"></th>
                         </thead>
                         </tr>
                         </thead>
@@ -55,7 +55,7 @@
                                 @endswitch
                             </td>
                             <td>{{ ConvertTimeController::convertTimeDate($punishment->time) }}</td>
-                            <td><a href="{{ route('minecraftSpecificPlayer', ['uuid' => $punishment->uuid ]) }}" class="btn btn-xs btn-primary">View Player</a></td>
+                            <td><a href="{{ route('litebansDetailed', ['type' => $page_title, 'id' => $punishment->id ]) }}" class="btn btn-xs btn-primary">View punishment</a> <a href="{{ route('networkmanagerPlayersShow', ['uuid' => $punishment->uuid ]) }}" class="btn btn-xs btn-primary">View player</a></td>
                         </tr>
                         @endforeach
                         </tbody>
@@ -76,4 +76,7 @@
                     </ul>
                 </div>
                 </section>
+            </div>
+        </div>
+    </div>
 @endsection

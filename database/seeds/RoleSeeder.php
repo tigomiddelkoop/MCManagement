@@ -33,7 +33,24 @@ class RoleSeeder extends Seeder
 
         $this->command->info("$prefix Creating Permissions");
 
-        Permission::create(['name' => 'networkmanager.view.playerip']);
+
+        // Networkmanager Related Permissions
+        Permission::create(['name' => 'networkmanager.player.viewip']);
+        Permission::create(['name' => 'networkmanager.settings.access']);
+
+        // Litebans Related Permissions
+        Permission::create(['name' => 'litebans.view.bans']);
+        Permission::create(['name' => 'litebans.view.kicks']);
+        Permission::create(['name' => 'litebans.view.mutes']);
+        Permission::create(['name' => 'litebans.view.warns']);
+
+        // Luckperms Related Permissions
+//        Permission::create(['luckperms.']);
+
+        // Nameless Related Permissions
+//        Permission::create(['nameless.'])
+
+        // Panel Related Permissions
         Permission::create(['name' => 'panel.view.settings']);
     }
 
@@ -48,13 +65,14 @@ class RoleSeeder extends Seeder
         $this->command->info("$prefix Filling Table");
 
         $role = Role::create(['name' => "owner"]);
-        $role->givePermissionTo('networkmanager.view.playerip', 'panel.view.settings');
+        $role->givePermissionTo('networkmanager.player.viewip', 'panel.view.settings');
 
         $role = Role::create(['name' => "admin"]);
+        $role->givePermissionTo('networkmanager.player.viewip');
 
         $role = Role::create(['name' => "mod"]);
+//        $role->givePermissionTo('');
 
-//        $role = Role::create(['name' => "owner"]);
         $this->command->info("$prefix Filling Table Done");
     }
 }

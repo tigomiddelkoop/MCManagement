@@ -25,7 +25,7 @@ class PunishmentController extends Controller
     public function index()
     {
 
-        $amount = 10;
+        $amount = 5;
 
         $punishments = new Collection([
             'Bans' => $this->getPunishment('bans', $amount),
@@ -35,7 +35,7 @@ class PunishmentController extends Controller
         ]);
 
 
-        return view('minecraft.punishments.index', compact('punishments'));
+        return view('litebans.index', compact('punishments'));
     }
 
     //Tell me if this is safe, i deem it safe, the web.php only accepts 4 things to use in the $type
@@ -46,7 +46,22 @@ class PunishmentController extends Controller
         $punishments = $this->getPunishmentPaginated($type, 25);
 
 
-        return view('minecraft.punishments.show', compact('punishments', "page_title"));
+        return view('litebans.show', compact('punishments', "page_title"));
+    }
+
+    public function detailed($type, $id)
+    {
+
+        $punishment = DB::connection('mysql_litebans')
+            ->table($type)
+            ->where($type . '.id', '=', $id)
+            ->Join('history', $type . '.uuid', '=', 'history.uuid')
+            ->select($type . '.id', $type . '.uuid', 'name', 'time', 'banned_by_name', 'banned_by_uuid', 'reason', 'active', $type . '.ip')
+            ->first();
+//            ->get();
+
+//        return $punishment;
+        return view('litebans.detailed', compact('punishment'));
     }
 
     public function getPunishmentPaginated($type, $amount)

@@ -94,7 +94,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                         </tr>
                         <tr>
                             <td>IP Address</td>
-                            @can('networkmanager.view.playerip')
+                            @can('networkmanager.player.viewip')
                                 <td><a href="">{{ $networkmanager->ip }}</a></td>
                             @else
                                 <td></td>
@@ -204,7 +204,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                                                 src="https://crafatar.com/avatars/{{ $additional_acccounts->uuid }}?size=25">
                                     </td>
                                     <td>
-                                        <a href="{{ route('minecraftSpecificPlayer', ['uuid' => $additional_acccounts->uuid]) }}">{{ $additional_acccounts->username }}</a>
+                                        <a href="{{ route('networkmanagerPlayersShow', ['uuid' => $additional_acccounts->uuid]) }}">{{ $additional_acccounts->username }}</a>
                                     </td>
                                 </tr>
                             @endif
@@ -268,7 +268,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                                 <td>{{ ConvertTimeController::convertTimeDate($sessions->start) }}</td>
                                 <td>{{ ConvertTimeController::convertTimeDate($sessions->end) }}</td>
                                 <td>{{ ConvertTimeController::convertPlaytime($sessions->time) }}</td>
-                                @can('view.playerip')
+                                @can('networkmanager.player.viewip')
                                     <td>{{ $sessions->ip }}</td>
                                 @else
                                     <td></td>

@@ -14,7 +14,7 @@
         {{-- Player Information--}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Minecraft</li>
-            <li><a href="{{ route('minecraftPlayers') }}"><i class="fa fa-users"></i><span>Players</span></a></li>
+            <li><a href="{{ route('networkmanagerPlayersIndex') }}"><i class="fa fa-users"></i><span>Players</span></a></li>
             {{--<li><a href="#"><i class="fa fa-user-times"></i> <span>Punishments [NETWORKMANAGER]</span></a></li>--}}
             @if($settings['litebans_integration'] == 1)
                 <li class="treeview">
@@ -24,11 +24,11 @@
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        {{--<li><a href="{{ route('minecraftPunishmentsOverview') }}">Overview</a></li>--}}
-                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'bans']) }}">Bans</a></li>
-                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'kicks']) }}">Kicks</a></li>
-                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'mutes']) }}">Mutes</a></li>
-                        <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'warnings']) }}">Warnings</a></li>
+                        <li><a href="{{ route('litebansIndex') }}">Overview</a></li>
+                        <li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Bans</a></li>
+                        <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Kicks</a></li>
+                        <li><a href="{{ route('litebansShow', ['type' => 'mutes']) }}">Mutes</a></li>
+                        <li><a href="{{ route('litebansShow', ['type' => 'warnings']) }}">Warnings</a></li>
                     </ul>
                 </li>
             @endif
@@ -66,9 +66,9 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'bans']) }}">Responses</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'kicks']) }}">Form Questions</a></li>
-                    <li><a href="{{ route('minecraftPunishmentsList', ['type' => 'kicks']) }}">Servers for form</a></li>
+                    <li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Responses</a></li>
+                    <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Form Questions</a></li>
+                    <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Servers for form</a></li>
                 </ul>
             </li>
         </ul>

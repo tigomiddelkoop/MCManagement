@@ -58,7 +58,7 @@
                                     @endswitch
                                 </td>
                                 <td>
-                                    <a href="{{ route('minecraftSpecificPlayer', ['uuid' => $player->uuid]) }}"
+                                    <a href="{{ route('networkmanagerPlayersShow', ['uuid' => $player->uuid]) }}"
                                        class="btn btn-xs btn-block btn-primary">View</a>
                                 </td>
                             </tr>

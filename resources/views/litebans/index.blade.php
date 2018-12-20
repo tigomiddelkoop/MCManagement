@@ -31,7 +31,7 @@ use App\Http\Controllers\Tools\ConvertTimeController;
                             <th style="width: 25px">#</th>
                             <th style="width: 100px">Player</th>
                             <th style="width: 150px">Date</th>
-                            <th style="width: 325px">Reason</th>
+                            <th style="width: 300px">Reason</th>
                             <th>View</th>
                             </thead>
                                 @foreach($punishment as $item)
@@ -40,8 +40,8 @@ use App\Http\Controllers\Tools\ConvertTimeController;
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ ConvertTimeController::convertTimeDate($item->time) }}</td>
-                                        <td>{{ Str::limit($item->reason, 50) }}</td>
-                                        <td><a class="btn btn-xs btn-primary" href="">View punishment</a><a class="btn btn-xs btn-primary-" href="">View player</a></td>
+                                        <td>{{ Str::limit($item->reason, 40) }}</td>
+                                        <td><a class="btn btn-xs btn-primary" href="{{ route('litebansDetailed', ['type' => strtolower($name), 'id' => $item->id]) }}">View punishment</a> <a class="btn btn-xs btn-primary" href="{{ route('networkmanagerPlayersShow', ['uuid' => $item->uuid ]) }}">View player</a></td>
                                     </tr>
                             @endforeach
                         </table>
