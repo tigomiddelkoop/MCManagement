@@ -94,7 +94,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                         </tr>
                         <tr>
                             <td>IP Address</td>
-                            @can('view.playerip')
+                            @can('networkmanager.view.playerip')
                                 <td><a href="">{{ $networkmanager->ip }}</a></td>
                             @else
                                 <td></td>
