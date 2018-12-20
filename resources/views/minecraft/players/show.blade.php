@@ -94,8 +94,12 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                         </tr>
                         <tr>
                             <td>IP Address</td>
-                            {{--<td><a href="{{ route('') }}">{{ $networkmanager->ip }}</a></td>--}}
-                            <td><a>{{ $networkmanager->ip }}</a></td>
+                            @can('view.playerip')
+                                <td><a href="">{{ $networkmanager->ip }}</a></td>
+                            @else
+                                <td></td>
+                            @endcan
+                            {{--<td><a>{{ $networkmanager->ip }}</a></td>--}}
                         </tr>
                         <tr>
                             <td>Joined</td>
@@ -149,10 +153,10 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                             <td>{{ $networkmanager->nickname }}</td>
                         </tr>
                         @if($settings['luckperms_integration'] == 1)
-                        <tr>
+                            <tr>
                                 <td>Rank</td>
                                 <td>{{ $luckperms->primary_group }}</td>
-                        </tr>
+                            </tr>
                         @endif
                         <tr>
                             <td>Latest Minecraft</td>
@@ -264,7 +268,11 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                                 <td>{{ ConvertTimeController::convertTimeDate($sessions->start) }}</td>
                                 <td>{{ ConvertTimeController::convertTimeDate($sessions->end) }}</td>
                                 <td>{{ ConvertTimeController::convertPlaytime($sessions->time) }}</td>
-                                <td>{{ $sessions->ip }}</td>
+                                @can('view.playerip')
+                                    <td>{{ $sessions->ip }}</td>
+                                @else
+                                    <td></td>
+                                @endcan
                                 <td>{{ MCVersionController::convert($sessions->version) }}</td>
                             </tr>
                         @endforeach

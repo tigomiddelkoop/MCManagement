@@ -3,11 +3,11 @@
 @extends('layouts.general')
 
 @section('pagetitle')
-    All Annoucements
+    All Announcements
 @endsection
 
 @section('pagedescription')
-    A list of all your annoucements
+    A list of all your announcements
 @endsection
 
 
