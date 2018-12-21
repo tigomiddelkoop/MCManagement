@@ -16,6 +16,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
+//        return $roles;
         return view('mcmanagement.roles.index', compact('roles'));
     }
 

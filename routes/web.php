@@ -80,6 +80,7 @@ Route::prefix('networkmanager')->group(function () {
         Route::prefix('roles')->group(function () {
 
             Route::get('/', 'MCManagement\Roles\RoleController@index')->name('panelSettingsRoleIndex');
+            Route::get('/{id}', 'MCManagement\Roles\RoleController@show')->name('panelSettingsRoleShow');
 
         });
     });
