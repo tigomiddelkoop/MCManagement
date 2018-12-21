@@ -20,7 +20,7 @@ class RoleSeeder extends Seeder
 //            'email' => str_random(10).'@gmail.com',
 //            'password' => bcrypt('secret'),
 //        ]);
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions('');
         $this->seedPermissions();
         $this->seedRoles();
     }

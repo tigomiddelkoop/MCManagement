@@ -19,11 +19,11 @@ class Controller extends BaseController
 
 
         //This maybe has to be moved to the AppServiceProvider but then shit will break :/
-        $settings = Setting::all();
-
-        $settings = $this->buildSettingsArray($settings);
-
-        View::share('settings', $settings);
+//        $settings = Setting::all();
+//
+//        $settings = $this->buildSettingsArray($settings);
+//
+//        View::share('settings', $settings);
 //        dd($settings);
     }
 

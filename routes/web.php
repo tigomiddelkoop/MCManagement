@@ -14,7 +14,7 @@
 Auth::routes(['register' => false]);
 
 Route::get('/', 'DashboardController')->name('dashboard');
-Route::get('/droutesashboard', 'DashboardController')->name('dashboard');
+Route::get('/dashboard', 'DashboardController')->name('dashboard');
 Route::get('/analytics', 'AnalyticsController')->name('analytics');
 
 
