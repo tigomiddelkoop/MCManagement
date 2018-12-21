@@ -26,7 +26,7 @@
                                 <td>{{ $role->id }}</td>
                                 <td>{{ $role->name }}</td>
                                 <td>{{ $role->created_at }}</td>
-                                <td><a class="btn btn-xs btn-primary">View role</a></td>
+                                <td><a class="btn btn-xs btn-primary" href="{{ route('panelSettingsRoleEdit', ['id' => $role->id]) }}">View role</a></td>
                             </tr>
 
                         @endforeach

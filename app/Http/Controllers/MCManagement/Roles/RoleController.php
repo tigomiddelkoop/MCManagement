@@ -60,7 +60,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('mcmanagement.roles.edit');
     }
 
     /**

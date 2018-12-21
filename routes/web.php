@@ -49,40 +49,45 @@ Route::prefix('networkmanager')->group(function () {
     });
 });
 
-    Route::prefix('panel')->group(function () {
+Route::prefix('panel')->group(function () {
 
-        Route::prefix('settings')->group(function () {
+    Route::prefix('settings')->group(function () {
 
-            Route::prefix('general')->group(function () {
+        Route::prefix('general')->group(function () {
 
-                Route::get('/', "MCManagement\Settings\General\IndexController@index")->name('panelSettingsGeneralIndex');
-
-            });
-
-            Route::prefix('language')->group(function () {
-
-                Route::get('/', "MCManagement\Settings\Language\IndexController@index")->name('panelSettingsLanguageIndex');
-
-            });
-
-            Route::get('/');
+            Route::get('/', "MCManagement\Settings\General\IndexController@index")->name('panelSettingsGeneralIndex');
 
         });
-        Route::prefix('users')->group(function () {
 
-            Route::get('/', 'MCManagement\Users\UserController@index')->name('panelSettingsUserIndex');
-            Route::prefix('/add')->group(function () {
-                Route::get('/', 'Auth\RegisterController@showRegistrationForm');
-                Route::post('/', 'Auth\RegisterController@register')->name('register');
-            });
-            Route::get('/{user}', 'MCManagement\Users\UserController@show')->name('panelSettingsUserShow');
-        });
-        Route::prefix('roles')->group(function () {
+        Route::prefix('language')->group(function () {
 
-            Route::get('/', 'MCManagement\Roles\RoleController@index')->name('panelSettingsRoleIndex');
-            Route::get('/{id}', 'MCManagement\Roles\RoleController@show')->name('panelSettingsRoleShow');
+            Route::get('/', "MCManagement\Settings\Language\IndexController@index")->name('panelSettingsLanguageIndex');
 
         });
+
+        Route::get('/');
+
     });
+    Route::prefix('users')->group(function () {
+
+        Route::get('/', 'MCManagement\Users\UserController@index')->name('panelSettingsUserIndex');
+        Route::prefix('/add')->group(function () {
+            Route::get('/', 'Auth\RegisterController@showRegistrationForm');
+            Route::post('/', 'Auth\RegisterController@register')->name('register');
+        });
+        Route::get('/{user}', 'MCManagement\Users\UserController@show')->name('panelSettingsUserShow');
+    });
+    Route::prefix('roles')->group(function () {
+
+        Route::get('/', 'MCManagement\Roles\RoleController@index')->name('panelSettingsRoleIndex');
+
+        Route::prefix('/edit')->group(function () {
+            Route::get('/{id}', 'MCManagement\Roles\RoleController@edit')->name('panelSettingsRoleEdit');
+            Route::post('/{id}', 'MCManagement\Roles\RoleController@update')->name('panelSettingsRoleUpdate');
+
+        });
+
+    });
+});
 
 
