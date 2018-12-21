@@ -77,7 +77,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Panel</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="{{ route('panelUserDashboard') }}"><i class="fa fa-users"></i> <span>Users</span></a></li>
+            <li><a href="{{ route('panelSettingsUserIndex') }}"><i class="fa fa-users"></i> <span>Users</span></a></li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-cogs"></i> <span>Settings</span>
                     <span class="pull-right-container">
@@ -87,6 +87,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ route('panelSettingsGeneralIndex') }}">General</a></li>
                     <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
+                    <li><a href="{{ route('panelSettingsRoleIndex') }}">Roles</a></li>
                 </ul>
             </li>
         </ul>

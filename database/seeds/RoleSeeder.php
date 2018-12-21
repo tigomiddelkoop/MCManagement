@@ -34,6 +34,7 @@ class RoleSeeder extends Seeder
         $this->command->info("$prefix Creating Permissions");
 
 
+
         // Networkmanager Related Permissions
         Permission::create(['name' => 'networkmanager.player.viewip']);
         Permission::create(['name' => 'networkmanager.settings.access']);
@@ -59,7 +60,7 @@ class RoleSeeder extends Seeder
         $prefix = '[RoleSeeder][Roles]';
 
 //        $this->command->info("$prefix Truncating Table");
-//        DB::statement('TRUNCATE roles');
+//        DB::dropForeign('role_has_permissionb')
 
 
         $this->command->info("$prefix Filling Table");
