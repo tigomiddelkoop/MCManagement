@@ -18,7 +18,17 @@ class DashboardController extends Controller
         $totalPlayers = DB::connection('mysql_networkmanager')->table('players')->count();
         $todayPlayers = DB::connection('mysql_networkmanager')->table('players')->where('lastlogin', '>', '(UNIX_TIMESTAMP(CURDATE())*1000)')->count();
         $newPlayers = DB::connection('mysql_networkmanager')->table('players')->where('lastlogin', '>', '(UNIX_TIMESTAMP(CURDATE())*1000)')->count();
+        $totalPlaytime = DB::connection('mysql_networkmanager')->table('players')->select('playtime')->get();
 
-        return view('dashboard', compact('totalPlayers', 'todayPlayers', 'newPlayers'));
+        $playtime = 0;
+
+        foreach ($totalPlaytime as $time)
+        {
+
+            $playtime += $time->playtime;
+
+        }
+//dd($playtime);
+        return view('dashboard', compact('totalPlayers', 'todayPlayers', 'newPlayers', 'playtime'));
     }
 }

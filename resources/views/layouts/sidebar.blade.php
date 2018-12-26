@@ -14,7 +14,8 @@
         {{-- Player Information--}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Minecraft</li>
-            <li><a href="{{ route('networkmanagerPlayersIndex') }}"><i class="fa fa-users"></i><span>Players</span></a></li>
+            <li><a href="{{ route('networkmanagerPlayersIndex') }}"><i class="fa fa-users"></i><span>Players</span></a>
+            </li>
             {{--<li><a href="#"><i class="fa fa-user-times"></i> <span>Punishments [NETWORKMANAGER]</span></a></li>--}}
             @if($settings['litebans_integration'] == 1)
                 <li class="treeview">
@@ -42,19 +43,19 @@
             <li><a href=""><i class="fa fa-language"></i><span>Language</span></a>
             {{--<li><a href="{{ route('networkmanagerMOTD') }}"><i class="fa fa-calendar"></i><span>MOTD</span></a>--}}
             {{--<li><a href="{{ route('networkmanagerServers') }}"><i class="fa fa-server"></i><span>Servers</span></a></li>--}}
-            <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-comment"></i><span>Announcements</span></a>
+            @if($settingsNetworkManager['module_announcements'])
+                <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-comment"></i><span>Announcements</span></a></li>
+            @endif
 
-
-            </li>
         </ul>
         {{-- NAMELESS (NAMELESSMC)--}}
         @if($settings['nameless_integration'] == 1)
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">Nameless (Forum)</li>
-            <li><a href=""><i class="fa fa-users"></i><span>Users</span></a></li>
-            <li><a href=""><i class="fa fa-user-times"></i><span>Banned Users</span></a>
-            </li>
-        </ul>
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">Nameless (Forum)</li>
+                <li><a href=""><i class="fa fa-users"></i><span>Users</span></a></li>
+                <li><a href=""><i class="fa fa-user-times"></i><span>Banned Users</span></a>
+                </li>
+            </ul>
         @endif
         {{-- FEEDBACK MODULE --}}
         <ul class="sidebar-menu" data-widget="tree">

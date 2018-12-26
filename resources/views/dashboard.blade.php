@@ -80,7 +80,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Total playtime</span>
-                    <span class="info-box-number">{$totalPlaytime}</span>
+                    <span class="info-box-number">{{ \App\Http\Controllers\Tools\ConvertTimeController::convertPlaytime($playtime) }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

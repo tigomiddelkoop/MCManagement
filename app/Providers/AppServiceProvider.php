@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Setting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -23,8 +24,14 @@ class AppServiceProvider extends ServiceProvider
             $permissions = $this->getPermissions();
             $settings = $this->getSettings();
 
+            if($settings['networkmanager_integration']) {
+                $settingsNetworkManager = $this->getSettingsNetworkManager();
+            }
+
+
             View::share('permissions', $permissions);
             View::share('settings', $settings);
+            View::share('settingsNetworkManager', $settingsNetworkManager);
 
         }
 
@@ -63,5 +70,19 @@ class AppServiceProvider extends ServiceProvider
 
         return $settingsArray;
 
+    }
+
+    private function getSettingsNetworkManager()
+    {
+
+        $settings = DB::connection('mysql_networkmanager')->table('values')->get();
+
+        $settingsArray = [];
+
+        foreach ($settings as $setting) {
+            $settingsArray[$setting->variable] = $setting->value;
+        }
+
+        return $settingsArray;
     }
 }
