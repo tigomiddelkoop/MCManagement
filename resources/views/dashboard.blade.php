@@ -50,7 +50,8 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Today online players</span>
-                    <span class="info-box-number">{{ $todayPlayers }}</span>
+                    {{--<span class="info-box-number">{{ $todayPlayers }}</span>--}}
+                    <span class="info-box-number">--</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -67,7 +68,8 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Todays new players</span>
-                    <span class="info-box-number">{{ $newPlayers }}</span>
+                    {{--<span class="info-box-number">{{ $newPlayers }}</span>--}}
+                    <span class="info-box-number">--</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

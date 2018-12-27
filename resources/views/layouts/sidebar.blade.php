@@ -39,28 +39,28 @@
         {{-- NETWORKMANAGER (MINECRAFT)--}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">NetworkManager (Minecraft)</li>
-            <li><a href=""><i class="fa fa-server"></i><span>NetworkManager Settings</span></a></li>
+            <li><a href=""><i class="fa fa-cogs"></i><span>NetworkManager Settings</span></a></li>
             <li><a href=""><i class="fa fa-language"></i><span>Language</span></a>
             @if($settingsNetworkManager['motd_enabled'])
-            <li><a href=""><i class="fa fa-comment"></i><span>Message Of The Day</span></a></li>
+            <li><a href=""><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a></li>
             @endif
             @if($settingsNetworkManager['module_permissions_bungee'] || $settingsNetworkManager['module_permissions_spigot'])
-                <li><a href=""><i class="fa fa-comment"></i><span>Permissions</span></a></li>
+                <li><a href=""><i class="fa fa-th-list"></i><span>Permissions</span></a></li>
             @endif
             @if($settingsNetworkManager['module_servermanager'])
-                <li><a href=""><i class="fa fa-comment"></i><span>Server Manager</span></a></li>
+                <li><a href="{{ route('networkmanagerServerIndex') }}"><i class="fa fa-server"></i><span>Server Manager</span></a></li>
             @endif
             @if($settingsNetworkManager['module_tags'])
-                <li><a href=""><i class="fa fa-comment"></i><span>Tags</span></a></li>
+                <li><a href=""><i class="fa fa-tags"></i><span>Tags</span></a></li>
             @endif
             @if($settingsNetworkManager['module_filter'])
-                <li><a href=""><i class="fa fa-comment"></i><span>Filter</span></a></li>
+                <li><a href=""><i class="fa fa-filter"></i><span>Filter</span></a></li>
             @endif
             @if($settingsNetworkManager['module_commandblocker'])
-                <li><a href=""><i class="fa fa-comment"></i><span>Command Blocker</span></a></li>
+                <li><a href=""><i class="fa fa-ban"></i><span>Command Blocker</span></a></li>
             @endif
             @if($settingsNetworkManager['module_announcements'])
-                <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-comment"></i><span>Announcements</span></a></li>
+                <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-bullhorn"></i><span>Announcements</span></a></li>
             @endif
 
         </ul>

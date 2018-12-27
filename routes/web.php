@@ -45,6 +45,21 @@ Route::prefix('networkmanager')->group(function () {
     });
     Route::prefix('servers')->group(function () {
 
+        Route::get('/', 'NetworkManager\ServerController@index')->name('networkmanagerServerIndex');
+
+        Route::get('/addserver', 'NetworkManager\ServerController@createServer')->name('networkmanagerServerCreateServer');
+        Route::get('/addservergroup', 'NetworkManager\ServerController@createServerGroup')->name('networkmanagerServerCreateServerGroup');
+
+        Route::post('/addserver', 'NetworkManager\ServerController@storeServer')->name('networkmanagerServerStoreServer');
+        Route::post('/addservergroup', 'NetworkManager\ServerController@storeServerGroup')->name('networkmanagerServerStoreServerGroup');
+
+        Route::get('/editserver', 'NetworkManager\ServerController@editServer')->name('networkmanagerServerEditServer');
+        Route::get('/editservergroup', 'NetworkManager\ServerController@editServerGroup')->name('networkmanagerServerEditServerGroup');
+
+        Route::post('/editserver', 'NetworkManager\ServerController@updateServer')->name('networkmanagerServerUpdateServer');
+        Route::post('/editservergroup', 'NetworkManager\ServerController@updateServerGroup')->name('networkmanagerServerUpdateServerGroup');
+
+
     });
     Route::prefix('tags')->group(function () {
 
