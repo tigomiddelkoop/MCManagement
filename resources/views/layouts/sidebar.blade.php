@@ -41,15 +41,31 @@
             <li class="header">NetworkManager (Minecraft)</li>
             <li><a href=""><i class="fa fa-server"></i><span>NetworkManager Settings</span></a></li>
             <li><a href=""><i class="fa fa-language"></i><span>Language</span></a>
-            {{--<li><a href="{{ route('networkmanagerMOTD') }}"><i class="fa fa-calendar"></i><span>MOTD</span></a>--}}
-            {{--<li><a href="{{ route('networkmanagerServers') }}"><i class="fa fa-server"></i><span>Servers</span></a></li>--}}
+            @if($settingsNetworkManager['motd_enabled'])
+            <li><a href=""><i class="fa fa-comment"></i><span>Message Of The Day</span></a></li>
+            @endif
+            @if($settingsNetworkManager['module_permissions_bungee'] || $settingsNetworkManager['module_permissions_spigot'])
+                <li><a href=""><i class="fa fa-comment"></i><span>Permissions</span></a></li>
+            @endif
+            @if($settingsNetworkManager['module_servermanager'])
+                <li><a href=""><i class="fa fa-comment"></i><span>Server Manager</span></a></li>
+            @endif
+            @if($settingsNetworkManager['module_tags'])
+                <li><a href=""><i class="fa fa-comment"></i><span>Tags</span></a></li>
+            @endif
+            @if($settingsNetworkManager['module_filter'])
+                <li><a href=""><i class="fa fa-comment"></i><span>Filter</span></a></li>
+            @endif
+            @if($settingsNetworkManager['module_commandblocker'])
+                <li><a href=""><i class="fa fa-comment"></i><span>Command Blocker</span></a></li>
+            @endif
             @if($settingsNetworkManager['module_announcements'])
                 <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-comment"></i><span>Announcements</span></a></li>
             @endif
 
         </ul>
         {{-- NAMELESS (NAMELESSMC)--}}
-        @if($settings['nameless_integration'] == 1)
+        @if($settings['nameless_integration'])
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Nameless (Forum)</li>
                 <li><a href=""><i class="fa fa-users"></i><span>Users</span></a></li>

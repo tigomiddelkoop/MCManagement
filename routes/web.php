@@ -37,6 +37,24 @@ Route::prefix('minecraft')->group(function () {
 });
 
 Route::prefix('networkmanager')->group(function () {
+    Route::prefix('motd')->group(function () {
+
+    });
+    Route::prefix('permissions')->group(function () {
+
+    });
+    Route::prefix('servers')->group(function () {
+
+    });
+    Route::prefix('tags')->group(function () {
+
+    });
+    Route::prefix('filter')->group(function () {
+
+    });
+    Route::prefix('commandblocker')->group(function () {
+
+    });
     Route::prefix('announcements')->group(function () {
 
         Route::get('/', "NetworkManager\AnnouncementController@index")->name('networkmanagerAnnouncementsIndex');
@@ -47,7 +65,13 @@ Route::prefix('networkmanager')->group(function () {
         Route::delete('/delete/{id}', "NetworkManager\AnnouncementController@delete")->name('networkmanagerAnnouncementsDelete');
 
     });
+    Route::prefix('tabcompletecommands')->group(function () {
+
+    });
+
 });
+
+Route::prefix('nameless')->group(function () {});
 
 Route::prefix('panel')->group(function () {
 
