@@ -27,7 +27,7 @@ class ServerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createServer()
+    public function create()
     {
         return view('networkmanager.servermanager.server.create');
     }
@@ -38,7 +38,7 @@ class ServerController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function storeServer(Request $request)
+    public function store(Request $request)
     {
 
         $validatedData = $request->validate([
@@ -55,8 +55,7 @@ class ServerController extends Controller
 
         $versionArray = null;
 
-        if (isset($validatedData['allowedversions']))
-        {
+        if (isset($validatedData['allowedversions'])) {
             $versionArray = $this->createVersionArray($validatedData['allowedversions']);
         }
         if (isset($validatedData['serverrestricted'])) {
@@ -84,7 +83,7 @@ class ServerController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function editServer($id)
+    public function edit($id)
     {
         $server = DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->first();
         return view('networkmanager.servermanager.server.edit', compact('server'));
@@ -97,7 +96,7 @@ class ServerController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function updateServer(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'servername' => 'required|max:100',
@@ -110,8 +109,7 @@ class ServerController extends Controller
 
         $versionArray = null;
 
-        if (isset($validatedData['allowedversions']))
-        {
+        if (isset($validatedData['allowedversions'])) {
             $versionArray = $this->createVersionArray($validatedData['allowedversions']);
         }
 
@@ -139,74 +137,27 @@ class ServerController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroyServer($id)
+    public function destroy($id)
     {
 
-        $server = DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->select('servername')->first();
+        $serverExists = DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->exists();
 
-        DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->delete();
+        if ($serverExists) {
+            $server = DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->select('servername')->first();
 
-        $success = [
-            'code' => 1,
-            'servername' => $server->servername,
-        ];
+            DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->delete();
+
+            $success = [
+                'code' => 1,
+                'servername' => $server->servername,
+            ];
+        } else {
+            $success = [
+                'code' => 99,
+                'message' => "Server does not exist",
+            ];
+        }
         return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createServerGroup()
-    {
-        return view('networkmanager.servermanager.servergroup.create');
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeServerGroup(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function editServerGroup($id)
-    {
-        return view('networkmanager.servermanager.servergroup.edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateServerGroup(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroyServerGroup($id)
-    {
-        //
     }
 
     private function createVersionArray($array)

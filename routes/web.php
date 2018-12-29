@@ -47,20 +47,20 @@ Route::prefix('networkmanager')->group(function () {
 
         Route::get('/', 'NetworkManager\ServerController@index')->name('networkmanagerServerIndex');
 
-        Route::get('/addserver', 'NetworkManager\ServerController@createServer')->name('networkmanagerServerCreateServer');
-        Route::get('/addservergroup', 'NetworkManager\ServerController@createServerGroup')->name('networkmanagerServerCreateServerGroup');
+        Route::get('/addserver', 'NetworkManager\ServerController@create')->name('networkmanagerServerCreateServer');
+        Route::get('/addservergroup', 'NetworkManager\ServerGroupController@create')->name('networkmanagerServerCreateServerGroup');
 
-        Route::post('/addserver', 'NetworkManager\ServerController@storeServer')->name('networkmanagerServerStoreServer');
-        Route::post('/addservergroup', 'NetworkManager\ServerController@storeServerGroup')->name('networkmanagerServerStoreServerGroup');
+        Route::post('/addserver', 'NetworkManager\ServerController@store')->name('networkmanagerServerStoreServer');
+        Route::post('/addservergroup', 'NetworkManager\ServerController@store')->name('networkmanagerServerStoreServerGroup');
 
-        Route::get('/editserver/{id}', 'NetworkManager\ServerController@editServer')->name('networkmanagerServerEditServer');
-        Route::get('/editservergroup/{id}', 'NetworkManager\ServerController@editServerGroup')->name('networkmanagerServerEditServerGroup');
+        Route::get('/editserver/{id}', 'NetworkManager\ServerController@edit')->name('networkmanagerServerEditServer');
+        Route::get('/editservergroup/{id}', 'NetworkManager\ServerGroupController@edit')->name('networkmanagerServerEditServerGroup');
 
-        Route::post('/editserver/{id}', 'NetworkManager\ServerController@updateServer')->name('networkmanagerServerUpdateServer');
-        Route::post('/editservergroup/{id}', 'NetworkManager\ServerController@updateServerGroup')->name('networkmanagerServerUpdateServerGroup');
+        Route::post('/editserver/{id}', 'NetworkManager\ServerController@update')->name('networkmanagerServerUpdateServer');
+        Route::post('/editservergroup/{id}', 'NetworkManager\ServerGroupController@update')->name('networkmanagerServerUpdateServerGroup');
 
-        Route::get('/removeserver/{id}', 'NetworkManager\ServerController@destroyServer')->name('networkmanagerServerDestroyServer');
-        Route::get('/removeservergroup/{id}', 'NetworkManager\ServerController@destoryServerGroup')->name('networkmanagerServerDestroyServerGroup');
+        Route::get('/removeserver/{id}', 'NetworkManager\ServerController@destroy')->name('networkmanagerServerDestroyServer');
+        Route::get('/removeservergroup/{id}', 'NetworkManager\ServerGroupController@destory')->name('networkmanagerServerDestroyServerGroup');
 
 
     });
