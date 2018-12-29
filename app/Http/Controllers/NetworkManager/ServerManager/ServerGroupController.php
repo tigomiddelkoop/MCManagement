@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\NetworkManager;
+namespace App\Http\Controllers\NetworkManager\ServerManager;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

@@ -57,7 +57,8 @@
                             <select class="from-control versionselector" multiple="multiple"
                                     data-placeholder="Select allowed minecraft versions"
                                     style="width: 100%;"
-                                    name="allowedversions[]">
+                                    name="allowedversions[]"
+                            value="1.13, 1.12">
                                 @include('networkmanager.servermanager.versions')
                             </select>
                         </div>

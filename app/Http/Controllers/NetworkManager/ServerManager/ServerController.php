@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\NetworkManager;
+namespace App\Http\Controllers\NetworkManager\ServerManager;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\Null_;
 
 class ServerController extends Controller
 {
@@ -16,10 +15,7 @@ class ServerController extends Controller
      */
     public function index()
     {
-        $servers = DB::connection('mysql_networkmanager')->table('servers')->get();
-        $serverGroups = DB::connection('mysql_networkmanager')->table('server_groups')->get();
-
-        return view('networkmanager.servermanager.index', compact('servers', 'serverGroups'));
+//
     }
 
     /**
