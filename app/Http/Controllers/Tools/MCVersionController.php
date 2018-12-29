@@ -37,7 +37,7 @@ class MCVersionController extends Controller
             case '107':
                 return '1.9';
             case '47':
-                return '1.8 - 1.8.9';
+                return '1.8.x';
             case '5':
                 return '1.7.6 - 1.7.10';
             case '4':

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\NetworkManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class ServerController extends Controller
 {
@@ -18,7 +19,7 @@ class ServerController extends Controller
         $servers = DB::connection('mysql_networkmanager')->table('servers')->get();
         $serverGroups = DB::connection('mysql_networkmanager')->table('server_groups')->get();
 
-        return view('networkmanager.servermanager.index',  compact('servers', 'serverGroups'));
+        return view('networkmanager.servermanager.index', compact('servers', 'serverGroups'));
     }
 
     /**
@@ -34,59 +35,122 @@ class ServerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function storeServer(Request $request)
     {
+
         $validatedData = $request->validate([
-            'servername' => 'required|max:100',
+            'servername' => 'required|max:100|unique:mysql_networkmanager.servers',
             'serverip' => 'required|max:100',
             'serverport' => 'required|min:1|max:65535|integer',
-            'servermotd' => 'required|max:255',
+            'servermotd' => 'max:255',
+            'serverrestricted' => 'alpha',
+            'allowedversions' => 'nullable'
         ]);
 
 //        dd($validatedData);
 
+
+        $versionArray = null;
+
+        if (isset($validatedData['allowedversions']))
+        {
+            $versionArray = $this->createVersionArray($validatedData['allowedversions']);
+        }
+        if (isset($validatedData['serverrestricted'])) {
+            $restricted = $this->checkIfRestricted($validatedData['serverrestricted']);
+        } else {
+            $restricted = 0;
+        }
+
+
         DB::connection('mysql_networkmanager')->table('servers')->insert(
-            ['servername' => $validatedData['servername'], 'ip' => $validatedData['serverip'], 'port' => $validatedData['serverport'], 'motd' => $validatedData['servermotd'], 'restricted' => 0]
+            ['servername' => $validatedData['servername'], 'ip' => $validatedData['serverip'], 'port' => $validatedData['serverport'], 'motd' => $validatedData['servermotd'], 'allowed_versions' => $versionArray, 'restricted' => $restricted, 'online' => null]
         );
 
-        return redirect(route('networkmanagerServerIndex'));
+        $success = [
+            'code' => 0,
+            "servername" => $validatedData['servername']
+        ];
+        return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function editServer($id)
     {
-        return view('networkmanager.servermanager.server.edit');
+        $server = DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->first();
+        return view('networkmanager.servermanager.server.edit', compact('server'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function updateServer(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'servername' => 'required|max:100',
+            'serverip' => 'required|max:100',
+            'serverport' => 'required|min:1|max:65535|integer',
+            'servermotd' => 'max:255',
+            'serverrestricted' => 'alpha',
+            'allowedversions' => 'nullable'
+        ]);
+
+        $versionArray = null;
+
+        if (isset($validatedData['allowedversions']))
+        {
+            $versionArray = $this->createVersionArray($validatedData['allowedversions']);
+        }
+
+        if (isset($validatedData['serverrestricted'])) {
+            $restricted = $this->checkIfRestricted($validatedData['serverrestricted']);
+        } else {
+            $restricted = 0;
+        }
+
+
+        DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->update(
+            ['servername' => $validatedData['servername'], 'ip' => $validatedData['serverip'], 'port' => $validatedData['serverport'], 'motd' => $validatedData['servermotd'], 'allowed_versions' => $versionArray, 'restricted' => $restricted, 'online' => null]
+        );
+
+        $success = [
+            'code' => 0,
+            "servername" => $validatedData['servername']
+        ];
+        return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroyServer($id)
     {
-        //
+
+        $server = DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->select('servername')->first();
+
+        DB::connection('mysql_networkmanager')->table('servers')->where('id', '=', $id)->delete();
+
+        $success = [
+            'code' => 1,
+            'servername' => $server->servername,
+        ];
+        return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
     }
 
     /**
@@ -103,7 +167,7 @@ class ServerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function storeServerGroup(Request $request)
@@ -114,7 +178,7 @@ class ServerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function editServerGroup($id)
@@ -125,8 +189,8 @@ class ServerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function updateServerGroup(Request $request, $id)
@@ -137,11 +201,41 @@ class ServerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroyServerGroup($id)
     {
         //
+    }
+
+    private function createVersionArray($array)
+    {
+        $convertedarray = null;
+
+        foreach ($array as $version) {
+            $convertedarray .= $version . ', ';
+        }
+
+        return $convertedarray;
+    }
+
+    private function checkIfRestricted($value)
+    {
+
+        switch ($value) {
+            case('on'):
+                $restricted = 1;
+                break;
+            case('off'):
+                $restricted = 0;
+                break;
+            default:
+                $restricted = NULL;
+                break;
+        }
+
+        return $restricted;
+
     }
 }
