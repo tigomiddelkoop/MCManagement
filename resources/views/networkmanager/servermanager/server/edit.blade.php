@@ -40,17 +40,21 @@
                         @csrf
                         <label for="servername">Server Name:</label>
                         <input class="form-control" name="servername" type="text" value="{{ $server->servername }}">
+                        <br/>
 
                         <label for="serverip">Server IP:</label>
                         <input class="form-control" name="serverip" type="text" value="{{ $server->ip }}">
+                        <br/>
 
                         <label for="serverport">Server Port:</label>
                         <input class="form-control" name="serverport" type="number" min="1" max="65535"
                                value="{{ $server->port }}">
+                        <br/>
 
                         <label for="servermotd">Server MOTD:</label>
                         <input class="form-control" name="servermotd" type="text" value="{{ $server->motd }}">
 
+                        <br/>
 
                         <div class="form-group">
                             <label for="allowedversions">Select Minecraft versions</label>
@@ -58,10 +62,11 @@
                                     data-placeholder="Select allowed minecraft versions"
                                     style="width: 100%;"
                                     name="allowedversions[]"
-                            value="1.13, 1.12">
+                                    value="1.13, 1.12">
                                 @include('networkmanager.servermanager.versions')
                             </select>
                         </div>
+                        <br/>
 
                         <label for="serverrestricted">Server Restricted:</label>
                         @if($server->restricted)
@@ -72,7 +77,7 @@
 
                     </div>
                     <div class="box-footer">
-                        <button class="btn btn-primary" type="submit">Save server</button>
+                        <button class="btn btn-primary btn-sm" type="submit">Save server</button>
                     </div>
                 </form>
             </div>

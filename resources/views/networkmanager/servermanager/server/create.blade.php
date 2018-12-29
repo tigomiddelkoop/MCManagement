@@ -40,17 +40,20 @@
                         @csrf
                         <label for="servername">Server Name:</label>
                         <input class="form-control" name="servername" type="text" value="{{ old('servername') }}">
-
+                        <br/>
                         <label for="serverip">Server IP:</label>
                         <input class="form-control" name="serverip" type="text" value="{{ old('serverip') }}">
+                        <br/>
 
                         <label for="serverport">Server Port:</label>
                         <input class="form-control" name="serverport" type="number" min="1" max="65535"
                                value="{{ old('serverport') }}">
+                        <br/>
 
                         <label for="servermotd">Server MOTD:</label>
                         <input class="form-control" name="servermotd" type="text" value="{{ old('servermotd') }}">
 
+                        <br/>
 
                         <div class="form-group">
                             <label for="allowedversions">Select Minecraft versions</label>
@@ -61,6 +64,7 @@
                                 @include('networkmanager.servermanager.versions')
                             </select>
                         </div>
+                        <br/>
 
                         <label for="serverrestricted">Server Restricted:</label>
                         @if(old('serverrestricted') == "on")
@@ -71,7 +75,7 @@
 
                     </div>
                     <div class="box-footer">
-                        <button class="btn btn-primary" type="submit">Save server</button>
+                        <button class="btn btn-primary btn-sm" type="submit">Save server</button>
                     </div>
                 </form>
             </div>

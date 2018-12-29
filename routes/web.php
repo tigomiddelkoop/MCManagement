@@ -51,7 +51,7 @@ Route::prefix('networkmanager')->group(function () {
         Route::get('/addservergroup', 'NetworkManager\ServerManager\ServerGroupController@create')->name('networkmanagerServerCreateServerGroup');
 
         Route::post('/addserver', 'NetworkManager\ServerManager\ServerController@store')->name('networkmanagerServerStoreServer');
-        Route::post('/addservergroup', 'NetworkManager\ServerManager\ServerController@store')->name('networkmanagerServerStoreServerGroup');
+        Route::post('/addservergroup', 'NetworkManager\ServerManager\ServerGroupController@store')->name('networkmanagerServerStoreServerGroup');
 
         Route::get('/editserver/{id}', 'NetworkManager\ServerManager\ServerController@edit')->name('networkmanagerServerEditServer');
         Route::get('/editservergroup/{id}', 'NetworkManager\ServerManager\ServerGroupController@edit')->name('networkmanagerServerEditServerGroup');
