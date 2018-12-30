@@ -39,7 +39,7 @@
         {{-- NETWORKMANAGER (MINECRAFT)--}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">NetworkManager (Minecraft)</li>
-            <li><a href=""><i class="fa fa-cogs"></i><span>NetworkManager Settings</span></a></li>
+            <li><a href="{{ route('networkmanagerSettingIndex') }}"><i class="fa fa-cogs"></i><span>NetworkManager Settings</span></a></li>
             <li><a href=""><i class="fa fa-language"></i><span>Language</span></a>
             @if($settingsNetworkManager['motd_enabled'])
             <li><a href=""><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a></li>

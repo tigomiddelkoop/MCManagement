@@ -87,6 +87,10 @@ Route::prefix('networkmanager')->group(function () {
 
     });
 
+    Route::prefix('settings')->group(function () {
+       Route::get('/', "NetworkManager\SettingsController@index")->name('networkmanagerSettingIndex');
+    });
+
 });
 
 Route::prefix('nameless')->group(function () {});
