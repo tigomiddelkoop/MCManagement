@@ -18,60 +18,81 @@
             </li>
             {{--<li><a href="#"><i class="fa fa-user-times"></i> <span>Punishments [NETWORKMANAGER]</span></a></li>--}}
             @if($settings['litebans_integration'] == 1)
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-user-times"></i><span>Punishments [LITEBANS]</span>
-                        <span class="pull-right-container">
+                @can('litebans.access')
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-user-times"></i><span>Punishments [LITEBANS]</span>
+                            <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ route('litebansIndex') }}">Overview</a></li>
-                        <li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Bans</a></li>
-                        <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Kicks</a></li>
-                        <li><a href="{{ route('litebansShow', ['type' => 'mutes']) }}">Mutes</a></li>
-                        <li><a href="{{ route('litebansShow', ['type' => 'warnings']) }}">Warnings</a></li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="treeview-menu">
+                            @can('litebans.overview')
+                                <li><a href="{{ route('litebansIndex') }}">Overview</a></li>
+                            @endcan
+                            @can('litebans.bans')
+                                <li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Bans</a></li>
+                            @endcan
+                            @can('liteabans.kicks')
+                                <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Kicks</a></li>
+                            @endcan
+                            @can('litebans.mutes')
+                                <li><a href="{{ route('litebansShow', ['type' => 'mutes']) }}">Mutes</a></li>
+                            @endcan
+                            @can('litebans.warnings')
+                                <li><a href="{{ route('litebansShow', ['type' => 'warnings']) }}">Warnings</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
             @endif
             <li><a href="index.php?page=minecraft_serverstatus"><i
                             class="fa fa-server"></i><span>Server Status</span></a></li>
         </ul>
         {{-- NETWORKMANAGER (MINECRAFT)--}}
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">NetworkManager (Minecraft)</li>
-            <li><a href="{{ route('networkmanagerSettingIndex') }}"><i class="fa fa-cogs"></i><span>NetworkManager Settings</span></a></li>
-            <li><a href=""><i class="fa fa-language"></i><span>Language</span></a>
-            @if($settingsNetworkManager['motd_enabled'])
-            <li><a href=""><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a></li>
-            @endif
-            @if($settingsNetworkManager['module_permissions_bungee'] || $settingsNetworkManager['module_permissions_spigot'])
-                <li><a href=""><i class="fa fa-th-list"></i><span>Permissions</span></a></li>
-            @endif
-            @if($settingsNetworkManager['module_servermanager'])
-                <li><a href="{{ route('networkmanagerServerIndex') }}"><i class="fa fa-server"></i><span>Server Manager</span></a></li>
-            @endif
-            @if($settingsNetworkManager['module_tags'])
-                <li><a href=""><i class="fa fa-tags"></i><span>Tags</span></a></li>
-            @endif
-            @if($settingsNetworkManager['module_filter'])
-                <li><a href=""><i class="fa fa-filter"></i><span>Filter</span></a></li>
-            @endif
-            @if($settingsNetworkManager['module_commandblocker'])
-                <li><a href=""><i class="fa fa-ban"></i><span>Command Blocker</span></a></li>
-            @endif
-            @if($settingsNetworkManager['module_announcements'])
-                <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-bullhorn"></i><span>Announcements</span></a></li>
-            @endif
+        @can('networkmanager.access')
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">NetworkManager (Minecraft)</li>
+                @can('networkmanager.settings.access')
+                    <li><a href="{{ route('networkmanagerSettingIndex') }}"><i class="fa fa-cogs"></i><span>NetworkManager Settings</span></a>
+                    </li>
+                @endcan
+                <li><a href=""><i class="fa fa-language"></i><span>Language</span></a></li>
+                @if($settingsNetworkManager['motd_enabled'])
+                    <li><a href=""><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a></li>
+                @endif
+                @if($settingsNetworkManager['module_permissions_bungee'] || $settingsNetworkManager['module_permissions_spigot'])
+                    <li><a href=""><i class="fa fa-th-list"></i><span>Permissions</span></a></li>
+                @endif
+                @if($settingsNetworkManager['module_servermanager'])
+                    <li><a href="{{ route('networkmanagerServerIndex') }}"><i class="fa fa-server"></i><span>Server Manager</span></a>
+                    </li>
+                @endif
+                @if($settingsNetworkManager['module_tags'])
+                    <li><a href=""><i class="fa fa-tags"></i><span>Tags</span></a></li>
+                @endif
+                @if($settingsNetworkManager['module_filter'])
+                    <li><a href=""><i class="fa fa-filter"></i><span>Filter</span></a></li>
+                @endif
+                @if($settingsNetworkManager['module_commandblocker'])
+                    <li><a href=""><i class="fa fa-ban"></i><span>Command Blocker</span></a></li>
+                @endif
+                @if($settingsNetworkManager['module_announcements'])
+                    <li><a href="{{ route('networkmanagerAnnouncementsIndex') }}"><i class="fa fa-bullhorn"></i><span>Announcements</span></a>
+                    </li>
+                @endif
 
-        </ul>
+            </ul>
+        @endcan
         {{-- NAMELESS (NAMELESSMC)--}}
         @if($settings['nameless_integration'])
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">Nameless (Forum)</li>
-                <li><a href=""><i class="fa fa-users"></i><span>Users</span></a></li>
-                <li><a href=""><i class="fa fa-user-times"></i><span>Banned Users</span></a>
-                </li>
-            </ul>
+            @can('nameless.access')
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">Nameless (Forum)</li>
+                    <li><a href=""><i class="fa fa-users"></i><span>Users</span></a></li>
+                    <li><a href=""><i class="fa fa-user-times"></i><span>Banned Users</span></a>
+                    </li>
+                </ul>
+            @endcan
         @endif
         {{-- FEEDBACK MODULE --}}
         <ul class="sidebar-menu" data-widget="tree">
@@ -90,26 +111,27 @@
             </li>
         </ul>
         {{-- PANEL SETTINGS --}}
-        @hasrole('owner')
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">Panel</li>
-            <!-- Optionally, you can add icons to the links -->
-            <li><a href="{{ route('panelSettingsUserIndex') }}"><i class="fa fa-users"></i> <span>Users</span></a></li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-cogs"></i> <span>Settings</span>
-                    <span class="pull-right-container">
+        @can('mcmanagement.settings.access')
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">Panel</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li><a href="{{ route('panelSettingsUserIndex') }}"><i class="fa fa-users"></i> <span>Users</span></a>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-cogs"></i> <span>Settings</span>
+                        <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('panelSettingsGeneralIndex') }}">General</a></li>
-                    <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
-                    <li><a href="{{ route('panelSettingsRoleIndex') }}">Roles</a></li>
-                </ul>
-            </li>
-        </ul>
-        @endhasrole
-        <!-- /.sidebar-menu -->
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ route('panelSettingsGeneralIndex') }}">General</a></li>
+                        <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
+                        <li><a href="{{ route('panelSettingsRoleIndex') }}">Roles</a></li>
+                    </ul>
+                </li>
+            </ul>
+    @endcan
+    <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
 </aside>

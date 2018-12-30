@@ -34,25 +34,29 @@ class RoleSeeder extends Seeder
         $this->command->info("$prefix Creating Permissions");
 
 
-
         // Networkmanager Related Permissions
+        Permission::create(['name' => 'networkmanager.access']);
         Permission::create(['name' => 'networkmanager.player.viewip']);
         Permission::create(['name' => 'networkmanager.settings.access']);
 
         // Litebans Related Permissions
-        Permission::create(['name' => 'litebans.view.bans']);
-        Permission::create(['name' => 'litebans.view.kicks']);
-        Permission::create(['name' => 'litebans.view.mutes']);
-        Permission::create(['name' => 'litebans.view.warns']);
+        Permission::create(['name' => 'litebans.access']);
+        Permission::create(['name' => 'litebans.overview']);
+        Permission::create(['name' => 'litebans.bans']);
+        Permission::create(['name' => 'litebans.kicks']);
+        Permission::create(['name' => 'litebans.mutes']);
+        Permission::create(['name' => 'litebans.warns']);
 
         // Luckperms Related Permissions
-//        Permission::create(['luckperms.']);
+        Permission::create(['name' => 'luckperms.access']);
 
         // Nameless Related Permissions
-//        Permission::create(['nameless.'])
+        Permission::create(['name' => 'nameless.access']);
 
         // Panel Related Permissions
-        Permission::create(['name' => 'panel.view.settings']);
+        Permission::create(['name' => 'mcmanagement.access']);
+        Permission::create(['name' => 'mcmanagement.analytics']);
+        Permission::create(['name' => 'mcmanagement.settings.access']);
     }
 
     public function seedRoles()
@@ -66,7 +70,8 @@ class RoleSeeder extends Seeder
         $this->command->info("$prefix Filling Table");
 
         $role = Role::create(['name' => "owner"]);
-        $role->givePermissionTo('networkmanager.player.viewip', 'panel.view.settings');
+        $role->givePermissionTo(['networkmanager.access', 'networkmanager.player.viewip', 'networkmanager.settings.access', 'litebans.access', 'litebans.bans', 'luckperms.access', 'nameless.access',
+            'mcmanagement.access', 'mcmanagement.analytics', 'mcmanagement.settings.access']);
 
         $role = Role::create(['name' => "admin"]);
         $role->givePermissionTo('networkmanager.player.viewip');
