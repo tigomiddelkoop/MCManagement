@@ -32,7 +32,7 @@
                             @can('litebans.bans')
                                 <li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Bans</a></li>
                             @endcan
-                            @can('liteabans.kicks')
+                            @can('litebans.kicks')
                                 <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Kicks</a></li>
                             @endcan
                             @can('litebans.mutes')
@@ -45,7 +45,7 @@
                     </li>
                 @endcan
             @endif
-            <li><a href="index.php?page=minecraft_serverstatus"><i
+            <li><a href=""><i
                             class="fa fa-server"></i><span>Server Status</span></a></li>
         </ul>
         {{-- NETWORKMANAGER (MINECRAFT)--}}
@@ -95,28 +95,29 @@
             @endcan
         @endif
         {{-- FEEDBACK MODULE --}}
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">Modules</li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-user-times"></i> <span>Feedback</span>
-                    <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Responses</a></li>
-                    <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Form Questions</a></li>
-                    <li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Servers for form</a></li>
-                </ul>
-            </li>
-        </ul>
+        {{--<ul class="sidebar-menu" data-widget="tree">--}}
+        {{--<li class="header">Modules</li>--}}
+        {{--<li class="treeview">--}}
+        {{--<a href="#"><i class="fa fa-user-times"></i> <span>Feedback</span>--}}
+        {{--<span class="pull-right-container">--}}
+        {{--<i class="fa fa-angle-left pull-right"></i>--}}
+        {{--</span>--}}
+        {{--</a>--}}
+        {{--<ul class="treeview-menu">--}}
+        {{--<li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Responses</a></li>--}}
+        {{--<li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Form Questions</a></li>--}}
+        {{--<li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Servers for form</a></li>--}}
+        {{--</ul>--}}
+        {{--</li>--}}
+        {{--</ul>--}}
         {{-- PANEL SETTINGS --}}
-        @can('mcmanagement.settings.access')
+        @can('mcmanagement.access.settings')
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Panel</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li><a href="{{ route('panelSettingsUserIndex') }}"><i class="fa fa-users"></i> <span>Users</span></a>
-                </li>
+                @can('mcmanagement.access.settings.users')
+                    <li><a href="{{ route('panelSettingsUserIndex') }}"><i class="fa fa-users"></i>
+                            <span>Users</span></a></li>
+                @endcan
                 <li class="treeview">
                     <a href="#"><i class="fa fa-cogs"></i> <span>Settings</span>
                         <span class="pull-right-container">
@@ -125,8 +126,12 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{ route('panelSettingsGeneralIndex') }}">General</a></li>
-                        <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
-                        <li><a href="{{ route('panelSettingsRoleIndex') }}">Roles</a></li>
+                        @can('mcmanagement.access.settings.language')
+                            <li><a href="{{ route('panelSettingsLanguageIndex') }}">Language</a></li>
+                        @endcan
+                        @can('mcmanagement.access.settings.roles')
+                            <li><a href="{{ route('panelSettingsRoleIndex') }}">Roles</a></li>
+                        @endcan
                     </ul>
                 </li>
             </ul>
