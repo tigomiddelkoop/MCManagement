@@ -62,8 +62,8 @@ Route::prefix('networkmanager')->group(function () {
         Route::post('/editserver/{id}', 'NetworkManager\ServerManager\ServerController@update')->name('networkmanagerServerUpdateServer');
         Route::post('/editservergroup/{id}', 'NetworkManager\ServerManager\ServerGroupController@update')->name('networkmanagerServerUpdateServerGroup');
 
-        Route::get('/removeserver/{id}', 'NetworkManager\ServerManager\ServerController@destroy')->name('networkmanagerServerDestroyServer');
-        Route::get('/removeservergroup/{id}', 'NetworkManager\ServerManager\ServerGroupController@destory')->name('networkmanagerServerDestroyServerGroup');
+        Route::delete('/removeserver/{id}', 'NetworkManager\ServerManager\ServerController@destroy')->name('networkmanagerServerDestroyServer');
+        Route::delete('/removeservergroup/{id}', 'NetworkManager\ServerManager\ServerGroupController@destory')->name('networkmanagerServerDestroyServerGroup');
 
 
     });

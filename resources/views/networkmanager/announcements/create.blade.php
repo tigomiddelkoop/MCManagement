@@ -19,12 +19,9 @@
                 </div>
                 <div class="box-body">
 
-                    {{--These are for me to quicklty get the variables--}}
-                    {{--{{ $announcement->id }}--}}
-                    {{--{{ $announcement->type }}--}}
-                    {{--{{ $announcement->message }}--}}
-                    {{--{{ $announcement->server }}--}}
-                    {{--{{ $announcement->active }}--}}
+                    @foreach ($errors->all() as $message)
+                        {{ $message }} <br/>
+                    @endforeach
 
                     <form action="{{ route('networkmanagerAnnouncementsCreate') }}"
                           method="post">
@@ -58,7 +55,6 @@
                         <label for="active">Active:</label>
 
                             <input type="checkbox" name="active" id="active" >
-
                 </div>
                 <div class="box-footer">
                     <input class="btn btn-primary" type="submit" value="Save">

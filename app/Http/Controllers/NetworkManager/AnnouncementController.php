@@ -134,12 +134,22 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        DB::connection('mysql_networkmanager')->table('announcements')->where('id', '=', $id)->delete();
+        $exists = DB::connection('mysql_networkmanager')->table('announcements')->where('id', '=', $id)->exists();
 
-        $infoMessage = [
-            'code' => 1,
-            "message" => "Announcement removed! It should be removed in a few minutes from your network"
-        ];
+        if($exists) {
+            DB::connection('mysql_networkmanager')->table('announcements')->where('id', '=', $id)->delete();
+
+            $infoMessage = [
+                'code' => 1,
+                "message" => "Announcement removed! It should be removed in a few minutes from your network"
+            ];
+        } else {
+            $infoMessage = [
+                'code' => 0,
+                "message" => "Announcement does not exist"
+            ];
+        }
+
         return redirect(route('networkmanagerAnnouncementsIndex'))->with(compact('infoMessage'));
     }
 }

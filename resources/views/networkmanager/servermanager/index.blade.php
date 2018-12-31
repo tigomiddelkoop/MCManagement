@@ -43,10 +43,15 @@ if (session()->has('success')) {
                                 <td>{{ $server->restricted }}</td>
                                 <td>{{ $server->online }}</td>
                                 <td>
-                                    <a href="{{ route('networkmanagerServerEditServer', ['id' => $server->id]) }}"
-                                       class="btn btn-xs btn-primary">Edit</a>
-                                    <a href="{{ route('networkmanagerServerDestroyServer', ['id' => $server->id]) }}"
-                                       class="btn btn-xs btn-danger">Delete</a>
+                                    <form action="{{ route('networkmanagerServerDestroyServer', ['id' => $server->id]) }}"
+                                          method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <a href="{{ route('networkmanagerServerEditServer', ['id' => $server->id]) }}"
+                                           class="btn btn-xs btn-primary">Edit</a>
+
+                                        <input type="submit" class="btn btn-danger btn-xs" value="Delete">
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
