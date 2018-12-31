@@ -21,7 +21,6 @@ class RoleSeeder extends Seeder
 //            'password' => bcrypt('secret'),
 //        ]);
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions('');
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetRoles('');
         $this->seedPermissions();
         $this->seedRoles();
     }
@@ -37,6 +36,7 @@ class RoleSeeder extends Seeder
 
         // Networkmanager Related Permissions
         Permission::create(['name' => 'networkmanager.access']);
+        Permission::create(['name' => 'networkmanager.player.access']);
         Permission::create(['name' => 'networkmanager.player.viewip']);
         Permission::create(['name' => 'networkmanager.settings.access']);
 
@@ -68,18 +68,18 @@ class RoleSeeder extends Seeder
         $prefix = '[RoleSeeder][Roles]';
 
 //        $this->command->info("$prefix Truncating Table");
-//        DB::dropForeign('role_has_permissionb')
+//        DB::dropForeign('role_has_permission')
 
 
         $this->command->info("$prefix Filling Table");
 
         $role = Role::create(['name' => "owner"]);
-        $role->givePermissionTo(['networkmanager.access', 'networkmanager.player.viewip', 'networkmanager.settings.access', 'litebans.access', 'litebans.overview', 'litebans.bans',
+        $role->givePermissionTo(['networkmanager.access', 'networkmanager.player.access', 'networkmanager.player.viewip', 'networkmanager.settings.access', 'litebans.access', 'litebans.overview', 'litebans.bans',
             'litebans.kicks', 'litebans.mutes', 'litebans.warnings', 'luckperms.access', 'nameless.access',
             'mcmanagement.access', 'mcmanagement.analytics', 'mcmanagement.access.settings', 'mcmanagement.access.settings.users', 'mcmanagement.access.settings.language', 'mcmanagement.access.settings.roles']);
 
         $role = Role::create(['name' => "admin"]);
-        $role->givePermissionTo('networkmanager.player.viewip');
+//        $role->givePermissionTo('networkmanager.player.viewip');
 
         $role = Role::create(['name' => "mod"]);
 //        $role->givePermissionTo('');

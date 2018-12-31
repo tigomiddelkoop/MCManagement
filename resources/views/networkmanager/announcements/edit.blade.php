@@ -1,5 +1,8 @@
 @extends('layouts.general')
 
+
+<?php use App\Http\Controllers\Tools\FormSelectSelectedController; ?>
+
 @section('pagetitle')
     Editting Announcement
 @endsection
@@ -29,6 +32,22 @@
                     <form action="{{ route('networkmanagerAnnouncementsUpdate', ['id' => $announcement->id ]) }}"
                           method="post">
                         @csrf
+
+                        <label for="type">Announcement Type:</label>
+                        <select name="type"  class="form-control">
+                            <option {{ FormSelectSelectedController::selected(1, $announcement->type ) }} value="1">[Chat] All Servers</option>
+                            <option {{ FormSelectSelectedController::selected(2, $announcement->type ) }} value="2">[Chat] Only specified Servers</option>
+                            <option {{ FormSelectSelectedController::selected(3, $announcement->type ) }} value="3">[Chat] All Servers except the servers specified</option>
+                            <option {{ FormSelectSelectedController::selected(4, $announcement->type ) }} value="4">[ActionBar] All Servers</option>
+                            <option {{ FormSelectSelectedController::selected(5, $announcement->type ) }} value="5">[ActionBar] Only specified Servers</option>
+                            <option {{ FormSelectSelectedController::selected(6, $announcement->type ) }} value="6">[ActionBar] All Servers except the servers specified</option>
+                            <option {{ FormSelectSelectedController::selected(7, $announcement->type ) }} value="7">[Title] All Servers</option>
+                            <option {{ FormSelectSelectedController::selected(8, $announcement->type ) }} value="8">[Title] Only specified Servers</option>
+                            <option {{ FormSelectSelectedController::selected(9, $announcement->type ) }} value="9">[Title] All Servers except the servers specified</option>
+                        </select>
+
+                        <br />
+
                         <label for="message">Announcement Message:</label>
                         <textarea type="text" name="message" id="message"
                                   class="form-control">{{ $announcement->message }}</textarea>

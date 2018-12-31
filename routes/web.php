@@ -83,7 +83,7 @@ Route::prefix('networkmanager')->group(function () {
         Route::post('/create', "NetworkManager\AnnouncementController@store")->name('networkmanagerAnnouncementsStore');
         Route::get('/{id}', "NetworkManager\AnnouncementController@edit")->name('networkmanagerAnnouncementsEdit');
         Route::post('/{id}', "NetworkManager\AnnouncementController@update")->name('networkmanagerAnnouncementsUpdate');
-        Route::delete('/delete/{id}', "NetworkManager\AnnouncementController@delete")->name('networkmanagerAnnouncementsDelete');
+        Route::delete('/delete/{id}', "NetworkManager\AnnouncementController@destroy")->name('networkmanagerAnnouncementsDelete');
 
     });
     Route::prefix('tabcompletecommands')->group(function () {
