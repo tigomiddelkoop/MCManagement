@@ -123,10 +123,10 @@
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Version 0.5-ALPHA
+            Version 0.5-ALPHA - <a href="{{ route('about') }}">About</a>
         </div>
         <!-- Default to the left -->
-        <strong>MCManagement built by <a href="http://genericdevelopment.nl">GenericDevelopment</a>.</strong>
+        <strong>MCManagement built by <a href="http://genericdevelopment.nl">GenericDevelopment</a></strong>
     </footer>
 
     <!-- Add the sidebar's background. This div must be placed

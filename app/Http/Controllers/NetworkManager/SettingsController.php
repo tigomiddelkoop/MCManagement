@@ -37,8 +37,25 @@ class SettingsController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(Request $request)
     {
+
+        $validatedData = $request->validate([
+            '*' => "max:255",
+        ]);
+        //Remove the token from the list
+        unset($validatedData['_token']);
+
+        foreach($validatedData as $data) {
+            DB::connection('mysql_networkmanager')->table('values')->where('variable' , '=', $data['setting'])->update(['value' => $data['value']]);
+        }
+
+        $infoMessage = [
+            'code' => 1,
+            'message' => "Settings are saved!"
+        ];
+
+        return redirect(route('networkmanagerSettingsIndex'))->with(compact('infoMessage'));
 
     }
 

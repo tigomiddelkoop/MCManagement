@@ -66,8 +66,8 @@ class ServerController extends Controller
         );
 
         $success = [
-            'code' => 0,
-            "servername" => $validatedData['servername']
+            'code' => 1,
+            "message" => "Do Execute '/servermanager reload " . $validatedData['servername'] . "' to register it"
         ];
         return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
 
@@ -121,8 +121,8 @@ class ServerController extends Controller
         );
 
         $success = [
-            'code' => 0,
-            "servername" => $validatedData['servername']
+            'code' => 1,
+            "message" => "Do Execute '/servermanager reload " . $validatedData['servername'] . "' to reload it"
         ];
         return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
     }
@@ -145,11 +145,11 @@ class ServerController extends Controller
 
             $success = [
                 'code' => 1,
-                'servername' => $server->servername,
+                'message' => "Server " . $server->servername . " removed",
             ];
         } else {
             $success = [
-                'code' => 99,
+                'code' => 0,
                 'message' => "Server does not exist",
             ];
         }

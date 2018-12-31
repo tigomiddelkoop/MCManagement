@@ -53,7 +53,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">NetworkManager (Minecraft)</li>
                 @can('networkmanager.settings.access')
-                    <li><a href="{{ route('networkmanagerSettingIndex') }}"><i class="fa fa-cogs"></i><span>NetworkManager Settings</span></a>
+                    <li><a href="{{ route('networkmanagerSettingsIndex') }}"><i class="fa fa-cogs"></i><span>NetworkManager Settings</span></a>
                     </li>
                 @endcan
                 <li><a href=""><i class="fa fa-language"></i><span>Language</span></a></li>

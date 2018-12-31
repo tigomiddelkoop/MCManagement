@@ -5,40 +5,31 @@
 <?php
 
 if (session()->has('success')) {
-    $success = session('success');
+    $infoMessage = session('success');
 }
 ?>
 
 @section('content')
     <div class="row">
-        @if(isset($success))
+        @if(isset($infoMessage))
             <div class="col-md-12">
-                @if($success['code'] == 0)
-                    <div class="box box-success">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Successful! Do Execute '/servermanager
-                                reload {{ $success['servername'] }}
-                                ' to register/reload it.</h3>
-                        </div>
+                <div class="info-box">
+                    <!-- Apply any bg-* class to to the icon to color it -->
+                    @switch($infoMessage['code'])
+                        @case(0) <span class="info-box-icon bg-red"><i
+                                    class="fa fa-exclamation-circle"></i></span> @break
+                        @case(1) <span class="info-box-icon bg-green"><i class="fa fa-check-circle"></i></span> @break
+                    @endswitch
+                    <div class="info-box-content">
+                        @switch($infoMessage['code'])
+                            @case(0) <span class="info-box-number">Failed</span> @break
+                            @case(1) <span class="info-box-number">Success</span> @break
+                        @endswitch
+                        <span class="info-box-number">{{ $infoMessage['message'] }}</span>
                     </div>
-                @elseif($success['code'] == 1)
-                    <div class="box box-danger">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Successful! Server {{ $success['servername'] }}
-                                Removed</h3>
-                        </div>
-                    </div>
-                @elseif($success['code'] == 99)
-                    <div class="box box-danger">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Failed with the following
-                                error: {{ $success['message'] }}</h3>
-                        </div>
-                    </div>
-                @endif
+                </div>
             </div>
         @endif
-
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">

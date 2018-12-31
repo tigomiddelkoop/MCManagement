@@ -21,6 +21,7 @@ class RoleSeeder extends Seeder
 //            'password' => bcrypt('secret'),
 //        ]);
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions('');
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetRoles('');
         $this->seedPermissions();
         $this->seedRoles();
     }

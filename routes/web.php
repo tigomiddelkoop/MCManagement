@@ -16,9 +16,11 @@ Auth::routes(['register' => false]);
 Route::get('/', 'DashboardController')->name('dashboard');
 Route::get('/dashboard', 'DashboardController')->name('dashboard');
 Route::get('/analytics', 'AnalyticsController')->name('analytics');
+Route::get('/about', 'MCManagement\AboutController')->name('about');
 
 
 Route::prefix('minecraft')->group(function () {
+
     Route::prefix('players')->group(function () {
 
         Route::get('/', 'Minecraft\PlayerController@index')->name('networkmanagerPlayersIndex');
@@ -26,17 +28,18 @@ Route::prefix('minecraft')->group(function () {
 
     });
 
-    Route::prefix('litebans')->group(function () {
+});
 
-        Route::get('/', "LiteBans\PunishmentController@index")->name('litebansIndex');
-        Route::get('/{type}', "LiteBans\PunishmentController@show")->where('type', 'bans|kicks|mutes|warnings')->name('litebansShow');
-        Route::get('/{type}/{id}', "LiteBans\PunishmentController@detailed")->where('type', 'bans|kicks|mutes|warnings')->name('litebansDetailed');
+Route::prefix('litebans')->group(function () {
 
-    });
+    Route::get('/', "LiteBans\PunishmentController@index")->name('litebansIndex');
+    Route::get('/{type}', "LiteBans\PunishmentController@show")->where('type', 'bans|kicks|mutes|warnings')->name('litebansShow');
+    Route::get('/{type}/{id}', "LiteBans\PunishmentController@detailed")->where('type', 'bans|kicks|mutes|warnings')->name('litebansDetailed');
 
 });
 
 Route::prefix('networkmanager')->group(function () {
+
     Route::prefix('motd')->group(function () {
 
     });
@@ -86,9 +89,9 @@ Route::prefix('networkmanager')->group(function () {
     Route::prefix('tabcompletecommands')->group(function () {
 
     });
-
     Route::prefix('settings')->group(function () {
-       Route::get('/', "NetworkManager\SettingsController@index")->name('networkmanagerSettingIndex');
+       Route::get('/', "NetworkManager\SettingsController@index")->name('networkmanagerSettingsIndex');
+       Route::post('/', "NetworkManager\SettingsController@update")->name('networkmanagerSettingsUpdate');
     });
 
 });

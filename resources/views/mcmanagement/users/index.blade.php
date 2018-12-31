@@ -35,7 +35,7 @@
                             <td>{{ $user->email }}</td>
                             <td></td>
                             <td>{{ $user->created_at }}</td>
-                            <td><a class="btn btn-primary btn-sm" href="{{ route('panelUserShow', ['user' => $user->id]) }}">View User</a> <a class="btn btn-primary btn-sm" href="{{ route('minecraftSpecificPlayer', ['uuid' => $user->mc_uuid]) }}">View Player</a></td>
+                            <td><a class="btn btn-primary btn-sm" href="{{ route('panelSettingsUserShow', ['user' => $user->id]) }}">View User</a> <a class="btn btn-primary btn-sm" href="{{ route('networkmanagerPlayersShow', ['uuid' => $user->mc_uuid]) }}">View Player</a></td>
                         </tr>
                         @endforeach
                     </table>
