@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // This is getting handled by the laravel authentication controller! It may be getting moved here when i might go custom on the authentication
     }
 
     /**

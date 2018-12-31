@@ -26,6 +26,9 @@ Route::prefix('minecraft')->group(function () {
         Route::get('/', 'Minecraft\PlayerController@index')->name('networkmanagerPlayersIndex');
         Route::get('/{uuid}', 'Minecraft\PlayerController@show')->name('networkmanagerPlayersShow');
 
+        Route::post('/search', 'Minecraft\PlayerController@search')->name('networkmanagerPlayersSearch');
+
+
     });
 
 });
@@ -114,15 +117,15 @@ Route::prefix('panel')->group(function () {
 
         });
 
-        Route::get('/');
-
     });
     Route::prefix('users')->group(function () {
 
         Route::get('/', 'MCManagement\Users\UserController@index')->name('panelSettingsUserIndex');
+
         Route::prefix('/add')->group(function () {
             Route::get('/', 'Auth\RegisterController@showRegistrationForm');
             Route::post('/', 'Auth\RegisterController@register')->name('register');
+
         });
         Route::get('/{user}', 'MCManagement\Users\UserController@show')->name('panelSettingsUserShow');
     });
