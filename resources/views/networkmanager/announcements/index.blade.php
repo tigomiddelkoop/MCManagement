@@ -12,32 +12,13 @@
 
 <?php
 if (session()->has('infoMessage')) {
-$infoMessage = session('infoMessage');
+    $infoMessage = session('infoMessage');
 }
 ?>
 
 @section('content')
     <div class="row">
-        @if(isset($infoMessage))
-            <div class="col-md-12">
-                <div class="info-box">
-                    <!-- Apply any bg-* class to to the icon to color it -->
-                    @switch($infoMessage['code'])
-                        @case(0) <span class="info-box-icon bg-red"><i
-                                    class="fa fa-exclamation-circle"></i></span> @break
-                        @case(1) <span class="info-box-icon bg-green"><i class="fa fa-check-circle"></i></span> @break
-                    @endswitch
-                    <div class="info-box-content">
-                        @switch($infoMessage['code'])
-                            @case(0) <span class="info-box-number">Failed</span> @break
-                            @case(1) <span class="info-box-number">Success</span> @break
-                        @endswitch
-                        <span class="info-box-number">{{ $infoMessage['message'] }}</span>
-                    </div>
-                </div>
-            </div>
-        @endif
-
+        @include('layouts.infomessage')
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
@@ -89,7 +70,8 @@ $infoMessage = session('infoMessage');
                                 <td>
                                     <a href="{{ route('networkmanagerAnnouncementsEdit', ['id' => $announcement->id]) }}"
                                        class="btn btn-xs btn-block btn-primary">Edit</a>
-                                    <form action="{{ route('networkmanagerAnnouncementsDelete', ['id' => $announcement->id]) }}" method="post">
+                                    <form action="{{ route('networkmanagerAnnouncementsDelete', ['id' => $announcement->id]) }}"
+                                          method="post">
                                         @csrf
                                         @method('delete')
                                         <input type="submit" class="btn btn-danger btn-xs" value="Delete">
