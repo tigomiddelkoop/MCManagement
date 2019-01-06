@@ -8,6 +8,10 @@
     Add an announcement to the network.
 @endsection
 
+@section('requiredJS')
+<script src="{{ asset('js/announcementscript.js') }}"></script>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -43,7 +47,7 @@
 
                         <label for="message">Announcement Message:</label>
                         <textarea type="text" name="message" id="message"
-                                  class="form-control" value="{{ old('message') }}"></textarea>
+                                  class="form-control" value="{{ old('message') }}" rows="6" style="resize: none;" ></textarea>
 
                         <br/>
 
@@ -54,7 +58,7 @@
 
                         <label for="active">Active:</label>
 
-                            <input type="checkbox" name="active" id="active" >
+                        <input type="checkbox" name="active" id="active">
                 </div>
                 <div class="box-footer">
                     <input class="btn btn-primary" type="submit" value="Save">
