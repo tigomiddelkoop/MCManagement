@@ -25,7 +25,8 @@ class PlayerController extends Controller
        ]);
 
         $players = DB::connection('mysql_networkmanager')->table('players')->where('username', 'LIKE', '%' . $validatedData['playername'] . '%')->select('id', 'uuid', 'username', 'country', 'online')->paginate(25);
-        return view('minecraft.players.index', compact('players'));
+        $searchResult = $validatedData['playername'];
+        return view('minecraft.players.index', compact('players', 'searchResult'));
     }
 
     public function show($uuid)

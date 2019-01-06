@@ -45,6 +45,9 @@ Route::prefix('networkmanager')->group(function () {
 
     Route::prefix('motd')->group(function () {
 
+        Route::get('/', 'NetworkManager\MOTDController@index')->name('networkmanagerMOTDIndex');
+        Route::post('/', 'NetworkManager\MOTDController@update')->name('networkmanagerMOTDUpdate');
+
     });
     Route::prefix('permissions')->group(function () {
 

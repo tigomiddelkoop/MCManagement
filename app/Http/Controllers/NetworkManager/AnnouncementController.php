@@ -56,8 +56,14 @@ class AnnouncementController extends Controller
             $active = 0;
         }
 
+        if (isset($validatedData['server'])) {
+            $server = $validatedData['server'];
+        } else {
+            $server = "";
+        }
+
         DB::connection('mysql_networkmanager')->table('announcements')->insert(
-            ['type' => $validatedData['type'], 'message' => $validatedData['message'], 'server' => $validatedData['server'], 'active' => $active]
+            ['type' => $validatedData['type'], 'message' => $validatedData['message'], 'server' => $server, 'active' => $active]
         );
 
         $infoMessage = [
@@ -115,8 +121,14 @@ class AnnouncementController extends Controller
             $active = 0;
         }
 
+        if (isset($validatedData['server'])) {
+            $server = $validatedData['server'];
+        } else {
+            $server = "";
+        }
+
         DB::connection('mysql_networkmanager')->table('announcements')->where('id', '=', $id)->update(
-            ['type' => $validatedData['type'], 'message' => $validatedData['message'], 'server' => $validatedData['server'], 'active' => $active]
+            ['type' => $validatedData['type'], 'message' => $validatedData['message'], 'server' => $server, 'active' => $active]
         );
 
         $infoMessage = [

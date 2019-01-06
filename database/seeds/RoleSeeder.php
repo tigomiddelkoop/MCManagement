@@ -38,6 +38,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'networkmanager.access']);
         Permission::create(['name' => 'networkmanager.player.access']);
         Permission::create(['name' => 'networkmanager.player.viewip']);
+
+        Permission::create(['name' => 'networkmanager.motd.access']);
+
+
         Permission::create(['name' => 'networkmanager.settings.access']);
 
         // Litebans Related Permissions
@@ -76,7 +80,7 @@ class RoleSeeder extends Seeder
         $role = Role::create(['name' => "owner"]);
         $role->givePermissionTo(['networkmanager.access', 'networkmanager.player.access', 'networkmanager.player.viewip', 'networkmanager.settings.access', 'litebans.access', 'litebans.overview', 'litebans.bans',
             'litebans.kicks', 'litebans.mutes', 'litebans.warnings', 'luckperms.access', 'nameless.access',
-            'mcmanagement.access', 'mcmanagement.analytics', 'mcmanagement.access.settings', 'mcmanagement.access.settings.users', 'mcmanagement.access.settings.language', 'mcmanagement.access.settings.roles']);
+            'mcmanagement.access', 'mcmanagement.analytics', 'mcmanagement.access.settings', 'mcmanagement.access.settings.users', 'mcmanagement.access.settings.language', 'mcmanagement.access.settings.roles', 'networkmanager.motd.access']);
 
         $role = Role::create(['name' => "admin"]);
 //        $role->givePermissionTo('networkmanager.player.viewip');

@@ -13,7 +13,11 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">All Players</h3>
+                    @if(isset($searchResult))
+                        <h3 class="box-title">Search results for: {{ $searchResult }}</h3>
+                    @else
+                        <h3 class="box-title">All Players</h3>
+                    @endif
 
                     <div class="box-tools">
                         <form method="post" action="{{ route('networkmanagerPlayersSearch') }}">

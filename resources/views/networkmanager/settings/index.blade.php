@@ -54,7 +54,7 @@ if (session()->has('infoMessage')) {
                                     @foreach($nmSettings as $nmSetting)
                                         @if($nmSetting['category'] == "module")
                                             <tr>
-                                                <td>{{ $nmSetting['setting'] }}</td>
+                                                <td>{{ $nmSetting['settingTotalName'] }}</td>
                                                 <td>
                                                     <input type="hidden" value="{{ $nmSetting['settingTotalName'] }}"
                                                            name="setting{{ $nmSetting['settingTotalName'] }}[setting]">
@@ -63,6 +63,23 @@ if (session()->has('infoMessage')) {
                                                            name="setting{{ $nmSetting['settingTotalName'] }}[value]">
                                                 </td>
                                             </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach($nmSettings as $nmSetting)
+                                        @if($nmSetting['category'] == "motd")
+                                            @if($nmSetting['settingTotalName'] == "motd_enabled")
+                                                <tr>
+                                                    <td>{{ $nmSetting['settingTotalName'] }}</td>
+                                                    <td>
+                                                        <input type="hidden"
+                                                               value="{{ $nmSetting['settingTotalName'] }}"
+                                                               name="setting{{ $nmSetting['settingTotalName'] }}[setting]">
+                                                        <input type="text" class="form-control"
+                                                               value="{{ $nmSetting['value'] }}"
+                                                               name="setting{{ $nmSetting['settingTotalName'] }}[value]">
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </table>
@@ -77,7 +94,7 @@ if (session()->has('infoMessage')) {
                                     @foreach($nmSettings as $nmSetting)
                                         @if($nmSetting['category'] == "command")
                                             <tr>
-                                                <td>{{ $nmSetting['setting'] }}</td>
+                                                <td>{{ $nmSetting['settingTotalName'] }}</td>
                                                 <td>
                                                     <input type="hidden" value="{{ $nmSetting['settingTotalName'] }}"
                                                            name="setting{{ $nmSetting['settingTotalName'] }}[setting]">
@@ -100,7 +117,7 @@ if (session()->has('infoMessage')) {
                                     @foreach($nmSettings as $nmSetting)
                                         @if($nmSetting['category'] == "setting")
                                             <tr>
-                                                <td>{{ $nmSetting['setting'] }}</td>
+                                                <td>{{ $nmSetting['settingTotalName'] }}</td>
                                                 <td>
                                                     <input type="hidden" value="{{ $nmSetting['settingTotalName'] }}"
                                                            name="setting{{ $nmSetting['settingTotalName'] }}[setting]">

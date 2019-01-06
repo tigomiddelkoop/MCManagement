@@ -58,7 +58,7 @@
                 @endcan
                 <li><a href=""><i class="fa fa-language"></i><span>Language</span></a></li>
                 @if($settingsNetworkManager['motd_enabled'])
-                    <li><a href=""><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a></li>
+                    <li><a href="{{ route('networkmanagerMOTDIndex') }}"><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a></li>
                 @endif
                 @if($settingsNetworkManager['module_permissions_bungee'] || $settingsNetworkManager['module_permissions_spigot'])
                     <li><a href=""><i class="fa fa-th-list"></i><span>Permissions</span></a></li>
