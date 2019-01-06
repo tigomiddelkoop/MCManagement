@@ -47,7 +47,7 @@
 
                         <label for="message">Announcement Message:</label>
                         <textarea type="text" name="message" id="message"
-                                  class="form-control">{{ $announcement->message }}</textarea>
+                                   class="form-control" value="{{ old('message') }}" rows="6" style="resize: none;" >{{ $announcement->message }}</textarea>
 
                         <br/>
 
