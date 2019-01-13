@@ -34,6 +34,11 @@ class SettingSeeder extends Seeder
             'setting' => 'nameless_integration',
             'value' => 1,
         ]);
+        DB::table('settings')->insert([
+            'setting' => 'module_changelog',
+            'value' => 1,
+        ]);
+
 
         $this->command->info("$prefix Filling Table Done");
 

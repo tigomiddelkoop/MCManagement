@@ -71,7 +71,7 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
         </div>
 
         <!-- BEGIN PLAYERINFO -->
-        <div class="col-md-4">
+        <div class="col-md-4 col-6">
             <div class="box box-default">
                 <div class="box-header with-border">
 

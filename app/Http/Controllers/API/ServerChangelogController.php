@@ -11,6 +11,6 @@ class ServerChangelogController extends APIController
 {
     public function __invoke()
     {
-        return ServerChangelog::getChangelog()->all();
+        dd(ServerChangelog::get()->getChangelog());
     }
 }

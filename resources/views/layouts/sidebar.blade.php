@@ -94,23 +94,17 @@
                 </ul>
             @endcan
         @endif
-        {{-- FEEDBACK MODULE --}}
-        {{--<ul class="sidebar-menu" data-widget="tree">--}}
-        {{--<li class="header">Modules</li>--}}
-        {{--<li class="treeview">--}}
-        {{--<a href="#"><i class="fa fa-user-times"></i> <span>Feedback</span>--}}
-        {{--<span class="pull-right-container">--}}
-        {{--<i class="fa fa-angle-left pull-right"></i>--}}
-        {{--</span>--}}
-        {{--</a>--}}
-        {{--<ul class="treeview-menu">--}}
-        {{--<li><a href="{{ route('litebansShow', ['type' => 'bans']) }}">Responses</a></li>--}}
-        {{--<li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Form Questions</a></li>--}}
-        {{--<li><a href="{{ route('litebansShow', ['type' => 'kicks']) }}">Servers for form</a></li>--}}
-        {{--</ul>--}}
-        {{--</li>--}}
-        {{--</ul>--}}
-        {{-- PANEL SETTINGS --}}
+
+        @if($settings['module_changelog'])
+            @can('nameless.access')
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MCManagement Modules</li>
+                    <li><a href=""><i class="fa fa-list"></i><span>Changelog</span></a></li>
+                </ul>
+            @endcan
+        @endif
+
+        {{-- MCMANAGEMENT SETTINGS --}}
         @can('mcmanagement.access.settings')
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Panel</li>
