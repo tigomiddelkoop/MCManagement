@@ -16,6 +16,7 @@ class CreateServerChangelogsTable extends Migration
         Schema::create('server_changelogs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('serverversion');
+            $table->boolean('released');
             $table->timestamps();
         });
     }
