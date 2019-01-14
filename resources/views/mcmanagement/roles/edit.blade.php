@@ -1,8 +1,8 @@
 @extends('layouts.general')
 
-@section('pagetitle', 'Editting role')
+@section('pagetitle', 'Editing role')
 
-@section('pagedescription', 'ARE YOU EDITTING IT?')
+@section('pagedescription', 'Are you editing a role?')
 
 @section('content')
     <div class="row">
@@ -13,7 +13,13 @@
                     <h3 class="box-title">Editing role</h3>
 
                 </div>
-
+                <div class="box-body">
+                    <form action="{{ route('panelSettingsRoleUpdate', ['id' => $id]) }}" method="post">
+                        @foreach($permissions as $permission)
+                            <a>{{ $permission['name'] }}</a>
+                        @endforeach
+                    </form>
+                </div>
             </div>
         </div>
     </div>

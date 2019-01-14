@@ -11,6 +11,6 @@ class ServerChangelogController extends APIController
 {
     public function __invoke()
     {
-        dd(ServerChangelog::get()->getChangelog());
+        $test = new ServerChangelog();
     }
 }

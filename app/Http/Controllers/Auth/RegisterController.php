@@ -88,8 +88,7 @@ class RegisterController extends Controller
 
         // $this->guard()->login($user);
 
-        return $this->registered($request, $user)
-           ?: redirect($this->redirectPath());
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
     }
 
     /**
@@ -98,7 +97,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     protected function guard()
-    {
+     {
         return Auth::guard();
     }
 
@@ -108,7 +107,7 @@ class RegisterController extends Controller
             return $this->redirectTo();
         }
 
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/dashboard';
     }
 
     /**

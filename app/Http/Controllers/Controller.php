@@ -17,24 +17,5 @@ class Controller extends BaseController
     {
         $this->middleware('auth');
 
-
-        //This maybe has to be moved to the AppServiceProvider but then shit will break :/
-//        $settings = Setting::all();
-//
-//        $settings = $this->buildSettingsArray($settings);
-//
-//        View::share('settings', $settings);
-//        dd($settings);
-    }
-
-    private function buildSettingsArray($settings){
-
-        $settingsArray = [];
-
-        foreach ($settings as $setting) {
-            $settingsArray[$setting->setting] = $setting->value;
-        }
-
-        return $settingsArray;
     }
 }

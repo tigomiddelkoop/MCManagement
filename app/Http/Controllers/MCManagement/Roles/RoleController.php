@@ -60,7 +60,12 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return view('mcmanagement.roles.edit');
+
+        $role = Role::findById($id);
+
+        $permissions = $role->permissions();
+
+        return view('mcmanagement.roles.edit', compact('id', 'role', 'permissions'));
     }
 
     /**
