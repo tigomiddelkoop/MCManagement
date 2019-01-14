@@ -20,6 +20,7 @@ class ServerChangelogController extends APIController
 
 
             $dataArray = [
+                "id" => $data->id,
                 "serverversion" => $data->serverversion,
                 "released" => $data->released,
                 "releasedate" => $data->created_at,
@@ -34,13 +35,14 @@ class ServerChangelogController extends APIController
 
                 $releasenotes =
                     [
-                        "servername" => $data->changelog_section,
+                        "section" => $data->changelog_section,
                         "data" => array()
                     ];
 
                 foreach($specificData as $releasenote)
                 {
-                    array_push($releasenotes['data'], $releasenote->changelog_text);
+                    array_push($releasenotes['data'], $releasenote->changelog_text
+                    );
                 }
 
                 array_push($dataArray['changelog'], $releasenotes);
