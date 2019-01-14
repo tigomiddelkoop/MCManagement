@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\APIController;
 use App\ServerChangelog;
 use App\ServerChangelogData;
-use Grpc\Server;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,20 +12,46 @@ class ServerChangelogController extends APIController
 {
     public function __invoke()
     {
-        echo "in the function";
+//        return ServerChangelog::find(1)->getChangelog;
         $changelog = ServerChangelog::All();
-        $changelogData = ServerChangelogData::All();
+        $resultData = array();
+
+        foreach ($changelog as $data) {
 
 
+            $dataArray = [
+                "serverversion" => $data->serverversion,
+                "released" => $data->released,
+                "releasedate" => $data->created_at,
+                "changelog" => array(),
+            ];
 
-        $resultArray = array();
 
-        foreach($changelog as $data) {
-            $versionData = [
-                "serverversion" => $changelog
-            ]
+            $changelogData = ServerChangelogData::where('changelog_id', $data->id)->select('changelog_section')->distinct('changelog_section')->get();
+
+            foreach ($changelogData as $data) {
+                $specificData = ServerChangelogData::where('changelog_section', $data->changelog_section)->select('changelog_text')->get();
+
+                $releasenotes =
+                    [
+                        "servername" => $data->changelog_section,
+                        "data" => array()
+                    ];
+
+                foreach($specificData as $releasenote)
+                {
+                    array_push($releasenotes['data'], $releasenote->changelog_text);
+                }
+
+                array_push($dataArray['changelog'], $releasenotes);
+            }
+
+
+            array_push($resultData, $dataArray);
+
         }
 
-        return $changelogData;
+        return $resultData;
+
     }
 }
