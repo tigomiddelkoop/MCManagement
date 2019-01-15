@@ -13,45 +13,44 @@ class ServerChangelogController extends APIController
     public function __invoke()
     {
 //        return ServerChangelog::find(1)->getChangelog;
-        $changelog = ServerChangelog::orderBy('id', 'DESC')->get();
+        $changelog = ServerChangelog::where('released', 1)->orderBy('id', 'DESC')->get();
         $resultData = array();
 
         foreach ($changelog as $data) {
-            if ($data->released) {
 
 
-                $dataArray = [
-                    "id" => $data->id,
-                    "serverversion" => $data->serverversion,
-                    "released" => $data->released,
-                    "releasedate" => $data->created_at,
-                    "changelog" => array(),
-                ];
+            $dataArray = [
+                "id" => $data->id,
+                "serverversion" => $data->serverversion,
+                "released" => $data->released,
+                "releasedate" => $data->created_at,
+                "changelog" => array(),
+            ];
 
 
-                $changelogData = ServerChangelogData::where('changelog_id', $data->id)->select('changelog_section', 'changelog_id')->distinct('changelog_section')->get();
+            $changelogData = ServerChangelogData::where('changelog_id', $data->id)->select('changelog_section', 'changelog_id')->distinct('changelog_section')->get();
 
-                foreach ($changelogData as $data) {
-                    $specificData = ServerChangelogData::where('changelog_section', $data->changelog_section)->where('changelog_id', $data->changelog_id)->select('changelog_text')->get();
+            foreach ($changelogData as $data) {
+                $specificData = ServerChangelogData::where('changelog_section', $data->changelog_section)->where('changelog_id', $data->changelog_id)->select('changelog_text')->get();
 
-                    $releasenotes =
-                        [
-                            "section" => $data->changelog_section,
-                            "data" => array()
-                        ];
+                $releasenotes =
+                    [
+                        "section" => $data->changelog_section,
+                        "data" => array()
+                    ];
 
-                    foreach ($specificData as $releasenote) {
-                        array_push($releasenotes['data'], $releasenote->changelog_text
-                        );
-                    }
-
-                    array_push($dataArray['changelog'], $releasenotes);
+                foreach ($specificData as $releasenote) {
+                    array_push($releasenotes['data'], $releasenote->changelog_text
+                    );
                 }
 
-
-                array_push($resultData, $dataArray);
-
+                array_push($dataArray['changelog'], $releasenotes);
             }
+
+
+            array_push($resultData, $dataArray);
+
+
         }
 
         return $resultData;
