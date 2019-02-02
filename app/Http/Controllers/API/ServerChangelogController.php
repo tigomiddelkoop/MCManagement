@@ -22,7 +22,7 @@ class ServerChangelogController extends APIController
             $dataArray = [
                 "id" => $data->id,
                 "serverversion" => $data->serverversion,
-                "released" => $data->released,
+//                "released" => $data->released,
                 "releasedate" => $data->created_at,
                 "changelog" => array(),
             ];
