@@ -36,8 +36,8 @@
                         </form>
                     </div>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
+                <div class="box-body table-responsive no-padding
+                <!-- /.box-header -->">
                     <table class="table table-bordered table-striped">
                         <tr>
                             <thead>
