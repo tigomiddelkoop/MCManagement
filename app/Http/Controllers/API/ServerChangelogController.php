@@ -12,8 +12,7 @@ class ServerChangelogController extends APIController
 {
     public function __invoke()
     {
-//        return ServerChangelog::find(1)->getChangelog;
-        $changelog = ServerChangelog::All();
+        $changelog = ServerChangelog::where('released', 1)->orderBy('id', 'DESC')->get();
         $resultData = array();
 
         foreach ($changelog as $data) {
@@ -22,16 +21,15 @@ class ServerChangelogController extends APIController
             $dataArray = [
                 "id" => $data->id,
                 "serverversion" => $data->serverversion,
-                "released" => $data->released,
                 "releasedate" => $data->created_at,
                 "changelog" => array(),
             ];
 
 
-            $changelogData = ServerChangelogData::where('changelog_id', $data->id)->select('changelog_section')->distinct('changelog_section')->get();
+            $changelogData = ServerChangelogData::where('changelog_id', $data->id)->select('changelog_section', 'changelog_id')->distinct('changelog_section')->get();
 
             foreach ($changelogData as $data) {
-                $specificData = ServerChangelogData::where('changelog_section', $data->changelog_section)->select('changelog_text')->get();
+                $specificData = ServerChangelogData::where('changelog_section', $data->changelog_section)->where('changelog_id', $data->changelog_id)->select('changelog_text')->get();
 
                 $releasenotes =
                     [
@@ -39,8 +37,7 @@ class ServerChangelogController extends APIController
                         "data" => array()
                     ];
 
-                foreach($specificData as $releasenote)
-                {
+                foreach ($specificData as $releasenote) {
                     array_push($releasenotes['data'], $releasenote->changelog_text
                     );
                 }
@@ -50,6 +47,7 @@ class ServerChangelogController extends APIController
 
 
             array_push($resultData, $dataArray);
+
 
         }
 

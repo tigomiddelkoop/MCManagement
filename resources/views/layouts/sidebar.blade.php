@@ -99,7 +99,7 @@
             @can('nameless.access')
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MCManagement Modules</li>
-                    <li><a href=""><i class="fa fa-list"></i><span>Changelog</span></a></li>
+                    <li><a href="{{ route('changelogIndex') }}"><i class="fa fa-list"></i><span>Changelog</span></a></li>
                 </ul>
             @endcan
         @endif

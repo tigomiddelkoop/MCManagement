@@ -104,6 +104,15 @@ Route::prefix('networkmanager')->group(function () {
 
 Route::prefix('nameless')->group(function () {});
 
+Route::prefix('mcmanagement')->group(function () {
+    Route::prefix('changelog')->group(function () {
+       Route::get('/', 'MCManagement\Changelog\ChangelogController@index')->name('changelogIndex');
+       Route::get('show', 'MCManagement\Changelog\ChangelogController@show')->name('changelogShow');
+       Route::get('edit/{id}', 'MCManagement\Changelog\ChangelogController@edit')->name('changelogEdit');
+       Route::delete('destroy/{id}', 'MCManagement\Changelog\ChangelogController@destroy')->name('changelogDestroy');
+    });
+});
+
 Route::prefix('panel')->group(function () {
 
     Route::prefix('settings')->group(function () {
