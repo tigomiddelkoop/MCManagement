@@ -24,7 +24,7 @@ class PlayerController extends Controller
            "playername" => "max:25",
        ]);
 
-        $players = DB::connection('mysql_networkmanager')->table('players')->where('username', 'LIKE', '%' . $validatedData['playername'] . '%')->select('id', 'uuid', 'username', 'country', 'online')->paginate(25);
+        $players = DB::connection('mysql_networkmanager')->table('players')->where('username', 'LIKE', '%' . $validatedData['playername'] . '%')->orWhere('ip', 'LIKE', '%' . $validatedData['playername'] . '%')->select('id', 'uuid', 'username', 'country', 'online')->paginate(25);
         $searchResult = $validatedData['playername'];
         return view('minecraft.players.index', compact('players', 'searchResult'));
     }
