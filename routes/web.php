@@ -109,6 +109,7 @@ Route::prefix('mcmanagement')->group(function () {
        Route::get('/', 'MCManagement\Changelog\ChangelogController@index')->name('changelogIndex');
        Route::get('show', 'MCManagement\Changelog\ChangelogController@show')->name('changelogShow');
        Route::get('edit/{id}', 'MCManagement\Changelog\ChangelogController@edit')->name('changelogEdit');
+       Route::post('update/{id}', 'MCManagement\Changelog\ChangelogController@update')->name('changelogUpdate');
        Route::delete('destroy/{id}', 'MCManagement\Changelog\ChangelogController@destroy')->name('changelogDestroy');
     });
 });

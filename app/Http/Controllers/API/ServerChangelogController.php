@@ -21,6 +21,7 @@ class ServerChangelogController extends APIController
             $dataArray = [
                 "id" => $data->id,
                 "serverversion" => $data->serverversion,
+                "minecraftversion" => $data->minecraftversion,
                 "releasedate" => $data->created_at,
                 "changelog" => array(),
             ];
