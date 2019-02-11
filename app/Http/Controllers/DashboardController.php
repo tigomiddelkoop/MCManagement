@@ -28,7 +28,7 @@ class DashboardController extends Controller
             $playtime += $time->playtime;
 
         }
-//dd($playtime);
+
         return view('dashboard', compact('totalPlayers', 'todayPlayers', 'newPlayers', 'playtime'));
     }
 }
