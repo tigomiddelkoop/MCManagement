@@ -8,6 +8,10 @@
     All the changes in this changelog
 @endsection
 
+@section('requiredJS')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -37,15 +41,17 @@
                                     @endswitch
                                 </td>
                                 <td>
-                                        <form action="{{ route('changelogDestroy', ['id' => $data->id]) }}" method="post" class="btn-group">
-                                            @method('delete')
-                                            @csrf
-                                            <a href="{{ route('changelogEdit', ['id' => $data->id ]) }}"
-                                               class="btn btn-primary btn-xs">Edit</a>
+                                    <form action="{{ route('changelogDestroy', ['id' => $data->id]) }}" method="post"
+                                          class="btn-group">
+                                        @method('delete')
+                                        @csrf
+                                        <a href="{{ route('changelogEdit', ['id' => $data->id ]) }}"
+                                           class="btn btn-primary btn-xs">Edit</a>
 
-                                            <button type="submit" class="btn btn-xs btn-danger" value="Remove">Remove</button>
+                                        <button type="submit" class="btn btn-xs btn-danger" value="Remove">Remove
+                                        </button>
 
-                                        </form>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

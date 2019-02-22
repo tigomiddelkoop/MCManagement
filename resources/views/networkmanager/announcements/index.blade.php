@@ -9,6 +9,9 @@
 @section('pagedescription')
     A list of all your announcements
 @endsection
+@section('requiredJS')
+
+@endsection
 
 <?php
 if (session()->has('infoMessage')) {
@@ -74,7 +77,7 @@ if (session()->has('infoMessage')) {
                                           method="post">
                                         @csrf
                                         @method('delete')
-                                        <input type="submit" class="btn btn-danger btn-xs" value="Delete">
+                                        <input type="" onclick="swal ( 'Oops' ,  'Something went wrong!' ,  'error' )" class="btn btn-danger btn-xs" value="Delete">
                                     </form>
                                 </td>
                             </tr>

@@ -31,6 +31,12 @@ Route::prefix('minecraft')->group(function () {
 
     });
 
+    Route::prefix('chat')->group(function () {
+
+        Route::get('/', 'Minecraft\ChatController')->name("networkChatIndex");
+
+    });
+
 });
 
 Route::prefix('litebans')->group(function () {

@@ -1,7 +1,13 @@
 @extends('layouts.general')
 
 @section('pagetitle', 'Editing Changelog entry')
-@section('pagedescription', 'Currently editing: {id}')
+@section('pagedescription', 'Currently editing: ' . $changelog['serverversion'])
+
+@section('requiredJS')
+    <script src="{{ asset('js/changelog.js') }}">
+
+    </script>
+@endsection
 
 @section('content')
 
@@ -70,20 +76,18 @@
                     </div>
                     <div class="box-body">
                         <div class="input-group" name="add">
-                            <input type="text" id="addSection" class="form-control" placeholder="Type in the name of the new section">
+                            <input type="text" id="addSection" class="form-control"
+                                   placeholder="Type in the name of the new section">
                             <span class="input-group-btn">
                                         <button type="button" class="btn btn-info btn-flat"
                                                 onclick="addSection()">
                                             <i class="fa fa-plus"></i>
                                         </button>
-                                    </span>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <script src="{{ asset('js/changelog.js') }}"></script>
         </form>
-
     </div>
-
 @endsection

@@ -25,4 +25,11 @@ class RandomUtils extends Controller
         return $checkbox;
 
     }
+
+
+    public static function removeDashes($uuid)
+    {
+        $data = explode("-", $uuid);
+        return implode("", $data);
+    }
 }

@@ -42,32 +42,23 @@
                         <tr>
                             <thead>
                             <th style="width: 25px;"></th>
-                            <th style="width: 25px;">ID</th>
+                            <th style="width: 90px;">Message ID</th>
                             <th>Playername</th>
-                            <th>UUID</th>
-                            <th>Country</th>
-                            <th>Online</th>
-                            <th>View</th>
+                            <th>Message</th>
+                            <th>Server</th>
+                            <th>Send at</th>
                             </thead>
                         </tr>
                         <tbody id="players">
-                        @foreach($players as $player)
+                        @foreach($chat as $e)
                             <tr>
-                                <td><img src="https://crafatar.com/avatars/{{ $player->uuid }}?size=25"></td>
-                                <td>{{ $player->id }}</td>
-                                <td><a href="{{ route('networkmanagerPlayersShow', ['uuid' => $player->uuid]) }}">{{ $player->username }}</a></td>
-                                <td>{{ $player->uuid }}</td>
-                                <td>{{ CountryController::convert($player->country) }}</td>
+                                <td><img src="https://crafatar.com/avatars/{{ $e->uuid }}?size=25"></td>
+                                <td>{{ $e->id }}</td>
+                                <td><a href="{{ route('networkmanagerPlayersShow', ['uuid' => $e->uuid]) }}">{{ \App\Http\Controllers\Tools\NameConverter::UUIDToName($e->uuid)}}</a></td>
+                                <td>{{ $e->message }}</td>
+                                <td>{{ $e->server }}</td>
                                 <td>
-                                    @switch($player->online)
-                                        @case(0) <span class="label label-danger">No</span> @break
-                                        @case(1) <span class="label label-success">Yes</span> @break
-                                        @default <span class="label label-info">Unknown Value</span> @break
-                                    @endswitch
-                                </td>
-                                <td>
-                                    <a href="{{ route('networkmanagerPlayersShow', ['uuid' => $player->uuid]) }}"
-                                       class="btn btn-xs btn-block btn-primary">View</a>
+                                    <p>{{ \App\Http\Controllers\Tools\ConvertTimeController::convertTimeDate($e->time) }}</p>
                                 </td>
                             </tr>
                         @endforeach
@@ -76,15 +67,15 @@
                 </div>
                 <div class="box-footer clearfix">
                     <ul class="pagination pagination-sm no-margin pull-right">
-                        <li><a href="{{ $players->previousPageUrl() }}">&laquo;</a></li>
-                        @for($x = 1; $x <= $players->lastPage(); $x++)
-                            @if($x === $players->currentPage())
-                                <li><a href="{{ $players->url($x) }}" class="paginate_button active">{{ $x }}</a></li>
+                        <li><a href="{{ $chat->previousPageUrl() }}">&laquo;</a></li>
+                        @for($x = 1; $x <= $chat->lastPage(); $x++)
+                            @if($x === $chat->currentPage())
+                                <li><a href="{{ $chat->url($x) }}" class="paginate_button active">{{ $x }}</a></li>
                             @else
-                                <li><a href="{{ $players->url($x) }}" class="paginate_button">{{ $x }}</a></li>
+                                <li><a href="{{ $chat->url($x) }}" class="paginate_button">{{ $x }}</a></li>
                             @endif
                         @endfor
-                        <li><a href="{{ $players->nextPageUrl() }}">&raquo;</a></li>
+                        <li><a href="{{ $chat->nextPageUrl() }}">&raquo;</a></li>
                     </ul>
                 </div>
             </div>

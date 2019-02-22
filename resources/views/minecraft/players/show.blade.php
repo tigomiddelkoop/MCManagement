@@ -217,30 +217,10 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
 
     <!--TEST-->
     <div class="row">
-        <div class="col-md-2">
-            <div class="box box-default">
-                <div class="box-header with-border">
-
-                    <h3 class="box-title">Notes</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body pad">
-                    <form action="index.php?data=playernote" method="get">
-                        <input type="hidden" id="uuid" value="{$player['uuid']}">
-                        <textarea class="textarea" id="note" placeholder="Make a new note"
-                                  style="width: 100%; font-size: 14px; height: 250px; line-height: 15px; border: 1px solid #dddddd; padding: 10px;">PLACEHOLDER</textarea>
-                </div>
-                <div class="box-footer">
-                    <button type="button" id="saveNote" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-                <!-- /.box-body -->
-            </div>
-        </div>
         <div class="col-md-4">
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Most used minecraft versions</h3>
+                    <h3 class="box-title">Used minecraft versions</h3>
                 </div>
                 <div class="box-body center-block">
                     <canvas id="pieChart"></canvas>
@@ -274,6 +254,22 @@ use \App\Http\Controllers\Tools\ConvertTimeController;
                                     <td></td>
                                 @endcan
                                 <td>{{ MCVersionController::convert($sessions->version) }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Previous names</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        @foreach($previousNames as $name)
+                            <tr>
+                                <td>{{ $name->name }} @if($name->name == $networkmanager->username)(Current Name)@endif</td>
                             </tr>
                         @endforeach
                     </table>

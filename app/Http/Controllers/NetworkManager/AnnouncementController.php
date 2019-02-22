@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Tools\RandomUtils;
+use Alert;
 
 class AnnouncementController extends Controller
 {
@@ -65,7 +66,6 @@ class AnnouncementController extends Controller
         DB::connection('mysql_networkmanager')->table('announcements')->insert(
             ['type' => $validatedData['type'], 'message' => $validatedData['message'], 'server' => $server, 'active' => $active]
         );
-
         $infoMessage = [
             'code' => 1,
             "message" => "Announcement saved! It should appear in the server within a few minutes"

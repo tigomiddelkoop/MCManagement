@@ -15,7 +15,8 @@
     "laravel/framework": "5.7.*",
     "laravel/tinker": "^1.0",
     "pragmarx/google2fa-laravel": "^0.2.0",
-    "spatie/laravel-permission": "^2.27"
+    "spatie/laravel-permission": "^2.27",
+    "uxweb/sweet-alert": "^2.0"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.2",

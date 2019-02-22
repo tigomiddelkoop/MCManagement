@@ -28,7 +28,8 @@ function addEntry(where) {
 }
 
 function removeSection() {
-
+    let input_text = document.getElementById('addSection');
+    console.log(input_text);
 }
 
 function addSection() {

@@ -27,5 +27,5 @@ function removeSection() {
 }
 
 function addSection() {
-
+    console.log("Test");
 }
