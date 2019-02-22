@@ -44,6 +44,9 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'networkmanager.settings.access']);
 
+
+        Permission::create(['name' => 'networkmanager.chat.access']);
+
         // Litebans Related Permissions
         Permission::create(['name' => 'litebans.access']);
         Permission::create(['name' => 'litebans.overview']);
@@ -61,10 +64,12 @@ class RoleSeeder extends Seeder
         // Panel Related Permissions
         Permission::create(['name' => 'mcmanagement.access']);
         Permission::create(['name' => 'mcmanagement.analytics']);
-        Permission::create(['name' => 'mcmanagement.access.settings']);
-        Permission::create(['name' => 'mcmanagement.access.settings.users']);
-        Permission::create(['name' => 'mcmanagement.access.settings.language']);
-        Permission::create(['name' => 'mcmanagement.access.settings.roles']);
+        Permission::create(['name' => 'mcmanagement.settings.access']);
+        Permission::create(['name' => 'mcmanagement.settings.users']);
+        Permission::create(['name' => 'mcmanagement.settings.language']);
+        Permission::create(['name' => 'mcmanagement.settings.roles']);
+
+        Permission::create(['name' => 'mcmanagement.changelog.access']);
     }
 
     public function seedRoles()
@@ -78,7 +83,7 @@ class RoleSeeder extends Seeder
         $this->command->info("$prefix Filling Table");
 
         $role = Role::create(['name' => "owner"]);
-        $role->givePermissionTo(['networkmanager.access', 'networkmanager.player.access', 'networkmanager.player.viewip', 'networkmanager.settings.access', 'litebans.access', 'litebans.overview', 'litebans.bans',
+        $role->givePermissionTo(['networkmanager.access', 'networkmanager.player.access', 'networkmanager.player.viewip', 'networkmanager.settings.access', 'networkmanager.chat.access', 'litebans.access', 'litebans.overview', 'litebans.bans',
             'litebans.kicks', 'litebans.mutes', 'litebans.warnings', 'luckperms.access', 'nameless.access',
             'mcmanagement.access', 'mcmanagement.analytics', 'mcmanagement.access.settings', 'mcmanagement.access.settings.users', 'mcmanagement.access.settings.language', 'mcmanagement.access.settings.roles', 'networkmanager.motd.access']);
 

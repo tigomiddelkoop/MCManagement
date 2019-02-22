@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class ChangelogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:mcmanagement.changelog.access']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -74,8 +79,6 @@ class ChangelogController extends Controller
         ];
 
 
-
-
         foreach ($changelogSections as $data) {
             $changelogData = ServerChangelogData::where('changelog_section', $data->changelog_section)->where('changelog_id', $data->changelog_id)->select('changelog_text')->get();
 
@@ -92,7 +95,7 @@ class ChangelogController extends Controller
             array_push($dataArray['changelog'], $releasenotes);
         }
 
-        return view('mcmanagement.changelog.edit', [ 'changelog' => $dataArray ]);
+        return view('mcmanagement.changelog.edit', ['changelog' => $dataArray]);
     }
 
     /**

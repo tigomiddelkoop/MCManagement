@@ -15,6 +15,7 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $onlinePlayers = DB::connection('mysql_networkmanager')->table('players')->where('online', '=',1)->count();
         $totalPlayers = DB::connection('mysql_networkmanager')->table('players')->count();
         $todayPlayers = DB::connection('mysql_networkmanager')->table('players')->where('lastlogin', '>', '(UNIX_TIMESTAMP(CURDATE())*1000)')->count();
         $newPlayers = DB::connection('mysql_networkmanager')->table('players')->where('lastlogin', '>', '(UNIX_TIMESTAMP(CURDATE())*1000)')->count();
@@ -29,6 +30,6 @@ class DashboardController extends Controller
 
         }
 
-        return view('dashboard', compact('totalPlayers', 'todayPlayers', 'newPlayers', 'playtime'));
+        return view('dashboard', compact('onlinePlayers', 'totalPlayers', 'todayPlayers', 'newPlayers', 'playtime'));
     }
 }

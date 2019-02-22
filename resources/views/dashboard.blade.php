@@ -36,6 +36,43 @@
                 <span class="info-box-icon bg-purple"><i class="fa fa-users"></i></span>
 
                 <div class="info-box-content">
+                    <span class="info-box-text">Online now</span>
+                    <span class="info-box-number">{{ $onlinePlayers }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-purple"><i class="fa fa-clock-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Playtime today</span>
+                    <span class="info-box-number">{{ \App\Http\Controllers\Tools\ConvertTimeController::convertPlaytime(0) }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-purple"><i class="fa fa-clock-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Total playtime</span>
+                    <span class="info-box-number">{{ \App\Http\Controllers\Tools\ConvertTimeController::convertPlaytime($playtime) }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-purple"><i class="fa fa-users"></i></span>
+
+                <div class="info-box-content">
                     <span class="info-box-text">Total Players</span>
                     <span class="info-box-number">{{ $totalPlayers }}</span>
                 </div>
@@ -70,19 +107,6 @@
                     <span class="info-box-text">Todays new players</span>
                     {{--<span class="info-box-number">{{ $newPlayers }}</span>--}}
                     <span class="info-box-number">--</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-purple"><i class="fa fa-clock-o"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total playtime</span>
-                    <span class="info-box-number">{{ \App\Http\Controllers\Tools\ConvertTimeController::convertPlaytime($playtime) }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

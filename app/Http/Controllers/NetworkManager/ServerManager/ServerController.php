@@ -4,6 +4,7 @@ namespace App\Http\Controllers\NetworkManager\ServerManager;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ServerController extends Controller
@@ -25,7 +26,11 @@ class ServerController extends Controller
      */
     public function create()
     {
-        return view('networkmanager.servermanager.server.create');
+        if (Auth::user()->can("test")) {
+            return view('networkmanager.servermanager.server.create');
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -36,40 +41,38 @@ class ServerController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validatedData = $request->validate([
-            'servername' => 'required|max:100|unique:mysql_networkmanager.servers',
-            'serverip' => 'required|max:100',
-            'serverport' => 'required|min:1|max:65535|integer',
-            'servermotd' => 'max:255',
-            'serverrestricted' => 'alpha',
-            'allowedversions' => 'nullable'
-        ]);
-
-//        dd($validatedData);
+            $validatedData = $request->validate([
+                'servername' => 'required|max:100|unique:mysql_networkmanager.servers',
+                'serverip' => 'required|max:100',
+                'serverport' => 'required|min:1|max:65535|integer',
+                'servermotd' => 'max:255',
+                'serverrestricted' => 'alpha',
+                'allowedversions' => 'nullable'
+            ]);
 
 
-        $versionArray = null;
 
-        if (isset($validatedData['allowedversions'])) {
-            $versionArray = $this->createVersionArray($validatedData['allowedversions']);
-        }
-        if (isset($validatedData['serverrestricted'])) {
-            $restricted = $this->checkIfRestricted($validatedData['serverrestricted']);
-        } else {
-            $restricted = 0;
-        }
+            $versionArray = null;
+
+            if (isset($validatedData['allowedversions'])) {
+                $versionArray = $this->createVersionArray($validatedData['allowedversions']);
+            }
+            if (isset($validatedData['serverrestricted'])) {
+                $restricted = $this->checkIfRestricted($validatedData['serverrestricted']);
+            } else {
+                $restricted = 0;
+            }
 
 
-        DB::connection('mysql_networkmanager')->table('servers')->insert(
-            ['servername' => $validatedData['servername'], 'ip' => $validatedData['serverip'], 'port' => $validatedData['serverport'], 'motd' => $validatedData['servermotd'], 'allowed_versions' => $versionArray, 'restricted' => $restricted, 'online' => null]
-        );
+            DB::connection('mysql_networkmanager')->table('servers')->insert(
+                ['servername' => $validatedData['servername'], 'ip' => $validatedData['serverip'], 'port' => $validatedData['serverport'], 'motd' => $validatedData['servermotd'], 'allowed_versions' => $versionArray, 'restricted' => $restricted, 'online' => null]
+            );
 
-        $success = [
-            'code' => 1,
-            "message" => "Do Execute '/servermanager reload " . $validatedData['servername'] . "' to register it"
-        ];
-        return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
+            $success = [
+                'code' => 1,
+                "message" => "Do Execute '/servermanager reload " . $validatedData['servername'] . "' to register it"
+            ];
+            return redirect(route('networkmanagerServerIndex'))->with(compact('success'));
 
     }
 

@@ -20,20 +20,20 @@
                     @endif
 
                     <div class="box-tools">
-                        <form method="post" action="{{ route('networkmanagerPlayersSearch') }}">
-                            <div class="input-group input-group-sm" style="width: 200px;">
-                                @csrf
-                                <input type="text" class="form-control pull-right"
-                                       placeholder="Search Player or IP"
-                                       id="search"
-                                       name="playername">
+                        {{--<form method="post" action="{{ route('networkmanagerPlayersSearch') }}">--}}
+                            {{--<div class="input-group input-group-sm" style="width: 200px;">--}}
+                                {{--@csrf--}}
+                                {{--<input type="text" class="form-control pull-right"--}}
+                                       {{--placeholder="Search Player or IP"--}}
+                                       {{--id="search"--}}
+                                       {{--name="playername">--}}
 
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default" id="submit_search"><i
-                                                class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
+                                {{--<div class="input-group-btn">--}}
+                                    {{--<button type="submit" class="btn btn-default" id="submit_search"><i--}}
+                                                {{--class="fa fa-search"></i></button>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding

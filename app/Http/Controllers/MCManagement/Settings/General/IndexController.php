@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:mcmanagement.access.settings']);
+        $this->middleware(['permission:mcmanagement.settings.access']);
     }
 
     /**

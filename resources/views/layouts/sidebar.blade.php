@@ -14,8 +14,10 @@
         {{-- Player Information--}}
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Minecraft</li>
-            <li><a href="{{ route('networkmanagerPlayersIndex') }}"><i class="fa fa-users"></i><span>Players</span></a>
-            </li>
+            <li><a href="{{ route('networkmanagerPlayersIndex') }}"><i class="fa fa-users"></i><span>Players</span></a></li>
+                @can('networkmanager.chat.access')
+                    <li><a href="{{ route('networkChatIndex') }}"><i class="fa fa-th-list"></i><span>Chat</span></a></li>
+                @endcan
             {{--<li><a href="#"><i class="fa fa-user-times"></i> <span>Punishments [NETWORKMANAGER]</span></a></li>--}}
             @if($settings['litebans_integration'] == 1)
                 @can('litebans.access')
@@ -39,7 +41,8 @@
                                 <li><a href="{{ route('litebansShow', ['type' => 'mutes']) }}">Mutes</a></li>
                             @endcan
                             @can('litebans.warnings')
-                                <li><a href="{{ route('litebansShow', ['type' => 'warnings']) }}">Warnings</a></li>
+                                <li><a href="{{ route('litebansShow', ['type' => 'warnings']) }}">Warnings</a>
+                                </li>
                             @endcan
                         </ul>
                     </li>
@@ -58,7 +61,8 @@
                 @endcan
                 <li><a href=""><i class="fa fa-language"></i><span>Language</span></a></li>
                 @if($settingsNetworkManager['motd_enabled'])
-                    <li><a href="{{ route('networkmanagerMOTDIndex') }}"><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a></li>
+                    <li><a href="{{ route('networkmanagerMOTDIndex') }}"><i class="fa fa-clock-o"></i><span>Message Of The Day</span></a>
+                    </li>
                 @endif
                 @if($settingsNetworkManager['module_permissions_bungee'] || $settingsNetworkManager['module_permissions_spigot'])
                     <li><a href=""><i class="fa fa-th-list"></i><span>Permissions</span></a></li>
@@ -96,12 +100,13 @@
         @endif
 
         @if($settings['module_changelog'])
-            @can('nameless.access')
+            {{--@can('nameless.access')--}}
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MCManagement Modules</li>
-                    <li><a href="{{ route('changelogIndex') }}"><i class="fa fa-list"></i><span>Changelog</span></a></li>
+                    <li><a href="{{ route('changelogIndex') }}"><i class="fa fa-list"></i><span>Changelog</span></a>
+                    </li>
                 </ul>
-            @endcan
+            {{--@endcan--}}
         @endif
 
         {{-- MCMANAGEMENT SETTINGS --}}

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Controller;
 use App\Setting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -19,15 +21,17 @@ class AppServiceProvider extends ServiceProvider
     {
         $permissions = null;
         $settings = null;
+        $loggedInUser = null;
+
 
         if (!app()->runningInConsole()) {
             $permissions = $this->getPermissions();
             $settings = $this->getSettings();
 
+
             if($settings['networkmanager_integration']) {
                 $settingsNetworkManager = $this->getSettingsNetworkManager();
             }
-
 
             View::share('permissions', $permissions);
             View::share('settings', $settings);
