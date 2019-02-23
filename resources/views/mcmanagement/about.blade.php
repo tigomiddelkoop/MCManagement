@@ -10,7 +10,7 @@
             <div class="box box-default">
                 <div class="box-body">
 
-                    <h1 class="text-center">Logo Comes here</h1>
+                    <div class="MCManagementLogo"><img class="MCManagementLogo"  src="{{ asset("img/MCManagementLogo.png") }}" alt="Our logo"></div>
 
                 </div>
             </div>
@@ -19,7 +19,8 @@
             <div class="box box-default">
                 <div class="box-body">
 
-                    <h1 class="text-center">More comes here</h1>
+                    <h1 class="text-center">MCManagement</h1>
+                    <span class="text-center"><p>A project by <a href="https://genericdevelopment.nl">GenericDevelopment</a></p></span>
 
                 </div>
             </div>

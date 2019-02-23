@@ -1,38 +1,129 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/changelog.js":
+/*!***********************************!*\
+  !*** ./resources/js/changelog.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
 function removeEntry(elementId) {
-    // Removes an element from the document
-    let element = document.getElementById(elementId);
-    element.parentNode.removeChild(element);
+  // Removes an element from the document
+  var element = document.getElementById(elementId);
+  element.parentNode.removeChild(element);
 }
 
 function addEntry(where) {
-
-    let input_text = document.getElementById(where + "NEW").value;
-    let input_field = document.getElementById(where + "NEW");
-
-    if(!input_text == "") {
-        let form = document.createElement("div");
-
-        form.innerHTML =
-            '<div class="input-group" id="' + input_text + '" name="entries">\n' +
-            '<input type="text" class="form-control" value="' + input_text + '" name="' + where + '[]">\n' +
-            '<span class="input-group-btn">\n' +
-            '<button type="button" id="' + input_text + '" class="btn btn-danger btn-flat"\n' +
-            '                                                    title="Remove the entry" onclick="removeEntry(\'' + input_text + '\')">\n' +
-            '<i class="fa fa-remove"></i>\n' +
-            '</button>\n' +
-            '</span>\n' +
-            '</div>';
-        document.getElementById(where + "NEW").value = "";
-        document.getElementById(where).appendChild(form);
-    }
+  var input_text = document.getElementById(where + "NEW").value;
+  var form = document.createElement("div");
+  form.innerHTML = '<div class="input-group" id="' + input_text + '" name="entries">\n' + '<input type="text" class="form-control" value="' + input_text + '" name="' + where + '[]">\n' + '<span class="input-group-btn">\n' + '<button type="button" id="' + input_text + '" class="btn btn-danger btn-flat"\n' + '                                                    title="Remove the entry" onclick="removeElement(\'' + input_text + '\')">\n' + '<i class="fa fa-remove"></i>\n' + '</button>\n' + '</span>\n' + '</div>';
+  document.getElementById(where).appendChild(form);
 }
 
-function removeSection() {
-    let input_text = document.getElementById('addSection');
-    console.log(input_text);
-}
+function removeSection() {}
 
 function addSection() {
-    let input_text = document.getElementById('addSection');
-    console.log(input_text);
+  console.log("Test");
 }
+
+/***/ }),
+
+/***/ 1:
+/*!*****************************************!*\
+  !*** multi ./resources/js/changelog.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! C:\Users\tigog\PhpstormProject\MCManagement\resources\js\changelog.js */"./resources/js/changelog.js");
+
+
+/***/ })
+
+/******/ });

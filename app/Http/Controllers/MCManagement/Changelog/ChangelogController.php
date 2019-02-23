@@ -11,7 +11,7 @@ class ChangelogController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:mcmanagement.changelog.access']);
+//        $this->middleware(['permission:mcmanagement.changelog.access']);
     }
 
     /**

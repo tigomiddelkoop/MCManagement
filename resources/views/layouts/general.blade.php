@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="{{ url('/') }}/css/panel.css">
     <link rel="stylesheet" href="{{ url('/') }}/dist/css/skins/skin-purple.css">
 
+    <link rel="icon" href="{{ asset('img/MCManagementLogo.png') }}" sizes="32x32" type="image/png">
+
+    <meta name="theme-color" content="#605ca8">
+
 @yield('requiredCSS')
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

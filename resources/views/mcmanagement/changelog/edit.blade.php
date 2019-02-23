@@ -76,7 +76,7 @@
                     </div>
                     <div class="box-body">
                         <div class="input-group" name="add">
-                            <input type="text" id="addSection" class="form-control"
+                            <input type="text" id="addSectionDiv" class="form-control"
                                    placeholder="Type in the name of the new section">
                             <span class="input-group-btn">
                                         <button type="button" class="btn btn-info btn-flat"
