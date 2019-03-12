@@ -50,7 +50,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <br/>
+                            <br/>**
 
                             <label for="add">Add an entry</label>
                             <div class="input-group" name="add">

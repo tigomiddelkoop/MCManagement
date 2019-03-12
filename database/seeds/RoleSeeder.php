@@ -85,7 +85,7 @@ class RoleSeeder extends Seeder
         $role = Role::create(['name' => "owner"]);
         $role->givePermissionTo(['networkmanager.access', 'networkmanager.player.access', 'networkmanager.player.viewip', 'networkmanager.settings.access', 'networkmanager.chat.access', 'litebans.access', 'litebans.overview', 'litebans.bans',
             'litebans.kicks', 'litebans.mutes', 'litebans.warnings', 'luckperms.access', 'nameless.access',
-            'mcmanagement.access', 'mcmanagement.analytics', 'mcmanagement.access.settings', 'mcmanagement.access.settings.users', 'mcmanagement.access.settings.language', 'mcmanagement.access.settings.roles', 'networkmanager.motd.access']);
+            'mcmanagement.access', 'mcmanagement.analytics', 'mcmanagement.settings.access', 'mcmanagement.settings.users', 'mcmanagement.settings.language', 'mcmanagement.settings.roles', 'networkmanager.motd.access']);
 
         $role = Role::create(['name' => "admin"]);
 //        $role->givePermissionTo('networkmanager.player.viewip');

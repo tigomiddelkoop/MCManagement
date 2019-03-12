@@ -57,7 +57,8 @@
         let chart = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
-                labels: [@foreach($regions as $region) "{{ $region["country"] }}", @endforeach],
+                {{--labels: [@foreach($regions as $region) "{{ App\Http\Controllers\Tools\CountryController::convert($region["country"]) }}", @endforeach],--}}
+                labels: [@foreach($regions as $region) " {{$region["country"] }}", @endforeach],
                 datasets: [{
                     data: [@foreach($regions as $region) {{ $region["amount"] }}, @endforeach],
                     // backgroundColor: [
@@ -72,6 +73,7 @@
                 }],
             },
             options: {
+                scaleFontColor: 'red',
                 layout: {
                     padding: {
                         left: 0,
@@ -81,7 +83,8 @@
                     }
                 },
                 legend: {
-                    display: false
+                    display: false,
+                    boxWidth: 80,
                 },
                 tooltips: {
                     enabled: true
@@ -93,7 +96,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="box box-default">
                 <div class="box-header with-border">
 
@@ -106,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div class="box box-solid bg-purple-gradient">
                 <div class="box-header">
 

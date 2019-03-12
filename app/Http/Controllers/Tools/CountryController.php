@@ -165,7 +165,7 @@ class CountryController extends Controller
         if ($code == 'NA') return 'Namibia';
         if ($code == 'NR') return 'Nauru';
         if ($code == 'NP') return 'Nepal';
-        if ($code == 'AN') return 'Netherlands Antilles';
+        if ($code == 'AN') return 'Nethernplands Antilles';
         if ($code == 'NL') return 'Netherlands';
         if ($code == 'NC') return 'New Caledonia';
         if ($code == 'NZ') return 'New Zealand';

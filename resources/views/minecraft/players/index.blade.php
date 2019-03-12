@@ -53,7 +53,7 @@
                         <tbody id="players">
                         @foreach($players as $player)
                             <tr>
-                                <td><img src="https://crafatar.com/avatars/{{ $player->uuid }}?size=25"></td>
+                                <td><img src="https://crafatar.com/avatars/{{ $player->uuid }}?size=25&overlay"></td>
                                 <td>{{ $player->id }}</td>
                                 <td><a href="{{ route('networkmanagerPlayersShow', ['uuid' => $player->uuid]) }}">{{ $player->username }}</a></td>
                                 <td>{{ $player->uuid }}</td>

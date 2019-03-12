@@ -11,7 +11,7 @@ class ChatController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function __construct()
@@ -19,11 +19,22 @@ class ChatController extends Controller
         $this->middleware(['permission:networkmanager.chat.access']);
     }
 
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $chat = DB::connection('mysql_networkmanager')->table('chat')->orderByDesc("id")->paginate(25);
 
         return view("minecraft.chat.index", compact("chat"));
 
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->validate([
+            "searchQuery" => "max:100"
+        ]);
+
+        $chat = DB::connection('mysql_networkmanager')->table('chat')->where('uuid' , '=' , $data['searchQuery'])->orderByDesc("id")->get();
+
+        return view("minecraft.chat.index", compact("chat"));
     }
 }
