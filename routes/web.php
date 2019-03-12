@@ -33,7 +33,8 @@ Route::prefix('minecraft')->group(function () {
 
     Route::prefix('chat')->group(function () {
 
-        Route::get('/', 'Minecraft\ChatController')->name("networkChatIndex");
+        Route::get('/', 'Minecraft\ChatController@index')->name("networkChatIndex");
+        Route::post('/search', 'Minecraft\ChatController@search')->name("networkChatSearch");
 
     });
 

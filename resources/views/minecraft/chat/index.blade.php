@@ -20,14 +20,14 @@
                     @endif
 
                     <div class="box-tools">
-                        {{--<form method="post" action="{{ route('networkmanagerPlayersSearch') }}">--}}
+                        {{--<form method="post" action="{{ route('networkChatSearch') }}">--}}
                             {{--<div class="input-group input-group-sm" style="width: 200px;">--}}
                                 {{--@csrf--}}
                                 {{--<input type="text" class="form-control pull-right"--}}
-                                       {{--placeholder="Search Player or IP"--}}
+                                       {{--placeholder="Search chat by Player, uuid, server or chat message"--}}
                                        {{--id="search"--}}
-                                       {{--name="playername">--}}
-
+                                       {{--name="searchQuery">--}}
+{{----}}
                                 {{--<div class="input-group-btn">--}}
                                     {{--<button type="submit" class="btn btn-default" id="submit_search"><i--}}
                                                 {{--class="fa fa-search"></i></button>--}}
@@ -54,7 +54,9 @@
                             <tr>
                                 <td><img src="https://crafatar.com/avatars/{{ $e->uuid }}?size=25"></td>
                                 <td>{{ $e->id }}</td>
-                                <td><a href="{{ route('networkmanagerPlayersShow', ['uuid' => $e->uuid]) }}">{{ \App\Http\Controllers\Tools\NameConverter::UUIDToName($e->uuid)}}</a></td>
+                                <td>
+                                    <a href="{{ route('networkmanagerPlayersShow', ['uuid' => $e->uuid]) }}">{{ \App\Http\Controllers\Tools\NameConverter::UUIDToName($e->uuid)}}</a>
+                                </td>
                                 <td>{{ $e->message }}</td>
                                 <td>{{ $e->server }}</td>
                                 <td>
@@ -65,19 +67,22 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="box-footer clearfix">
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <li><a href="{{ $chat->previousPageUrl() }}">&laquo;</a></li>
-                        @for($x = 1; $x <= $chat->lastPage(); $x++)
-                            @if($x === $chat->currentPage())
-                                <li><a href="{{ $chat->url($x) }}" class="paginate_button active">{{ $x }}</a></li>
-                            @else
-                                <li><a href="{{ $chat->url($x) }}" class="paginate_button">{{ $x }}</a></li>
-                            @endif
-                        @endfor
-                        <li><a href="{{ $chat->nextPageUrl() }}">&raquo;</a></li>
-                    </ul>
-                </div>
+                @if(Request::url() === Route('networkChatIndex'))
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+
+                            <li><a href="{{ $chat->previousPageUrl() }}">&laquo;</a></li>
+                            @for($x = 1; $x <= $chat->lastPage(); $x++)
+                                @if($x === $chat->currentPage())
+                                    <li><a href="{{ $chat->url($x) }}" class="paginate_button active">{{ $x }}</a></li>
+                                @else
+                                    <li><a href="{{ $chat->url($x) }}" class="paginate_button">{{ $x }}</a></li>
+                                @endif
+                            @endfor
+                            <li><a href="{{ $chat->nextPageUrl() }}">&raquo;</a></li>
+                        </ul>
+                    </div>
+                @endif
             </div>
             <!-- /.box -->
         </div>
