@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class Dashboard extends Component {
+class Players extends Component {
     render() {
         return (
             <div className="container">
@@ -11,7 +11,7 @@ class Dashboard extends Component {
                             <div className="card-header">Example Component</div>
 
                             <div className="card-body">
-                                I'm an example component!
+                                I'm an example component! PLAYERS
                             </div>
                         </div>
                     </div>
@@ -21,4 +21,4 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+export default Players;

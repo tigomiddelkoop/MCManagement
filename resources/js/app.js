@@ -1,12 +1,11 @@
 import React from 'react';
 import NavBar from './components/NavBar'
-import Example from "./components/Example";
-import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
-import Grid from "@material-ui/core/Grid/Grid";
-import Typography from "@material-ui/core/Typography/Typography";
-import PropTypes from 'prop-types';
 import withStyles from "@material-ui/core/styles/withStyles";
 import withRoot from './withRoot';
+import {Route, BrowserRouter as Router, Link} from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Players from "./pages/Players";
+import routes from "./routes";
 
 
 const drawerWidth = 240;
@@ -90,26 +89,18 @@ const styles = theme => ({
 
 class App extends React.Component {
     render() {
-        const {classes} = this.props;
-
         return (
-            <div className={classes.root}>
+            <div>
                 <NavBar/>
-                <CssBaseline/>
-                <main className={classes.content}>
-                    <div className={classes.appBarSpacer}/>
-                    <Typography variant="h4" gutterBottom component="h2">
-                        Dashboard
-                    </Typography>
-                    <Example/>
-                </main>
+                <Router>
+                    <div>
+                        {routes}
+                    </div>
+                </Router>
             </div>
-        );
+
+        )
     }
 }
-
-App.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default withRoot(withStyles(styles)(App));

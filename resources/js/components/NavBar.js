@@ -17,6 +17,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 
+import HomeIcon from '@material-ui/icons/Home';
+import ChartIcon from '@material-ui/icons/TimeLine';
+import {Link} from 'react-router-dom'
+
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -29,12 +34,6 @@ const styles = theme => ({
             flexShrink: 0,
         },
     },
-    // appBar: {
-    //     marginLeft: drawerWidth,
-    //     [theme.breakpoints.up('sm')]: {
-    //         width: `calc(100% - ${drawerWidth}px)`,
-    //     },
-    // },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
     },
@@ -71,12 +70,25 @@ class NavBar extends React.Component {
                 <div className={classes.toolbar}/>
                 <Divider/>
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                            <ListItemText primary={text}/>
+                    <a href="/dashboard" style={{ textDecoration: 'none' }}>
+                        <ListItem button key={"Dashboard"}>
+                            <ListItemIcon><HomeIcon/></ListItemIcon>
+                            <ListItemText>Dashboard</ListItemText>
                         </ListItem>
-                    ))}
+                    </a>
+                    <a href="/applications" style={{ textDecoration: 'none' }}>
+                        <ListItem button key={"Analytics"}>
+                            <ListItemIcon><ChartIcon/></ListItemIcon>
+                            <ListItemText>Analytics</ListItemText>
+                        </ListItem>
+                    </a>
+                    <a href="/players" style={{ textDecoration: 'none' }}>
+                        <ListItem button key={"Players"}>
+                            <ListItemIcon><ChartIcon/></ListItemIcon>
+                            <ListItemText>Analytics</ListItemText>
+                        </ListItem>
+                    </a>
+
                 </List>
                 <Divider/>
                 <List>
