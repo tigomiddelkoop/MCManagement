@@ -10,6 +10,8 @@ class MCVersionController extends Controller
     public static function convert($toConvert)
     {
         switch ($toConvert) {
+            case '477':
+                return '1.14';
             case '404':
                 return '1.13.2';
             case '401':
